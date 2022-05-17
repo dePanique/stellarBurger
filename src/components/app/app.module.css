@@ -1,0 +1,6 @@
+.app {
+  width: 1920px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+}

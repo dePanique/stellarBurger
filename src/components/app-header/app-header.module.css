@@ -1,0 +1,32 @@
+.header {
+  width: 1920px;
+  border:  1px solid salmon;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  background: #1C1C21;
+}
+
+.row {
+  width: 1280px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+}
+
+.element {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px white;
+  border-radius: 40px;
+}
+
+.link {
+  text-decoration: none;;
+}
