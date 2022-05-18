@@ -1,0 +1,21 @@
+.element {
+  list-style-type: none;
+  border-radius: 40px;
+}
+
+.element:nth-of-type(4) {
+  margin-left: auto;
+}
+
+.link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo {
+  margin-left: 112px;
+  list-style-type: none;
+}
