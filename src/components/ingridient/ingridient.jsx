@@ -1,14 +1,15 @@
 import styles from './ingridient.module.css'
 import { Counter, CurrencyIcon, Icon } from '@ya.praktikum/react-developer-burger-ui-components'
 
-const Ingridient = () => {
+const Ingridient = (props) => {
+  console.log(props)
   return (
-    <div className={styles.box}>
+    <div className={styles.box + ' ml-4 mr-2 mt-6'}>
       <Counter count={1} size='default'/>
-      <img className='pl-4 pr-4 mb-1' src="https://code.s3.yandex.net/react/code/bun-02.png" alt="" />
+      <img className='pl-4 pr-4 mb-1' src={props.image} alt="#" />
+      <p className="text text_type_digits-default">{props.price}</p>
       <CurrencyIcon type='primary'/>
-      <p className="text text_type_digits-default">20</p>
-      <p className={styles.itemName + " text text_type_main-default mt-1"}>Краторная булка N-200i</p>
+      <p className={styles.itemName + " text text_type_main-default mt-1"}>{props.name}</p>
     </div>
   )
 }

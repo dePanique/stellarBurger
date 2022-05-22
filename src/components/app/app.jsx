@@ -221,7 +221,7 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <Main >
-        <BurgerIngridients />
+        <BurgerIngridients ingridients={hardCode}/>
       </Main>
     </div>
   );
