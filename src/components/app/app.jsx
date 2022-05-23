@@ -3,6 +3,7 @@ import styles from './app.module.css'
 import AppHeader from '../app-header/app-header'
 import Main from '../main/main'
 import BurgerIngridients from '../burger-ingredients/burger-ingridients'
+import BurgerConstructor from '../burger-constructor/burger-constructor';
 const hardCode = [
   {
    "_id":"60666c42cc7b410027a1a9b1",
@@ -222,6 +223,7 @@ function App() {
       <AppHeader />
       <Main >
         <BurgerIngridients ingridients={hardCode}/>
+        <BurgerConstructor ingridients={hardCode}/>
       </Main>
     </div>
   );

@@ -6,11 +6,10 @@ import Ingridient from '../ingridient/ingridient'
 const BurgerIngridients = (props) => {
   const [tab, setTab] = React.useState('Булки')
   const ingridients = props.ingridients;
-  console.log(ingridients)
   return(
-    <section className={styles.section + ' pt-10'}>
+    <section className={styles.burgerIngridients + ' mr-5 pt-10'}>
       <h2 className={styles.title + ' text text_type_main-large mb-5'}>Соберите бургер</h2>
-      <div className={styles.tabRow}>
+      <div className={styles.tabRow + ' mb-10'}>
         <Tab value="Булки" active={tab === 'Булки'} onClick={setTab}>
           Булки
         </Tab>
@@ -22,7 +21,7 @@ const BurgerIngridients = (props) => {
         </Tab>
       </div>
       <div className={styles.collection}>
-        <p className={styles.ingridientsType + ' text text_type_main-medium mt-10'}>Булки</p>
+        <p className={styles.ingridientsType + ' text text_type_main-medium'}>Булки</p>
         {ingridients.map((element) => element.type === 'bun' && <Ingridient key={element._id} {...element}/>)}
         <p className={styles.ingridientsType + ' text text_type_main-medium mt-10'}>Соусы</p>
         {ingridients.map((element) => element.type === 'sauce' && <Ingridient key={element._id} {...element}/>)}

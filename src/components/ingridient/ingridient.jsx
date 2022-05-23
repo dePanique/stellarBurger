@@ -2,7 +2,7 @@ import styles from './ingridient.module.css'
 import { Counter, CurrencyIcon, Icon } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const Ingridient = (props) => {
-  console.log(props)
+
   return (
     <div className={styles.box + ' ml-4 mr-2 mt-6'}>
       <Counter count={1} size='default'/>

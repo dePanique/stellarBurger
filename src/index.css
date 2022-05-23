@@ -7,8 +7,10 @@ body {
 ::-webkit-scrollbar {
   width: 8px;
   background: #2F2F37;
+  height: 614px;
 }
 ::-webkit-scrollbar-thumb {
   background: #8585AD;
-  height: 80%;
+  height: 492px;
 }
+
