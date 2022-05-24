@@ -4,16 +4,21 @@
   height: 912px;
 }
 
-.topElement {
-
-}
-
 .components {
   flex-direction: column;
   height: 464px;
   overflow-y: scroll;
   padding: 0;
   margin: 0;
+}
+
+.components::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+}
+.components::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  height: 292px;
 }
 
 .ingridient {

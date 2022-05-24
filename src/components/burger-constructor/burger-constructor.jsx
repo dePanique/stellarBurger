@@ -1,9 +1,10 @@
 import styles from './burger-constructor.module.css'
-import { ConstructorElement, DragIcon, CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import { ConstructorElement, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 
 const BurgerConstructor = (props) => {
   const hardCode = props.ingridients
   const bunImage = hardCode.map((element) => element.name === "Краторная булка N-200i" && element )[0]
+
   return (
     <section className={styles.burgerConstructor + ' ml-5 pl-4 pt-25'}>
 
