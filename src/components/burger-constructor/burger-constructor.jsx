@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types'
 import styles from './burger-constructor.module.css'
 import { ConstructorElement, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
+import  { dataTemplate }  from '../../utils/utils'
 
-const BurgerConstructor = (props) => {
-  const hardCode = props.ingridients
-  const bunImage = hardCode.map((element) => element.name === "Краторная булка N-200i" && element )[0]
+const BurgerConstructor = ({ data }) => {
+  const bunImage = data.map((element) => element.name === "Краторная булка N-200i" && element )[0]
 
   return (
     <section className={styles.burgerConstructor + ' ml-5 pl-4 pt-25'}>
@@ -19,7 +20,7 @@ const BurgerConstructor = (props) => {
       </div>
 
       <ul className={styles.components}>
-        {hardCode.map(element =>
+        {data.map(element =>
           <li key={element._id} className={styles.ingridient + ' mb-4'}>
             <DragIcon type='primary'/>
             <ConstructorElement
@@ -50,6 +51,10 @@ const BurgerConstructor = (props) => {
       </div>
     </section>
   )
+}
+
+BurgerConstructor.propTypes = {
+  data: PropTypes.arrayOf(dataTemplate.isRequired)
 }
 
 export default BurgerConstructor

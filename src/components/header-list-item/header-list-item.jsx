@@ -1,6 +1,7 @@
 import styles from './header-list-item.module.css'
+import PropTypes from 'prop-types'
 
-const HeaderListItem = (props) => {
+const HeaderListItem = ({ ...props }) => {
   return (
     props.logo ?
     <li className={styles.logo}>
@@ -14,6 +15,13 @@ const HeaderListItem = (props) => {
       </a>
     </li>
   )
+}
+
+HeaderListItem.propTypes = {
+  icon: PropTypes.element,
+  isActive: PropTypes.bool.isRequired,
+  spanText: PropTypes.string.isRequired,
+  itemStyle: PropTypes.string
 }
 
 export default HeaderListItem

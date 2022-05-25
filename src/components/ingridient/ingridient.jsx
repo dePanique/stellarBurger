@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types'
 import styles from './ingridient.module.css'
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
 
@@ -12,6 +13,12 @@ const Ingridient = (props) => {
       <p className={styles.itemName + " text text_type_main-default mt-1"}>{props.name}</p>
     </div>
   )
+}
+
+Ingridient.propTypes = {
+  image: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired
 }
 
 export default Ingridient

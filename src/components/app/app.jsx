@@ -217,13 +217,13 @@ const hardCode = [
 ]
 
 function App() {
-  
+
   return (
     <div className={styles.app}>
       <AppHeader />
       <Main >
-        <BurgerIngridients ingridients={hardCode}/>
-        <BurgerConstructor ingridients={hardCode}/>
+        <BurgerIngridients data={hardCode}/>
+        <BurgerConstructor data={hardCode}/>
       </Main>
     </div>
   );
