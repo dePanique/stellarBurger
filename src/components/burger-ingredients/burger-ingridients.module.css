@@ -21,6 +21,7 @@
   flex-wrap: wrap;
   overflow-y: scroll;
   height: 716px;
+  scroll-behavior: smooth;
 }
 
 .collection::-webkit-scrollbar {
@@ -32,6 +33,10 @@
   background: #8585AD;
   height: 492px;
 
+}
+
+.link {
+  text-decoration: none;
 }
 
 
