@@ -20,7 +20,7 @@ const BurgerConstructor = ({ data }) => {
       </div>
 
       <ul className={styles.components}>
-        {data.map(element =>
+        {data.filter((element) => element.type !== 'bun').map(element =>
           <li key={element._id} className={styles.ingridient + ' mb-4'}>
             <DragIcon type='primary'/>
             <ConstructorElement
@@ -54,7 +54,7 @@ const BurgerConstructor = ({ data }) => {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataTemplate.isRequired)
+  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired
 }
 
 export default BurgerConstructor

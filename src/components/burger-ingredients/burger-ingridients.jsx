@@ -43,7 +43,7 @@ const BurgerIngridients = ({ data }) => {
 }
 
 BurgerIngridients.propTypes = {
-  data: PropTypes.arrayOf(dataTemplate.isRequired)
+  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired
 }
 
 export default BurgerIngridients
