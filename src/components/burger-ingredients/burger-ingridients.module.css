@@ -1,0 +1,46 @@
+.burgerIngridients {
+  box-sizing: border-box;
+  max-width: 600px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.tabRow {
+  box-sizing: border-box;
+  display: flex;
+}
+
+.collection {
+  display: flex;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+  height: 716px;
+  scroll-behavior: smooth;
+}
+
+.collection::-webkit-scrollbar {
+  width: 8px;
+  background: #2F2F37;
+}
+
+.collection::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  height: 492px;
+
+}
+
+.link {
+  text-decoration: none;
+}
+
+
+.ingridientsType {
+  width: 600px;
+}
+
