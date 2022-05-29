@@ -4,9 +4,7 @@ import { ConstructorElement, DragIcon, Button } from '@ya.praktikum/react-develo
 import  { dataTemplate }  from '../../utils/utils'
 
 const BurgerConstructor = ({data} ) => {
-  console.log(data)
   const bunImage = data.map((element) => element.name === "Краторная булка N-200i" && element )[0]
-
 
   return (
     <section className={styles.burgerConstructor + ' ml-5 pl-4 pt-25'}>

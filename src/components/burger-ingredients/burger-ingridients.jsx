@@ -5,8 +5,7 @@ import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import Ingridient from '../ingridient/ingridient'
 import  { dataTemplate }  from '../../utils/utils'
 
-const BurgerIngridients = (data) => {
-  console.log(data)
+const BurgerIngridients = ({data}) => {
   const [tab, setTab] = React.useState('Булки')
 
   return(
