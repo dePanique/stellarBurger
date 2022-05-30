@@ -1,0 +1,27 @@
+.box {
+  width: 720px;
+  height: 718px;
+  display: flex;
+  position: fixed;
+  border-radius: 40px;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  background: #1C1C21
+}
+
+.closeWrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+}
+
+.close {
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
