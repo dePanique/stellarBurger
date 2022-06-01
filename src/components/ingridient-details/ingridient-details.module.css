@@ -1,0 +1,24 @@
+.title {
+  color: red;
+  font-size: medium;
+}
+
+.nutrientsRow {
+  display: flex;
+  flex-direction: row;
+  list-style-type: none;
+}
+
+.nutrientBlock {
+  flex-direction: column;
+}
+
+.nutrientType {
+  margin: 0;
+  padding: 0;
+}
+
+.NutrientValue {
+  margin: 0;
+  padding: 0;
+}

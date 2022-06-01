@@ -6,12 +6,14 @@ import BurgerIngridients from '../burger-ingredients/burger-ingridients'
 import BurgerConstructor from '../burger-constructor/burger-constructor'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import Modal from '../modal/modal'
+import IngridientDetails from '../ingridient-details/ingridient-details'
 import React, { useEffect, useState } from 'react'
 
 function App() {
   const [ingridientsData, setIngridientsData] = useState(null)
-  const [overlayStatus, setOverlayStatus] = useState(false)
-  const [modalStatus, setModalStatus] = useState(false)
+  const [overlayStatus, setOverlayStatus] = useState(true)
+  const [modalStatus, setModalStatus] = useState(true)
+  const [currentIngridient, setCurrentIngridient] = useState (null)
 
   useEffect(() => {
     getData()
@@ -20,9 +22,10 @@ function App() {
     .catch((err) => console.log(`Ошибка: ${err}`))
   }, [])
 
-  const handleModal = (status) => {
+  const handleModal = (status, ingridientData) => {
     setOverlayStatus(status)
     setModalStatus(status)
+    setCurrentIngridient(ingridientData)
   }
 
   return (
@@ -35,6 +38,7 @@ function App() {
               <BurgerIngridients
                 handleIngridientsDetails={handleModal}
                 data={ingridientsData.data}
+                setCurrentIngridient={setCurrentIngridient}
                 />
               <BurgerConstructor
                 handleOrderDetails={handleModal}
@@ -52,7 +56,9 @@ function App() {
           closeModal={handleModal}
           isActive={modalStatus}
           portalContainer={portalContainer}
-          />
+        >
+          <IngridientDetails data={currentIngridient}/>
+        </Modal>
       </div>
     </React.StrictMode>
   )
