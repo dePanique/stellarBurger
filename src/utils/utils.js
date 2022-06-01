@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types'
+const portalContainer = document.querySelector('#modals')
 
 const dataTemplate = PropTypes.shape({
   calories: PropTypes.number.isRequired,
@@ -31,4 +32,4 @@ function getData () {
 .catch((err) => console.log(`Ошибка: ${err}`))
 }
 
-export  { dataTemplate, getData }
+export  { dataTemplate, getData, portalContainer}

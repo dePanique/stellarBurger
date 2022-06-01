@@ -1,11 +1,30 @@
+.modalContainer {
+  display: flex;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  z-index: 201;
+}
+
 .box {
   width: 720px;
   height: 718px;
   display: flex;
-  position: fixed;
+  position:fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
   border-radius: 40px;
   border: 1px solid rgba(76, 76, 255, 0.2);
-  background: #1C1C21
+  background: #1C1C21;
+  z-index: 200;
 }
 
 .closeWrapper {

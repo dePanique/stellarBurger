@@ -2,40 +2,27 @@ import styles from './modal-overlay.module.css'
 import ReactDOM from 'react-dom'
 import React, {useState, useEffect} from 'react'
 
-const modalWindow = document.querySelector('#modals')
-
-
 const ModalOverlay = (props) => {
-  console.log(props.isActive)
-  function modalHandler(e) {
-    console.log(e.key)
-    console.log(props.isActive)
-
-    if (e.key === 'Escape') {
-      props.func()
-      console.log(props.isActive)
-    }
-  }
-
   useEffect(() => {
-    document.addEventListener('keydown', (e) => {
-      e.preventDefault()
-      modalHandler(e)
-    })
+    const quitOnEscape = (e) => {
+      if (e.key === 'Escape') props.handleOverlay()
+    }
 
-    return document.removeEventListener('keydown', (e) => {
-      e.preventDefault()
-      modalHandler(e)
-    })
-  },[])
+    if (props.isActive === true) {
+      document.addEventListener('keydown', quitOnEscape)
+    }
+
+    return () => {
+      document.removeEventListener('keydown', quitOnEscape)
+    }
+  })
 
   return ReactDOM.createPortal(
     props.isActive &&
-    <section className={styles.overLay}>
-      {props.children}
+    <section className={styles.overLay} onClick={() => props.handleOverlay()}>
     </section>
     ,
-    modalWindow
+    props.portalContainer
   )
 }
 
