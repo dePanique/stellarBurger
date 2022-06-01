@@ -46,7 +46,7 @@ const BurgerConstructor = ({handleOrderDetails, data}) => {
       <div className={styles.scoreRow + ' mt-10 mr-4'}>
         <p className={styles.finalScore + ' text text_type_digits-medium'}>610</p>
         <div className={styles.currencyBig + ' mr-10'}></div>
-        <Button type="primary" size="large" onClick={() => handleOrderDetails(true)}>
+        <Button type="primary" size="large" onClick={() => handleOrderDetails(true, true)}>
           Оформить заказ
         </Button>
       </div>

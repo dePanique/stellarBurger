@@ -5,7 +5,7 @@ import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-c
 const Ingridient = (props) => {
 
   return (
-    <div className={styles.box + ' ml-4 mr-2 mt-6'} onClick={() => props.handle(true)}>
+    <div className={styles.box + ' ml-4 mr-2 mt-6'} onClick={() => props.handle(true, true, props)}>
       <Counter count={1} size='default'/>
       <img className='pl-4 pr-4 mb-1' src={props.image} alt="#" />
       <p className="text text_type_digits-default mr-2">{props.price}</p>

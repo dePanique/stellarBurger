@@ -7,25 +7,42 @@ import BurgerConstructor from '../burger-constructor/burger-constructor'
 import ModalOverlay from '../modal-overlay/modal-overlay'
 import Modal from '../modal/modal'
 import IngridientDetails from '../ingridient-details/ingridient-details'
+import OrderDetails from '../order-details/order-details'
 import React, { useEffect, useState } from 'react'
 
 function App() {
   const [ingridientsData, setIngridientsData] = useState(null)
-  const [overlayStatus, setOverlayStatus] = useState(true)
-  const [modalStatus, setModalStatus] = useState(true)
-  const [currentIngridient, setCurrentIngridient] = useState (null)
+  const [overlayStatus, setOverlayStatus] = useState(false)
+  const [modalStatus, setModalStatus] = useState(false)
+  const [ingredientDetailStatus, setIngredientDetailStatus] = useState({data: false, status: false})
+  const [orderDetailsStatus, setOrderDetailsStatus] = useState({data: false, status: false})
 
   useEffect(() => {
     getData()
-    .then((res) => { console.log(res)
-      setIngridientsData(res)})
+    .then((res) => setIngridientsData(res))
     .catch((err) => console.log(`Ошибка: ${err}`))
   }, [])
 
-  const handleModal = (status, ingridientData) => {
+  useEffect(() => {
+    if (!modalStatus) {
+      setIngredientDetailStatus({data: false, status: false})
+      setOrderDetailsStatus({data: false, status: false})
+    }
+  }, [modalStatus])
+
+  const handleModalWithOverlay = (status) => {
     setOverlayStatus(status)
     setModalStatus(status)
-    setCurrentIngridient(ingridientData)
+  }
+
+  const handleIngridientDetails = (status, deatilStatus, data) => {
+    handleModalWithOverlay(status)
+    setIngredientDetailStatus({data: {...data}, status: deatilStatus})
+  }
+
+  const handleOrderDetails = (status, orderStatus, data) => {
+    handleModalWithOverlay(status)
+    setOrderDetailsStatus({data: data, status: orderStatus})
   }
 
   return (
@@ -36,28 +53,28 @@ function App() {
           {ingridientsData &&
             <React.Fragment>
               <BurgerIngridients
-                handleIngridientsDetails={handleModal}
+                handleIngridientsDetails={handleIngridientDetails}
                 data={ingridientsData.data}
-                setCurrentIngridient={setCurrentIngridient}
                 />
               <BurgerConstructor
-                handleOrderDetails={handleModal}
+                handleOrderDetails={handleOrderDetails}
                 data={ingridientsData.data}
                 />
             </React.Fragment>
           }
         </Main>
         <ModalOverlay
-          handleOverlay={handleModal}
+          handleOverlay={handleModalWithOverlay}
           isActive={overlayStatus}
           portalContainer={portalContainer}
           />
         <Modal
-          closeModal={handleModal}
+          closeModal={handleModalWithOverlay}
           isActive={modalStatus}
           portalContainer={portalContainer}
         >
-          <IngridientDetails data={currentIngridient}/>
+          <IngridientDetails {...ingredientDetailStatus}/>
+          <OrderDetails {...orderDetailsStatus}/>
         </Modal>
       </div>
     </React.StrictMode>
