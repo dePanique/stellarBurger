@@ -25,5 +25,5 @@ OrderDetails.propTypes = {
     }).isRequired]).isRequired,
   status: PropTypes.bool.isRequired
 }
-//{orderId: PropTypes.string , orderStatus: PropTypes.number}
+
 export default OrderDetails
