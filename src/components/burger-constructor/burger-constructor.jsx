@@ -2,14 +2,12 @@ import PropTypes from 'prop-types'
 import styles from './burger-constructor.module.css'
 import { ConstructorElement, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import  { dataTemplate }  from '../../utils/utils'
-import { useEffect } from 'react'
 
 const BurgerConstructor = ({handleOrderDetails, data}) => {
   const bunImage = data.map((element) => element.name === "Краторная булка N-200i" && element )[0]
 
   return (
     <section className={styles.burgerConstructor + ' ml-5 pl-4 pt-25'}>
-
       <div className="topElement ml-8 mb-4">
         <ConstructorElement
           type="top"
@@ -22,7 +20,7 @@ const BurgerConstructor = ({handleOrderDetails, data}) => {
 
       <ul className={styles.components}>
         {data.filter((element) => element.type !== 'bun').map(element =>
-          <li key={element._id} className={styles.ingridient + ' mb-4'}>
+          <li key={element._id} className={styles.ingredient + ' mb-4'}>
             <DragIcon type='primary'/>
             <ConstructorElement
             text={element.name}
@@ -30,7 +28,7 @@ const BurgerConstructor = ({handleOrderDetails, data}) => {
             thumbnail={element.image}
             />
           </li>
-          )}
+        )}
       </ul>
 
       <div className=' ml-8 mt-4'>
@@ -55,7 +53,8 @@ const BurgerConstructor = ({handleOrderDetails, data}) => {
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired
+  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
+  handleOrderDetails: PropTypes.func.isRequired
 }
 
 export default BurgerConstructor

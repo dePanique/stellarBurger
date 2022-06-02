@@ -21,7 +21,7 @@
   height: 292px;
 }
 
-.ingridient {
+.ingredient {
   list-style-type: none;
   display: flex;
   flex-direction: row;

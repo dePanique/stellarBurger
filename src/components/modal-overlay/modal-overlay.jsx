@@ -1,11 +1,13 @@
+import { useEffect } from 'react'
+import { PropTypes } from 'prop-types'
 import styles from './modal-overlay.module.css'
 import ReactDOM from 'react-dom'
-import React, {useState, useEffect} from 'react'
 
 const ModalOverlay = (props) => {
+
   useEffect(() => {
     const quitOnEscape = (e) => {
-      if (e.key === 'Escape') props.handleOverlay()
+      if (e.key === 'Escape') props.handleOverlay(false)
     }
 
     if (props.isActive === true) {
@@ -19,11 +21,17 @@ const ModalOverlay = (props) => {
 
   return ReactDOM.createPortal(
     props.isActive &&
-    <section className={styles.overLay} onClick={() => props.handleOverlay()}>
+    <section className={styles.overLay} onClick={() => props.handleOverlay(false)}>
     </section>
     ,
     props.portalContainer
   )
+}
+
+ModalOverlay.propTypes = {
+  isActive: PropTypes.bool.isRequired,
+  handleOverlay: PropTypes.func.isRequired,
+  portalContainer: PropTypes.object.isRequired
 }
 
 export default ModalOverlay

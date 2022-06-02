@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 const portalContainer = document.querySelector('#modals')
 
-const dataTemplate = PropTypes.shape({
+const dataTemplateObject = {
   calories: PropTypes.number.isRequired,
   carbohydrates: PropTypes.number.isRequired,
   fat: PropTypes.number.isRequired,
@@ -14,7 +14,9 @@ const dataTemplate = PropTypes.shape({
   type: PropTypes.string.isRequired,
   __v: PropTypes.number.isRequired,
   _id: PropTypes.string.isRequired
-})
+}
+
+const dataTemplate = PropTypes.shape(dataTemplateObject.isRequired)
 
 const dataUrl = 'https://norma.nomoreparties.space/api/'
 
@@ -23,8 +25,8 @@ function getData () {
   headers: {
     baseURL: dataUrl,
     "Content-Type": "application/json",
-  },
-}).then((res) => {
+  },})
+.then((res) => {
   if (res.ok) return res.json()
 
   return Promise.reject(`Ошибка: ${res.status}`)
@@ -32,4 +34,4 @@ function getData () {
 .catch((err) => console.log(`Ошибка: ${err}`))
 }
 
-export  { dataTemplate, getData, portalContainer}
+export  { dataTemplate, getData, portalContainer, dataTemplateObject}

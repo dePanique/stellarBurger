@@ -1,5 +1,5 @@
-import styles from './header-list-item.module.css'
 import PropTypes from 'prop-types'
+import styles from './header-list-item.module.css'
 
 const HeaderListItem = ({ ...props }) => {
   return (
@@ -18,6 +18,10 @@ const HeaderListItem = ({ ...props }) => {
 }
 
 HeaderListItem.propTypes = {
+  logo: PropTypes.oneOfType([
+    PropTypes.element.isRequired,
+    PropTypes.bool.isRequired
+  ]),
   icon: PropTypes.element,
   isActive: PropTypes.bool.isRequired,
   spanText: PropTypes.string.isRequired,

@@ -1,15 +1,15 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import styles from './burger-ingridients.module.css'
+import styles from './burger-ingredients.module.css'
+import Ingredient from '../ingredient/ingredient'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
-import Ingridient from '../ingridient/ingridient'
 import  { dataTemplate }  from '../../utils/utils'
 
-const BurgerIngridients = ({data, handleIngridientsDetails}) => {
+const BurgerIngredients = ({data, handleIngredientsDetails}) => {
   const [tab, setTab] = React.useState('Булки')
 
   return(
-    <section className={styles.burgerIngridients + ' mr-5'} >
+    <section className={styles.burgerIngredients + ' mr-5'} >
       <h2 className={styles.title + ' text text_type_main-large mt-10 mb-5'}>Соберите бургер</h2>
 
       <div className={styles.tabRow + ' mb-10'}>
@@ -31,19 +31,20 @@ const BurgerIngridients = ({data, handleIngridientsDetails}) => {
       </div>
 
       <div className={styles.collection}>
-        <p id='bun' className={styles.ingridientsType + ' text text_type_main-medium'}>Булки</p>
-        {data.map((element) => element.type === 'bun' && <Ingridient key={element._id} handle={handleIngridientsDetails} {...element}/>)}
-        <p id='sauces' className={styles.ingridientsType + ' text text_type_main-medium mt-10'}>Соусы</p>
-        {data.map((element) => element.type === 'sauce' && <Ingridient key={element._id} handle={handleIngridientsDetails} {...element}/>)}
-        <p id='main' className={styles.ingridientsType + ' text text_type_main-medium mt-10'}>Начинки</p>
-        {data.map((element) => element.type === 'main' && <Ingridient key={element._id} handle={handleIngridientsDetails} {...element}/>)}
+        <p id='bun' className={styles.ingredientsType + ' text text_type_main-medium'}>Булки</p>
+        {data.map((element) => element.type === 'bun' && <Ingredient key={element._id} handle={handleIngredientsDetails} element={element}/>)}
+        <p id='sauces' className={styles.ingredientsType + ' text text_type_main-medium mt-10'}>Соусы</p>
+        {data.map((element) => element.type === 'sauce' && <Ingredient key={element._id} handle={handleIngredientsDetails} element={element}/>)}
+        <p id='main' className={styles.ingredientsType + ' text text_type_main-medium mt-10'}>Начинки</p>
+        {data.map((element) => element.type === 'main' && <Ingredient key={element._id} handle={handleIngredientsDetails} element={element}/>)}
       </div>
     </section>
   )
 }
 
-BurgerIngridients.propTypes = {
-  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired
+BurgerIngredients.propTypes = {
+  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
+  handleIngredientsDetails: PropTypes.func.isRequired
 }
 
-export default BurgerIngridients
+export default BurgerIngredients
