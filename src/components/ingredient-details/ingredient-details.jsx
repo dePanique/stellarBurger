@@ -3,10 +3,9 @@ import PropTypes from 'prop-types'
 import styles from './ingredient-details.module.css'
 import  { dataTemplateObject }  from '../../utils/utils'
 
-const IngredientDetails = ({ data, status}) => {
+const IngredientDetails = ({ data }) => {
 
   return (
-    status &&
     <React.Fragment>
       <h3 className={styles.title + ' text text_type_main-large mt-10 ml-10 mr-10'}>Детали ингредиента</h3>
       <img className={styles.image} src={data.image_large} alt="#" />
@@ -33,12 +32,12 @@ const IngredientDetails = ({ data, status}) => {
   )
 }
 
-IngredientDetails.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.bool.isRequired,
-    PropTypes.shape(dataTemplateObject.isRequired).isRequired
-  ]).isRequired,
-  status: PropTypes.bool.isRequired
-}
+// IngredientDetails.propTypes = {
+//   data: PropTypes.oneOfType([
+//     PropTypes.bool.isRequired,
+//     PropTypes.shape(dataTemplateObject.isRequired).isRequired
+//   ]).isRequired,
+//   status: PropTypes.bool.isRequired
+// }
 
 export default IngredientDetails

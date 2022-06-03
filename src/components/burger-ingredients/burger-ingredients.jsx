@@ -1,12 +1,16 @@
-import React from 'react'
+import { useState, } from 'react'
 import PropTypes from 'prop-types'
 import styles from './burger-ingredients.module.css'
 import Ingredient from '../ingredient/ingredient'
+import Modal from '../modal/modal'
+import IngredientDetails from '../ingredient-details/ingredient-details'
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components'
 import  { dataTemplate }  from '../../utils/utils'
 
-const BurgerIngredients = ({data, handleIngredientsDetails}) => {
-  const [tab, setTab] = React.useState('Булки')
+const BurgerIngredients = ({data}) => {
+  const [tab, setTab] = useState('Булки')
+  const [modal, setModal] = useState(false)
+  const [ingredient, setIngredient] = useState({})
 
   return(
     <section className={styles.burgerIngredients + ' mr-5'} >
@@ -32,19 +36,47 @@ const BurgerIngredients = ({data, handleIngredientsDetails}) => {
 
       <div className={styles.collection}>
         <p id='bun' className={styles.ingredientsType + ' text text_type_main-medium'}>Булки</p>
-        {data.map((element) => element.type === 'bun' && <Ingredient key={element._id} handle={handleIngredientsDetails} element={element}/>)}
+        {data.map((element) => element.type === 'bun' &&
+          <Ingredient
+            key={element._id}
+            element={element}
+            setIngredient={setIngredient}
+            handle={setModal}
+          />
+        )}
+
         <p id='sauces' className={styles.ingredientsType + ' text text_type_main-medium mt-10'}>Соусы</p>
-        {data.map((element) => element.type === 'sauce' && <Ingredient key={element._id} handle={handleIngredientsDetails} element={element}/>)}
+        {data.map((element) => element.type === 'sauce' &&
+          <Ingredient
+            key={element._id}
+            element={element}
+            setIngredient={setIngredient}
+            handle={setModal}
+          />
+        )}
+
         <p id='main' className={styles.ingredientsType + ' text text_type_main-medium mt-10'}>Начинки</p>
-        {data.map((element) => element.type === 'main' && <Ingredient key={element._id} handle={handleIngredientsDetails} element={element}/>)}
+        {data.map((element) => element.type === 'main' &&
+          <Ingredient
+            key={element._id}
+            element={element}
+            setIngredient={setIngredient}
+            handle={setModal}
+          />
+        )}
       </div>
+
+      {modal &&
+      <Modal handle={setModal}>
+        <IngredientDetails data={ingredient}/>
+      </Modal>}
     </section>
   )
 }
 
-BurgerIngredients.propTypes = {
-  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
-  handleIngredientsDetails: PropTypes.func.isRequired
-}
+// BurgerIngredients.propTypes = {
+//   data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
+//   handleIngredientsDetails: PropTypes.func.isRequired
+// }
 
 export default BurgerIngredients

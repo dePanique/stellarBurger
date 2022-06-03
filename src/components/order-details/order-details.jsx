@@ -2,10 +2,9 @@ import React from "react"
 import PropTypes from 'prop-types'
 import styles from './order-details.module.css'
 
-const OrderDetails = ({data, status}) => {
+const OrderDetails = ({data}) => {
 
   return (
-    status &&
     <React.Fragment>
       <p className={styles.orderId + ' text text_type_digits-large mt-30 mb-8'}>{data.orderId}</p>
       <p className={styles.notation + ' text text_type_main-medium mb-15'}>идентификатора заказа</p>
@@ -16,14 +15,14 @@ const OrderDetails = ({data, status}) => {
   )
 }
 
-OrderDetails.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.bool.isRequired,
-    PropTypes.shape({
-      orderId: PropTypes.string.isRequired,
-      orderStatus: PropTypes.bool.isRequired
-    }).isRequired]).isRequired,
-  status: PropTypes.bool.isRequired
-}
+// OrderDetails.propTypes = {
+//   data: PropTypes.oneOfType([
+//     PropTypes.bool.isRequired,
+//     PropTypes.shape({
+//       orderId: PropTypes.string.isRequired,
+//       orderStatus: PropTypes.bool.isRequired
+//     }).isRequired]).isRequired,
+//   status: PropTypes.bool.isRequired
+// }
 
 export default OrderDetails

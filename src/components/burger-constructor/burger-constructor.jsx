@@ -1,10 +1,14 @@
+import { useState } from 'react'
 import PropTypes from 'prop-types'
 import styles from './burger-constructor.module.css'
 import { ConstructorElement, DragIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components'
 import  { dataTemplate }  from '../../utils/utils'
+import Modal from '../modal/modal'
+import OrderDetails from '../order-details/order-details'
 
-const BurgerConstructor = ({handleOrderDetails, data}) => {
+const BurgerConstructor = ({data}) => {
   const bun = data.filter((element) => element.type === 'bun')[0]
+  const [modal, setModal] = useState(false)
 
   return (
     <section className={styles.burgerConstructor + ' ml-5 pl-4 pt-25'}>
@@ -44,17 +48,22 @@ const BurgerConstructor = ({handleOrderDetails, data}) => {
       <div className={styles.scoreRow + ' mt-10 mr-4'}>
         <p className={styles.finalScore + ' text text_type_digits-medium'}>610</p>
         <div className={styles.currencyBig + ' mr-10'}></div>
-        <Button type="primary" size="large" onClick={() => handleOrderDetails(true, true)}>
+        <Button type="primary" size="large" onClick={() => setModal(true)}>
           Оформить заказ
         </Button>
       </div>
+      
+      {modal &&
+      <Modal handle={setModal}>
+        <OrderDetails data={{ orderId: '03.06.22'}}/>
+      </Modal>}
     </section>
   )
 }
 
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
-  handleOrderDetails: PropTypes.func.isRequired
-}
+// BurgerConstructor.propTypes = {
+//   data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
+//   handleOrderDetails: PropTypes.func.isRequired
+// }
 
 export default BurgerConstructor
