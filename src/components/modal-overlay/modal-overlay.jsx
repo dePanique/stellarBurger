@@ -1,36 +1,34 @@
-import React, { useEffect } from 'react'
-import { PropTypes } from 'prop-types'
-import styles from './modal-overlay.module.css'
-import ReactDOM from 'react-dom'
-const portalContainer = document.querySelector('#modals')
+import React, { useEffect } from "react";
+import { PropTypes } from "prop-types";
+import styles from "./modal-overlay.module.css";
 
 const ModalOverlay = (props) => {
-
   useEffect(() => {
     const quitOnEscape = (e) => {
-      if (e.key === 'Escape') props.handle(false)
-    }
+      if (e.key === "Escape") props.handle(false);
+    };
 
-    document.addEventListener('keydown', quitOnEscape)
+    document.addEventListener("keydown", quitOnEscape);
 
     return () => {
-      document.removeEventListener('keydown', quitOnEscape)
-    }
-  })
+      document.removeEventListener("keydown", quitOnEscape);
+    };
+  });
 
   return (
     <React.Fragment>
-      <section className={styles.overLay} onClick={() => props.handle(false)}>
-      </section>
+      <section
+        className={styles.overLay}
+        onClick={() => props.handle(false)}
+      ></section>
       {props.children}
     </React.Fragment>
-  )
-}
+  );
+};
 
-// ModalOverlay.propTypes = {
-//   isActive: PropTypes.bool.isRequired,
-//   handleOverlay: PropTypes.func.isRequired,
-//   portalContainer: PropTypes.object.isRequired
-// }
+ModalOverlay.propTypes = {
+  handle: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired,
+};
 
-export default ModalOverlay
+export default ModalOverlay;

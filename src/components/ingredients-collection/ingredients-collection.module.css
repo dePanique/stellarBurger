@@ -1,0 +1,8 @@
+.ingredientsType {
+  width: 600px;
+}
+
+.ingredientsType:nth-of-type(1) {
+  margin-top: 0;
+}
+

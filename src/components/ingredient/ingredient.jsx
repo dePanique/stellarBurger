@@ -1,9 +1,11 @@
-import PropTypes from 'prop-types'
-import styles from './ingredient.module.css'
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import PropTypes from "prop-types";
+import styles from "./ingredient.module.css";
+import {
+  Counter,
+  CurrencyIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
-const Ingredient = ({element, handle, setIngredient}) => {
-
+const Ingredient = ({ element, handle, setIngredient }) => {
   return (
     <div
       className={styles.box + " ml-4 mr-2 mt-6"}
@@ -21,15 +23,16 @@ const Ingredient = ({element, handle, setIngredient}) => {
       </p>
     </div>
   );
-}
+};
 
-// Ingredient.propTypes = {
-//   element: PropTypes.shape({
-//     image: PropTypes.string.isRequired,
-//     price: PropTypes.number.isRequired,
-//     name: PropTypes.string.isRequired
-//   }).isRequired,
-//   handle: PropTypes.func.isRequired
-// }
+Ingredient.propTypes = {
+  element: PropTypes.shape({
+    image: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
+  }).isRequired,
+  handle: PropTypes.func.isRequired,
+  setIngredient: PropTypes.func.isRequired,
+};
 
-export default Ingredient
+export default Ingredient;
