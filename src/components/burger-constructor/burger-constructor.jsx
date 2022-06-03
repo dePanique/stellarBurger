@@ -4,7 +4,7 @@ import { ConstructorElement, DragIcon, Button } from '@ya.praktikum/react-develo
 import  { dataTemplate }  from '../../utils/utils'
 
 const BurgerConstructor = ({handleOrderDetails, data}) => {
-  const bunImage = data.map((element) => element.name === "Краторная булка N-200i" && element )[0]
+  const bun = data.filter((element) => element.type === 'bun')[0]
 
   return (
     <section className={styles.burgerConstructor + ' ml-5 pl-4 pt-25'}>
@@ -13,8 +13,8 @@ const BurgerConstructor = ({handleOrderDetails, data}) => {
           type="top"
           isLocked={true}
           text="Краторная булка N-200i (верх)"
-          price={bunImage.price}
-          thumbnail={bunImage.image}
+          price={bun.price}
+          thumbnail={bun.image}
           />
       </div>
 
@@ -36,8 +36,8 @@ const BurgerConstructor = ({handleOrderDetails, data}) => {
           type="bottom"
           isLocked={true}
           text="Краторная булка N-200i (низ)"
-          price={bunImage.price}
-          thumbnail={bunImage.image}
+          price={bun.price}
+          thumbnail={bun.image}
         />
       </div>
 
