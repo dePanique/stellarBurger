@@ -1,13 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
+import { postOrderId } from "../../utils/utils";
 
-const OrderDetails = ({ data }) => {
-  
+const OrderDetails = ({ingredientsId}) => {
+console.log(ingredientsId)
+const [orderId, setOrderId] = useState(false);
+
+  useEffect(()=> {
+    postOrderId(ingredientsId)
+    .then((res) => {
+      console.log(res)
+      setOrderId(res.order.number)
+    })
+    .catch((err) => console.log(err))
+  }, [])
+
   return (
     <React.Fragment>
       <p className={styles.orderId + " text text_type_digits-large mt-30 mb-8"}>
-        {data.orderId}
+        {orderId}
       </p>
       <p className={styles.notation + " text text_type_main-medium mb-15"}>
         идентификатора заказа
@@ -28,8 +40,8 @@ const OrderDetails = ({ data }) => {
   );
 };
 
-OrderDetails.propTypes = {
-  data: PropTypes.object.isRequired,
-};
+// OrderDetails.propTypes = {
+//   data: PropTypes.object.isRequired,
+// };
 
 export default OrderDetails;

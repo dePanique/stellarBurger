@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import styles from "./burger-constructor.module.css";
 import {
@@ -9,10 +9,15 @@ import {
 import { dataTemplate } from "../../utils/constants";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import { PickedIngredients } from "../services/burgerContext";
+import { postOrderId } from "../../utils/utils";
 
-const BurgerConstructor = ({ data }) => {
-  const bun = data.filter((element) => element.type === "bun")[0];
+const BurgerConstructor = () => {
+  const {data, bun} = useContext(PickedIngredients);
   const [modal, setModal] = useState(false);
+  const ingredientsId = data.map((el) => el._id).concat(bun._id)
+  //console.log(ingredientsId)
+
 
   return (
     <section className={styles.burgerConstructor + " ml-5 pl-4 pt-25"}>
@@ -20,7 +25,7 @@ const BurgerConstructor = ({ data }) => {
         <ConstructorElement
           type="top"
           isLocked={true}
-          text="Краторная булка N-200i (верх)"
+          text={`${bun.name} (верх)`}
           price={bun.price}
           thumbnail={bun.image}
         />
@@ -45,7 +50,7 @@ const BurgerConstructor = ({ data }) => {
         <ConstructorElement
           type="bottom"
           isLocked={true}
-          text="Краторная булка N-200i (низ)"
+          text={`${bun.name} (низ)`}
           price={bun.price}
           thumbnail={bun.image}
         />
@@ -63,15 +68,15 @@ const BurgerConstructor = ({ data }) => {
 
       {modal && (
         <Modal handle={setModal}>
-          <OrderDetails data={{orderId: "030622" }} />
+          <OrderDetails ingredientsId={ingredientsId} />
         </Modal>
       )}
     </section>
   );
 };
 
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
-};
+// BurgerConstructor.propTypes = {
+//   data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
+// };
 
 export default BurgerConstructor;
