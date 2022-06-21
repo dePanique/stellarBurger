@@ -1,0 +1,35 @@
+.modalWindow {
+  width: 720px;
+  height: min-content;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position:fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  border-radius: 40px;
+  border: 1px solid rgba(76, 76, 255, 0.2);
+  background: #1C1C21;
+  z-index: 200;
+}
+
+.closeWrapper {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  right: 0;
+}
+
+.close {
+  width: 18px;
+  height: 18px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}

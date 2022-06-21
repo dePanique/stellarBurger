@@ -1,14 +1,14 @@
-.burgerIngridients {
+.title {
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.burgerIngredients {
   box-sizing: border-box;
   max-width: 600px;
   width: 100%;
   display: flex;
   flex-direction: column;
-}
-
-.title {
-  box-sizing: border-box;
-  width: 100%;
 }
 
 .tabRow {
@@ -32,15 +32,8 @@
 .collection::-webkit-scrollbar-thumb {
   background: #8585AD;
   height: 492px;
-
 }
 
 .link {
   text-decoration: none;
 }
-
-
-.ingridientsType {
-  width: 600px;
-}
-
