@@ -17,7 +17,7 @@ function App() {
         setIngredientsData(res)
         setPickedIngredients({
           bun: res['data'].filter((element) => element.type === "bun")[0],
-          data: res['data'].filter((element) => element.type !== "bun").filter((_, index) => index%2),
+          data: res['data'].filter((element) => element.type !== "bun").filter(() => Math.random() < 0.34),
         })
       })
       .catch((err) => console.log(`Ошибка: ${err}`));

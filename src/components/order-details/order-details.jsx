@@ -4,17 +4,15 @@ import styles from "./order-details.module.css";
 import { postOrderId } from "../../utils/utils";
 
 const OrderDetails = ({ingredientsId}) => {
-console.log(ingredientsId)
 const [orderId, setOrderId] = useState(false);
 
   useEffect(()=> {
     postOrderId(ingredientsId)
     .then((res) => {
-      console.log(res)
       setOrderId(res.order.number)
     })
     .catch((err) => console.log(err))
-  }, [])
+  }, [ingredientsId])
 
   return (
     <React.Fragment>
@@ -40,8 +38,8 @@ const [orderId, setOrderId] = useState(false);
   );
 };
 
-// OrderDetails.propTypes = {
-//   data: PropTypes.object.isRequired,
-// };
+OrderDetails.propTypes = {
+  ingredientsId: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+};
 
 export default OrderDetails;

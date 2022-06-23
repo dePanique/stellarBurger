@@ -1,11 +1,9 @@
 import { useContext, useState } from "react";
-import PropTypes from "prop-types";
 import styles from "./burger-ingredients.module.css";
 import IngredientsCollection from "./../ingredients-collection/ingredients-collection";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { dataTemplate } from "../../utils/constants";
 import { BurgerContext } from './../services/burgerContext';
 
 const BurgerIngredients = () => {
@@ -75,9 +73,5 @@ const BurgerIngredients = () => {
     </section>
   );
 };
-
-// BurgerIngredients.propTypes = {
-//   data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
-// };
 
 export default BurgerIngredients;
