@@ -7,36 +7,40 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { PickedIngredients } from "../services/burgerContext";
+import { PickedIngredientsContext } from "../services/pickedIngredientsContext";
+import { postOrderId } from "../../utils/utils";
 
 const refillConstructor = (state, action) => {
   switch (action.type) {
-    case 'add':
-      return [...state, action.payload]
-    case 'delete':
-      return state.filter((el) => el._id !== action.payload._id)
+    case "add":
+      return [...state, action.payload];
+    case "delete":
+      return state.filter((el) => el._id !== action.payload._id);
     default:
       throw new Error(`Wrong type of action: ${action.type}`);
   }
-}
+};
 
 const BurgerConstructor = () => {
-  const {data, bun} = useContext(PickedIngredients);
+  const { data, bun } = useContext(PickedIngredientsContext);
   const [modal, setModal] = useState(false);
   const [ingredients, dispatchIngredients] = useReducer(refillConstructor, []);
   const [finalPrice, setFinalPrice] = useState(0);
-  const [ingredientsId, setIngredientsId] = useState()
+  const [ingredientsId, setIngredientsId] = useState(777);
+  const [orderId, setOrderId] = useState(false);
 
   useEffect(() => {
     data.forEach((el) => {
-      dispatchIngredients({type : 'add', payload: el});
-    })
-  }, [data])
+      dispatchIngredients({ type: "add", payload: el });
+    });
+  }, [data]);
 
   useEffect(() => {
-    setFinalPrice(ingredients.reduce((prev, curr) => prev + curr.price, 0) + (bun.price * 2));
+    setFinalPrice(
+      ingredients.reduce((prev, curr) => prev + curr.price, 0) + bun.price * 2
+    );
     setIngredientsId(ingredients.map((el) => el._id).concat(bun._id));
-  }, [ingredients])
+  }, [ingredients]);
 
   return (
     <section className={styles.burgerConstructor + " ml-5 pl-4 pt-25"}>
@@ -51,19 +55,23 @@ const BurgerConstructor = () => {
       </div>
 
       <ul className={styles.components}>
-        {ingredients
-          .map((element) => (
-            <li key={element._id} className={styles.ingredient + " mb-4"}
-                //TODO удали следующую строку на втором этапе
-                onClick={() => dispatchIngredients({type: 'delete', payload: element})}>
-              <DragIcon type="primary" />
-              <ConstructorElement
-                text={element.name}
-                price={element.price}
-                thumbnail={element.image}
-              />
-            </li>
-          ))}
+        {ingredients.map((element) => (
+          <li
+            key={element._id}
+            className={styles.ingredient + " mb-4"}
+            //TODO удали следующую строку на втором этапе
+            onClick={() =>
+              dispatchIngredients({ type: "delete", payload: element })
+            }
+          >
+            <DragIcon type="primary" />
+            <ConstructorElement
+              text={element.name}
+              price={element.price}
+              thumbnail={element.image}
+            />
+          </li>
+        ))}
       </ul>
 
       <div className=" ml-8 mt-4">
@@ -81,14 +89,25 @@ const BurgerConstructor = () => {
           {finalPrice}
         </p>
         <div className={styles.currencyBig + " mr-10"}></div>
-        <Button type="primary" size="large" onClick={() => setModal(true)}>
+        <Button
+          type="primary"
+          size="large"
+          onClick={async () => {
+            await postOrderId(ingredientsId)
+              .then((res) => {
+                setOrderId(res.order.number);
+              })
+              .catch((err) => console.log(err));
+            setModal(true);
+          }}
+        >
           Оформить заказ
         </Button>
       </div>
 
       {modal && (
         <Modal handle={setModal}>
-          <OrderDetails ingredientsId={ingredientsId} />
+          <OrderDetails orderId={orderId} />
         </Modal>
       )}
     </section>

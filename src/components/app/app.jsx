@@ -5,7 +5,8 @@ import Main from "../main/main";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { getData } from "../../utils/utils";
-import { BurgerContext, PickedIngredients } from './../services/burgerContext'
+import { BurgerContext } from './../services/burgerContext'
+import { PickedIngredientsContext } from './../services/pickedIngredientsContext'
 
 function App() {
   const [ingredientsData, setIngredientsData] = useState(false);
@@ -32,9 +33,9 @@ function App() {
             <React.Fragment>
               <BurgerContext.Provider value={{ingredientsData}}>
                 <BurgerIngredients  />
-                <PickedIngredients.Provider value={pickedIngridients}>
+                <PickedIngredientsContext.Provider value={pickedIngridients}>
                   <BurgerConstructor />
-                </PickedIngredients.Provider>
+                </PickedIngredientsContext.Provider>
               </BurgerContext.Provider>
             </React.Fragment>
           )}

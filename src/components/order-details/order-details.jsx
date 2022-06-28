@@ -1,18 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
-import { postOrderId } from "../../utils/utils";
 
-const OrderDetails = ({ingredientsId}) => {
-const [orderId, setOrderId] = useState(false);
-
-  useEffect(()=> {
-    postOrderId(ingredientsId)
-    .then((res) => {
-      setOrderId(res.order.number)
-    })
-    .catch((err) => console.log(err))
-  }, [ingredientsId])
+const OrderDetails = ({ orderId }) => {
 
   return (
     <React.Fragment>
@@ -39,7 +29,7 @@ const [orderId, setOrderId] = useState(false);
 };
 
 OrderDetails.propTypes = {
-  ingredientsId: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
+  orderId: PropTypes.number.isRequired,
 };
 
 export default OrderDetails;
