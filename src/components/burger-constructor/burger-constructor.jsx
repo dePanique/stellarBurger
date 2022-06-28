@@ -37,7 +37,7 @@ const BurgerConstructor = () => {
 
   useEffect(() => {
     setFinalPrice(
-      ingredients.reduce((prev, curr) => prev + curr.price, 0) + bun.price * 2
+      ingredients.reduce((prev, { price }) => prev + price, 0) + bun.price * 2
     );
     setIngredientsId(ingredients.map((el) => el._id).concat(bun._id));
   }, [ingredients]);

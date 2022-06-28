@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
@@ -17,7 +17,7 @@ function App() {
       .then((res) => {
         setIngredientsData(res)
         setPickedIngredients({
-          bun: res['data'].filter((element) => element.type === "bun")[0],
+          bun: res['data'].find((element) => element.type === "bun"),
           data: res['data'].filter((element) => element.type !== "bun").filter(() => Math.random() < 0.34),
         })
       })
@@ -33,10 +33,10 @@ function App() {
             <React.Fragment>
               <BurgerContext.Provider value={{ingredientsData}}>
                 <BurgerIngredients  />
-                <PickedIngredientsContext.Provider value={pickedIngridients}>
-                  <BurgerConstructor />
-                </PickedIngredientsContext.Provider>
               </BurgerContext.Provider>
+              <PickedIngredientsContext.Provider value={pickedIngridients}>
+                <BurgerConstructor />
+              </PickedIngredientsContext.Provider>
             </React.Fragment>
           )}
         </Main>
