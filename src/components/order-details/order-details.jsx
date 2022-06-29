@@ -2,12 +2,12 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
 
-const OrderDetails = ({ data }) => {
-  
+const OrderDetails = ({ orderId }) => {
+
   return (
     <React.Fragment>
       <p className={styles.orderId + " text text_type_digits-large mt-30 mb-8"}>
-        {data.orderId}
+        {orderId}
       </p>
       <p className={styles.notation + " text text_type_main-medium mb-15"}>
         идентификатора заказа
@@ -29,7 +29,7 @@ const OrderDetails = ({ data }) => {
 };
 
 OrderDetails.propTypes = {
-  data: PropTypes.object.isRequired,
+  orderId: PropTypes.number.isRequired,
 };
 
 export default OrderDetails;

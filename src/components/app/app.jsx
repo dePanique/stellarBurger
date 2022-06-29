@@ -5,30 +5,43 @@ import Main from "../main/main";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import { getData } from "../../utils/utils";
+import { BurgerContext } from './../services/burgerContext'
+import { PickedIngredientsContext } from './../services/pickedIngredientsContext'
 
 function App() {
   const [ingredientsData, setIngredientsData] = useState(false);
+  const [pickedIngridients, setPickedIngredients] = useState(null);
 
   useEffect(() => {
     getData()
-      .then((res) => setIngredientsData(res))
+      .then((res) => {
+        setIngredientsData(res)
+        setPickedIngredients({
+          bun: res['data'].find((element) => element.type === "bun"),
+          data: res['data'].filter((element) => element.type !== "bun").filter(() => Math.random() < 0.34),
+        })
+      })
       .catch((err) => console.log(`Ошибка: ${err}`));
   }, []);
 
   return (
-    <React.StrictMode>
+
       <div className={styles.app}>
         <AppHeader />
         <Main>
-          {ingredientsData && (
+          {ingredientsData.success && (
             <React.Fragment>
-              <BurgerIngredients data={ingredientsData.data} />
-              <BurgerConstructor data={ingredientsData.data} />
+              <BurgerContext.Provider value={{ingredientsData}}>
+                <BurgerIngredients  />
+              </BurgerContext.Provider>
+              <PickedIngredientsContext.Provider value={pickedIngridients}>
+                <BurgerConstructor />
+              </PickedIngredientsContext.Provider>
             </React.Fragment>
           )}
         </Main>
       </div>
-    </React.StrictMode>
+
   );
 }
 
