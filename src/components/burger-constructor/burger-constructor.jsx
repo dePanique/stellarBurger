@@ -26,7 +26,7 @@ const BurgerConstructor = () => {
   const [modal, setModal] = useState(false);
   const [ingredients, dispatchIngredients] = useReducer(refillConstructor, []);
   const [finalPrice, setFinalPrice] = useState(0);
-  const [ingredientsId, setIngredientsId] = useState(777);
+  const [ingredientsId, setIngredientsId] = useState();
   const [orderId, setOrderId] = useState(false);
 
   useEffect(() => {
@@ -41,6 +41,15 @@ const BurgerConstructor = () => {
     );
     setIngredientsId(ingredients.map((el) => el._id).concat(bun._id));
   }, [ingredients]);
+
+  const handleOrderButton = async () => {
+    await postOrderId(ingredientsId)
+      .then((res) => {
+        setOrderId(res.order.number);
+      })
+      .catch((err) => console.log(err));
+    setModal(true);
+  };
 
   return (
     <section className={styles.burgerConstructor + " ml-5 pl-4 pt-25"}>
@@ -92,14 +101,7 @@ const BurgerConstructor = () => {
         <Button
           type="primary"
           size="large"
-          onClick={async () => {
-            await postOrderId(ingredientsId)
-              .then((res) => {
-                setOrderId(res.order.number);
-              })
-              .catch((err) => console.log(err));
-            setModal(true);
-          }}
+          onClick={() => handleOrderButton()}
         >
           Оформить заказ
         </Button>
