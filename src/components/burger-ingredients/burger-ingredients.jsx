@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import IngredientsCollection from "./../ingredients-collection/ingredients-collection";
 import Modal from "../modal/modal";

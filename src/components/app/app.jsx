@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
@@ -24,6 +25,9 @@ function App() {
       .catch((err) => console.log(`Ошибка: ${err}`));
   }, []);
 
+  const store = useSelector(store => store);
+  console.log(store);
+
   return (
 
       <div className={styles.app}>
@@ -34,10 +38,10 @@ function App() {
               <BurgerContext.Provider value={{ingredientsData}}>
                 <BurgerIngredients  />
               </BurgerContext.Provider>
-              <PickedIngredientsContext.Provider value={pickedIngridients}>
+              {/* <PickedIngredientsContext.Provider value={pickedIngridients}>
                 <BurgerConstructor />
-              </PickedIngredientsContext.Provider>
-            </React.Fragment>
+              </PickedIngredientsContext.Provider> */}
+              </React.Fragment>
           )}
         </Main>
       </div>
