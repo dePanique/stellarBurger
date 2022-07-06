@@ -1,47 +1,41 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { getData } from "../../utils/utils";
-import { BurgerContext } from './../services/burgerContext'
-import { PickedIngredientsContext } from './../services/pickedIngredientsContext'
+import { getIgredients } from '../services/actions/burger-ingredients';
+
 
 function App() {
-  const [ingredientsData, setIngredientsData] = useState(false);
-  const [pickedIngridients, setPickedIngredients] = useState(null);
+  const dispatch = useDispatch();
+  const { data } = useSelector(store => store.burgerIngredients);
 
   useEffect(() => {
-    getData()
-      .then((res) => {
-        setIngredientsData(res)
-        setPickedIngredients({
-          bun: res['data'].find((element) => element.type === "bun"),
-          data: res['data'].filter((element) => element.type !== "bun").filter(() => Math.random() < 0.34),
-        })
-      })
-      .catch((err) => console.log(`Ошибка: ${err}`));
+    dispatch(getIgredients())
   }, []);
 
-  const store = useSelector(store => store);
-  console.log(store);
+  useEffect(() => {
+    data.length && dispatch({
+      type: 'SET_BUN',
+      payload: {
+        data: data.filter((element) => element.type !== "bun").filter(() => Math.random() < 0.34),
+        bun: data.find((element) => element.type === "bun"),
+      }
+    })
+  }, [data])
 
   return (
 
       <div className={styles.app}>
         <AppHeader />
         <Main>
-          {ingredientsData.success && (
+          {data.length && (
             <React.Fragment>
-              <BurgerContext.Provider value={{ingredientsData}}>
-                <BurgerIngredients  />
-              </BurgerContext.Provider>
-              {/* <PickedIngredientsContext.Provider value={pickedIngridients}>
-                <BurgerConstructor />
-              </PickedIngredientsContext.Provider> */}
-              </React.Fragment>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </React.Fragment>
           )}
         </Main>
       </div>

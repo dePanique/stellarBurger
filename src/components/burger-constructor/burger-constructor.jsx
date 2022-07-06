@@ -7,8 +7,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { PickedIngredientsContext } from "../services/pickedIngredientsContext";
 import { postOrderId } from "../../utils/utils";
+import { useSelector } from "react-redux";
 
 const refillConstructor = (state, action) => {
   switch (action.type) {
@@ -22,7 +22,7 @@ const refillConstructor = (state, action) => {
 };
 
 const BurgerConstructor = () => {
-  const { data, bun } = useContext(PickedIngredientsContext);
+  const { data, bun } = useSelector(store => store.burgerConstructor);
   const [modal, setModal] = useState(false);
   const [ingredients, dispatchIngredients] = useReducer(refillConstructor, []);
   const [finalPrice, setFinalPrice] = useState(0);

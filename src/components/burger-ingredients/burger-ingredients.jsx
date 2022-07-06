@@ -1,17 +1,16 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import IngredientsCollection from "./../ingredients-collection/ingredients-collection";
 import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import { BurgerContext } from './../services/burgerContext';
 
 const BurgerIngredients = () => {
   const [tab, setTab] = useState("Булки");
   const [modal, setModal] = useState(false);
   const [ingredient, setIngredient] = useState({});
-  const {ingredientsData : { data }} = useContext(BurgerContext);
+  const data = useSelector(store => store.burgerIngredients.data)
 
   return (
     <section className={styles.burgerIngredients + " mr-5"}>
