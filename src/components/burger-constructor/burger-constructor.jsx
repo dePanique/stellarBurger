@@ -8,43 +8,34 @@ import {
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import { postOrderId } from "../../utils/utils";
-import { useSelector } from "react-redux";
-
-const refillConstructor = (state, action) => {
-  switch (action.type) {
-    case "add":
-      return [...state, action.payload];
-    case "delete":
-      return state.filter((el) => el._id !== action.payload._id);
-    default:
-      throw new Error(`Wrong type of action: ${action.type}`);
-  }
-};
+import { useDispatch, useSelector } from "react-redux";
 
 const BurgerConstructor = () => {
-  const { data, bun } = useSelector(store => store.burgerConstructor);
+  const { data, bun, finalPrice, ingredientsId } = useSelector(store => store.burgerConstructor);
   const [modal, setModal] = useState(false);
-  const [ingredients, dispatchIngredients] = useReducer(refillConstructor, []);
-  const [finalPrice, setFinalPrice] = useState(0);
-  const [ingredientsId, setIngredientsId] = useState();
+  // const [finalPrice, setFinalPrice] = useState(0);
+  // const [ingredientsId, setIngredientsId] = useState();
   const [orderId, setOrderId] = useState(false);
 
-  useEffect(() => {
-    data.forEach((el) => {
-      dispatchIngredients({ type: "add", payload: el });
-    });
-  }, [data]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setFinalPrice(
-      ingredients.reduce((prev, { price }) => prev + price, 0) + bun.price * 2
-    );
-    setIngredientsId(ingredients.map((el) => el._id).concat(bun._id));
-  }, [ingredients]);
+    // setFinalPrice(
+    //   data.reduce((prev, { price }) => prev + price, 0) + bun.price * 2
+    // );
+    // setIngredientsId(data.map((el) => el._id).concat(bun._id));
+    dispatch({
+      type: 'CALC_FULLPRICE',
+    })
+  }, [data]);
 
   const handleOrderButton = async () => {
     await postOrderId(ingredientsId)
       .then((res) => {
+        dispatch({
+          type: 'SET_ORDERID',
+          payload: res.order.number,
+        })
         setOrderId(res.order.number);
       })
       .catch((err) => console.log(err));
@@ -64,14 +55,10 @@ const BurgerConstructor = () => {
       </div>
 
       <ul className={styles.components}>
-        {ingredients.map((element) => (
+        {data.map((element) => (
           <li
             key={element._id}
             className={styles.ingredient + " mb-4"}
-            //TODO удали следующую строку на втором этапе
-            onClick={() =>
-              dispatchIngredients({ type: "delete", payload: element })
-            }
           >
             <DragIcon type="primary" />
             <ConstructorElement

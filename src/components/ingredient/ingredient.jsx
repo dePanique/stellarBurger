@@ -4,14 +4,20 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from "react-redux";
 
-const Ingredient = ({ element, handle, setIngredient }) => {
+const Ingredient = ({ element, handle }) => {
+  const dispatch = useDispatch();
+
   return (
     <div
       className={styles.box + " ml-4 mr-2 mt-6"}
       onClick={() => {
         handle(true);
-        setIngredient(element);
+        dispatch({
+          type: 'SET_CURRENTINGREDIENT',
+          payload: element,
+        });
       }}
     >
       <Counter count={1} size="default" />
@@ -32,7 +38,6 @@ Ingredient.propTypes = {
     name: PropTypes.string.isRequired,
   }).isRequired,
   handle: PropTypes.func.isRequired,
-  setIngredient: PropTypes.func.isRequired,
 };
 
 export default Ingredient;

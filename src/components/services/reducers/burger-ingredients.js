@@ -1,62 +1,19 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from '../actions/burger-ingredients';
-
+import { SET_CURRENTINGREDIENT, RESET_CURRENTINGREDIENT } from "../actions/burger-ingredients";
 const initialState = {
-  request: false,
-  failed: false,
-  data: [],
+  ingredient: '',
 }
 
-export const burgerIngredients = (state = initialState, action) => {
+export const burgerIngredients = (state={}, action) => {
   switch (action.type) {
-    case GET_INGREDIENTS:
+    case SET_CURRENTINGREDIENT:
       return {
-        ...state,
-        request: true,
+        ingredient: action.payload,
       };
 
-    case GET_INGREDIENTS_SUCCESS:
-      return {
-        ...state,
-        request: false,
-        failed: false,
-        data: action.payload,
-      };
-
-    case GET_INGREDIENTS_FAILED:
-      return {
-        ...state,
-        request: false,
-        failed: true,
-      };
-
+    case RESET_CURRENTINGREDIENT:
+      return initialState;
+      
     default:
       return state;
   }
 }
-
-// export const currentConstructorIngredient = (state = {}, action) => {
-//   switch (action.payload) {
-//     case SET_BURGERINGREDIENTS:
-//       return state;
-//     default:
-//       return state;
-//   }
-// }
-
-// export const currentViewingIngredient = (state = {}, action) => {
-//   switch (action.payload) {
-//     case SET_BURGERINGREDIENTS:
-//       return state;
-//     default:
-//       return state;
-//   }
-// }
-
-// export const completedOrder = (state = {}, action) => {
-//   switch (action.payload) {
-//     case SET_BURGERINGREDIENTS:
-//       return state;
-//     default:
-//       return state;
-//   }
-// }

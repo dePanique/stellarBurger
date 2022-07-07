@@ -3,14 +3,23 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { portalContainer } from "./../../utils/constants";
+import { useDispatch } from "react-redux";
 
 const Modal = (props) => {
+  const dispatch = useDispatch();
+  const closeWindow = () => {
+    props.handle(false);
+    dispatch({
+      type: 'RESET_CURRENTINGREDIENT',
+    })
+  }
+
   return ReactDOM.createPortal(
     <ModalOverlay handle={props.handle}>
       <div className={styles.modalWindow}>
         <div
           className={styles.closeWrapper + " mt-15 mr-10"}
-          onClick={() => props.handle(false)}
+          onClick={() => closeWindow()}
         >
           <svg
             className={styles.close}

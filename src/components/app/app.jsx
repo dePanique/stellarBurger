@@ -5,15 +5,16 @@ import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { getIgredients } from '../services/actions/burger-ingredients';
+import { getIgredients } from '../services/actions/app';
 
 
 function App() {
   const dispatch = useDispatch();
-  const { data } = useSelector(store => store.burgerIngredients);
+  const { data } = useSelector(store => store.appStore);
 
   useEffect(() => {
     dispatch(getIgredients())
+    console.log(data)
   }, []);
 
   useEffect(() => {
@@ -25,7 +26,7 @@ function App() {
       }
     })
   }, [data])
-
+//
   return (
 
       <div className={styles.app}>

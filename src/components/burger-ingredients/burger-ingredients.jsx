@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import styles from "./burger-ingredients.module.css";
 import IngredientsCollection from "./../ingredients-collection/ingredients-collection";
 import Modal from "../modal/modal";
@@ -9,8 +8,6 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 const BurgerIngredients = () => {
   const [tab, setTab] = useState("Булки");
   const [modal, setModal] = useState(false);
-  const [ingredient, setIngredient] = useState({});
-  const data = useSelector(store => store.burgerIngredients.data)
 
   return (
     <section className={styles.burgerIngredients + " mr-5"}>
@@ -45,29 +42,23 @@ const BurgerIngredients = () => {
       <div className={styles.collection}>
         <IngredientsCollection
           type={"bun"}
-          data={data}
-          setIngredient={setIngredient}
           setModal={setModal}
         />
 
         <IngredientsCollection
           type={"sauce"}
-          data={data}
-          setIngredient={setIngredient}
           setModal={setModal}
         />
 
         <IngredientsCollection
           type={"main"}
-          data={data}
-          setIngredient={setIngredient}
           setModal={setModal}
         />
       </div>
 
       {modal && (
         <Modal handle={setModal}>
-          <IngredientDetails data={ingredient} />
+          <IngredientDetails />
         </Modal>
       )}
     </section>
