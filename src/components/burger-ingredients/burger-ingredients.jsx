@@ -8,6 +8,9 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 const BurgerIngredients = () => {
   const [tab, setTab] = useState("Булки");
   const [modal, setModal] = useState(false);
+  const handle = () => {
+    console.log(3)
+  }
 
   return (
     <section className={styles.burgerIngredients + " mr-5"}>
@@ -33,7 +36,7 @@ const BurgerIngredients = () => {
           href="#main"
           className={styles.link + " text text_type_main-default"}
         >
-          <Tab value="Начинки" active={tab === "Начинки"} onClick={setTab}>
+          <Tab value="Начинки" active={tab === "Начинки"} onClick={setTab} >
             Начинки
           </Tab>
         </a>
@@ -53,6 +56,7 @@ const BurgerIngredients = () => {
         <IngredientsCollection
           type={"main"}
           setModal={setModal}
+          onFocus={() => this.handle()}
         />
       </div>
 

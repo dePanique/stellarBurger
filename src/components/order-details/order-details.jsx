@@ -4,7 +4,7 @@ import styles from "./order-details.module.css";
 import { useSelector } from "react-redux";
 
 const OrderDetails = () => {
-  const orderNumber = useSelector((store) => store.orderDetails.orderNumber);
+  const orderNumber = useSelector((store) => store.orderDetails.number);
 
   return (
     <React.Fragment>

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect, useReducer } from "react";
+import { useState, useEffect } from "react";
 import styles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
@@ -23,6 +23,8 @@ const BurgerConstructor = () => {
   }, [data]);
 
   const handleOrderButton = async () => {
+    // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
+    // будет видно как меняется номер заказа
     await dispatch(getIngredients(ingredientsId));
     setModal(true);
   };
