@@ -14,7 +14,6 @@ function App() {
 
   useEffect(() => {
     dispatch(getIgredients())
-    console.log(data)
   }, []);
 
   useEffect(() => {

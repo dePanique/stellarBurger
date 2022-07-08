@@ -3,7 +3,8 @@ import { SET_BUN, CALC_FULLPRICE, SET_ORDERID  } from '../actions/burger-constru
 const initialState = {
   data : [],
   bun: [],
-  price: 0,
+  price: '',
+  orderId: '',
 }
 export const burgerConstructor = (state = initialState, action) => {
   switch (action.type) {

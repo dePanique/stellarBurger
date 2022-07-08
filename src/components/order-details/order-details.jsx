@@ -1,13 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
+import { useSelector } from "react-redux";
 
-const OrderDetails = ({ orderId }) => {
+const OrderDetails = () => {
+  const orderNumber = useSelector((store) => store.orderDetails.orderNumber);
 
   return (
     <React.Fragment>
       <p className={styles.orderId + " text text_type_digits-large mt-30 mb-8"}>
-        {orderId}
+        {orderNumber}
       </p>
       <p className={styles.notation + " text text_type_main-medium mb-15"}>
         идентификатора заказа

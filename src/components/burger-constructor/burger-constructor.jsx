@@ -7,38 +7,23 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
-import { postOrderId } from "../../utils/utils";
 import { useDispatch, useSelector } from "react-redux";
+import { getIngredients } from '../services/actions/order-details';
 
 const BurgerConstructor = () => {
   const { data, bun, finalPrice, ingredientsId } = useSelector(store => store.burgerConstructor);
   const [modal, setModal] = useState(false);
-  // const [finalPrice, setFinalPrice] = useState(0);
-  // const [ingredientsId, setIngredientsId] = useState();
-  const [orderId, setOrderId] = useState(false);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    // setFinalPrice(
-    //   data.reduce((prev, { price }) => prev + price, 0) + bun.price * 2
-    // );
-    // setIngredientsId(data.map((el) => el._id).concat(bun._id));
     dispatch({
       type: 'CALC_FULLPRICE',
     })
   }, [data]);
 
   const handleOrderButton = async () => {
-    await postOrderId(ingredientsId)
-      .then((res) => {
-        dispatch({
-          type: 'SET_ORDERID',
-          payload: res.order.number,
-        })
-        setOrderId(res.order.number);
-      })
-      .catch((err) => console.log(err));
+    await dispatch(getIngredients(ingredientsId));
     setModal(true);
   };
 
@@ -96,7 +81,7 @@ const BurgerConstructor = () => {
 
       {modal && (
         <Modal handle={setModal}>
-          <OrderDetails orderId={orderId} />
+          <OrderDetails />
         </Modal>
       )}
     </section>
