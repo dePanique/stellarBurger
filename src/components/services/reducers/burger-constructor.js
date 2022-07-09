@@ -1,10 +1,11 @@
-import { SET_BUN, CALC_FULLPRICE, SET_ORDERID  } from '../actions/burger-constructor'
+import { SET_BUN, CALC_FULLPRICE, SET_ORDERID, ONBUNDROP, ONMAINDROP, DELETE_ITEM  } from '../actions/burger-constructor'
 
 const initialState = {
   data : [],
   bun: [],
   price: '',
   orderId: '',
+  ingredientsId:[],
 }
 export const burgerConstructor = (state = initialState, action) => {
   switch (action.type) {
@@ -19,7 +20,7 @@ export const burgerConstructor = (state = initialState, action) => {
       return {
         ...state,
         finalPrice: state.data.reduce((prev, { price }) => prev + price, 0) + state.bun.price * 2,
-        ingredientsId: state.data.map((el) => el._id).concat(state.bun._id),
+        ingredientsId: state.data.map((el) => el._id).concat([state.bun._id, state.bun._id]),
       };
 
     case SET_ORDERID:
@@ -27,6 +28,35 @@ export const burgerConstructor = (state = initialState, action) => {
         ...state,
         orderId: action.payload,
       };
+
+    case ONBUNDROP: {
+      return {
+        ...state,
+        bun: action.payload
+      }
+    }
+
+    case ONMAINDROP: {
+      return {
+        ...state,
+        data: [
+          ...state.data,
+          action.payload
+        ]
+      }
+    }
+
+    case DELETE_ITEM: {
+      return {
+        ...state,
+        ingredientsId: [
+          ...state.ingredientsId
+        ],
+        data: [
+          ...state.data.filter((el) => el.listId !== action.payload)
+        ]
+      }
+    }
 
     default:
       return state;

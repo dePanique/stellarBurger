@@ -4,10 +4,20 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
+import { useEffect } from "react";
 
 const Ingredient = ({ element, handle }) => {
   const dispatch = useDispatch();
+
+  const orderData = useSelector(store => store.burgerConstructor.ingredientsId);
+  const quantity = orderData.filter(el => el === element._id).length;
+
+  const [, dragRef] = useDrag({
+    type: element.type === 'bun' ? 'bun' : 'main',
+    item: element,
+  });
 
   return (
     <div
@@ -19,8 +29,9 @@ const Ingredient = ({ element, handle }) => {
           payload: element,
         });
       }}
+      ref={dragRef}
     >
-      <Counter count={1} size="default" />
+      <Counter count={quantity} size="default" />
       <img className="pl-4 pr-4 mb-1" src={element.image} alt="#" />
       <p className="text text_type_digits-default mr-2">{element.price}</p>
       <CurrencyIcon type="primary" />

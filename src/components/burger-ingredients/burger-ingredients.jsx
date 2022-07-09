@@ -5,12 +5,15 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const BurgerIngredients = () => {
   const [modal, setModal] = useState(false);
   const [activeTab, setActiveTab] = useState('Булки');
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
   const [positionForActivation, setPositionForActivation] = useState([]);
+  //const data = useSelector(store => store.appStore.data);
+
 
   useEffect(() => {
     let offsets = ['#bun', '#sauce', '#main'].map((el) => document.querySelector(el).offsetTop )

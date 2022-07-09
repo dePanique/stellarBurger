@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
@@ -13,14 +14,13 @@ import { getIngredients } from '../services/actions/order-details';
 const BurgerConstructor = () => {
   const { data, bun, finalPrice, ingredientsId } = useSelector(store => store.burgerConstructor);
   const [modal, setModal] = useState(false);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({
       type: 'CALC_FULLPRICE',
     })
-  }, [data]);
+  }, [data, bun]);
 
   const handleOrderButton = async () => {
     // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
@@ -29,9 +29,33 @@ const BurgerConstructor = () => {
     setModal(true);
   };
 
+  const [, dropTargetBun] = useDrop({
+    accept: 'bun',
+    drop(bun) {
+        dispatch({
+          type: 'ONBUNDROP',
+          payload: bun
+        })
+        console.log(bun)
+    },
+  });
+
+  const [, dropTargetMain] = useDrop({
+    accept: "main",
+    drop(main) {
+        dispatch({
+          type: "ONMAINDROP",
+          payload : {
+            ...main,
+            listId: main.listId || Math.random().toString(36).slice(2),
+          },
+        })
+    },
+  });
+
   return (
-    <section className={styles.burgerConstructor + " ml-5 pl-4 pt-25"}>
-      <div className="topElement ml-8 mb-4">
+    <section className={styles.burgerConstructor + " ml-5 pl-4 pt-25"} ref={dropTargetBun} >
+      <div className="topElement ml-8 mb-4" ref={dropTargetBun}>
         <ConstructorElement
           type="top"
           isLocked={true}
@@ -41,10 +65,10 @@ const BurgerConstructor = () => {
         />
       </div>
 
-      <ul className={styles.components}>
-        {data.map((element) => (
+      <ul className={styles.components} ref={dropTargetMain}>
+        {data && data.map((element) => (
           <li
-            key={element._id}
+            key={element.listId}
             className={styles.ingredient + " mb-4"}
           >
             <DragIcon type="primary" />
@@ -52,12 +76,18 @@ const BurgerConstructor = () => {
               text={element.name}
               price={element.price}
               thumbnail={element.image}
+              handleClose={() => {
+                dispatch({
+                  type: 'DELETE_ITEM',
+                  payload: element.listId,
+                })
+              }}
             />
           </li>
         ))}
       </ul>
 
-      <div className=" ml-8 mt-4">
+      <div className=" ml-8 mt-4" ref={dropTargetBun}>
         <ConstructorElement
           type="bottom"
           isLocked={true}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
@@ -20,7 +22,7 @@ function App() {
     data.length && dispatch({
       type: 'SET_BUN',
       payload: {
-        data: data.filter((element) => element.type !== "bun").filter(() => Math.random() < 0.34),
+        data: [],
         bun: data.find((element) => element.type === "bun"),
       }
     })
@@ -33,8 +35,10 @@ function App() {
         <Main>
           {data.length && (
             <React.Fragment>
-              <BurgerIngredients />
-              <BurgerConstructor />
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </DndProvider>
             </React.Fragment>
           )}
         </Main>
