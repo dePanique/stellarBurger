@@ -5,12 +5,15 @@ import Modal from "../modal/modal";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { RESET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients'
 
 const BurgerIngredients = () => {
   const [modal, setModal] = useState(false);
   const [activeTab, setActiveTab] = useState("Булки");
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
   const [positionForActivation, setPositionForActivation] = useState([]);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     let offsets = ["#bun", "#sauce", "#main"].map(
@@ -43,6 +46,13 @@ const BurgerIngredients = () => {
       setActiveTab("Начинки");
     }
   };
+
+  const closeWindow = () => {
+    dispatch({
+      type: RESET_CURRENT_INGREDIENT,
+    })
+    setModal(false);
+  }
 
   return (
     <section className={styles.burgerIngredients + " mr-5"}>
@@ -95,7 +105,7 @@ const BurgerIngredients = () => {
       </div>
 
       {modal && (
-        <Modal handle={setModal}>
+        <Modal handle={closeWindow}>
           <IngredientDetails />
         </Modal>
       )}

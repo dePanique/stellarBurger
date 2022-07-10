@@ -12,7 +12,10 @@ export const burgerIngredients = (state = {}, action) => {
       };
 
     case RESET_CURRENT_INGREDIENT:
-      return state;
+      return {
+        ...state,
+        ingredient: {},
+      }
 
     default:
       return state;
