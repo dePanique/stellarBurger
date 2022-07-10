@@ -25,11 +25,3 @@
   position: absolute;
   right: 0;
 }
-
-.close {
-  width: 18px;
-  height: 18px;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: relative;
-}
