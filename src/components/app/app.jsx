@@ -7,12 +7,11 @@ import AppHeader from "../app-header/app-header";
 import Main from "../main/main";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { getIngredients } from "../services/actions/app";
+import { getIngredients } from "../../services/actions/app";
 
 function App() {
   const dispatch = useDispatch();
-  // const { data } = useSelector((store) => store.appStore);
-  const { data } = useSelector((store) => store.appStore);
+  const isDataAvailable = useSelector((store) => store.appStore.success);
 
   useEffect(() => {
     dispatch(getIngredients());
@@ -22,7 +21,7 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       <Main>
-        {data.length && (
+        {isDataAvailable && (
           <React.Fragment>
             <DndProvider backend={HTML5Backend}>
               <BurgerIngredients />

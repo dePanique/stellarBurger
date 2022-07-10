@@ -1,5 +1,4 @@
-import { getData } from "../../../utils/utils";
-import { checkResponse } from "../../../utils/utils";
+import { getData, checkResponse } from '../../utils/utils';
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -21,7 +20,7 @@ export function getIngredients() {
       .then((res) => {
         dispatch({
           type: GET_INGREDIENTS_SUCCESS,
-          payload: res.data,
+          payload: res,
         });
       })
       .catch((err) => {

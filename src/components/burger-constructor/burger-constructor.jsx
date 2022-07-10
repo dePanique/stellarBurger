@@ -9,7 +9,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import Card from "../card/card";
 import { useDispatch, useSelector } from "react-redux";
-import { getOrderNumber } from "../services/actions/order-details";
+import { getOrderNumber } from '../../services/actions/order-details';
 import update from "immutability-helper";
 
 const BurgerConstructor = () => {

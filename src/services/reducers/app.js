@@ -8,6 +8,7 @@ const initialState = {
   request: false,
   failed: false,
   data: [0],
+  success: false,
 };
 
 export const appStore = (state = initialState, action) => {
@@ -23,7 +24,8 @@ export const appStore = (state = initialState, action) => {
         ...state,
         request: false,
         failed: false,
-        data: action.payload,
+        data: action.payload.data,
+        success: action.payload.success,
       };
 
     case GET_INGREDIENTS_FAILED:

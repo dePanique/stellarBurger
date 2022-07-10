@@ -1,5 +1,5 @@
-import { postOrderId } from "../../../utils/utils";
-import { checkResponse } from "../../../utils/utils";
+import { postOrderId } from "../../utils/utils";
+import { checkResponse } from "../../utils/utils";
 
 export const GET_ORDER = "GET_ORDERID";
 export const GET_ORDER_SUCCESS = "GET_ORDERID_SUCCESS";
