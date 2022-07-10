@@ -135,7 +135,7 @@ const BurgerConstructor = () => {
           {finalPrice ? finalPrice : 0}
         </p>
         <div className={styles.currencyBig + " mr-10"}></div>
-        <Button type="primary" size="large" onClick={() => handleOrderButton()}>
+        <Button type="primary" size="large" onClick={() => bun.price && handleOrderButton()}>
           Оформить заказ
         </Button>
       </div>

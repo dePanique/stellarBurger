@@ -3,9 +3,21 @@ import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import { portalContainer } from "./../../utils/constants";
-import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useEffect } from "react";
 
 const Modal = (props) => {
+  useEffect(() => {
+    const quitOnEscape = (e) => {
+      if (e.key === "Escape") props.handle(false);
+    };
+
+    document.addEventListener("keydown", quitOnEscape);
+
+    return () => {
+      document.removeEventListener("keydown", quitOnEscape);
+    };
+  });
 
   return ReactDOM.createPortal(
     <ModalOverlay handle={props.handle}>
