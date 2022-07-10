@@ -7,7 +7,7 @@ import {
 const initialState = {
   request: false,
   failed: false,
-  data: [],
+  data: [0],
 };
 
 export const appStore = (state = initialState, action) => {

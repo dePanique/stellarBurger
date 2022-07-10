@@ -10,7 +10,9 @@ import {
 
 const initialState = {
   data: [],
-  bun: [],
+  bun: {
+    price: 0
+  },
   price: "",
   orderId: "",
   ingredientsId: [],

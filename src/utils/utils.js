@@ -1,5 +1,11 @@
 const dataUrl = "https://norma.nomoreparties.space/api";
 
+const checkResponse = (res) => {
+  if (res.ok) return res.json();
+
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
 function getData() {
   return fetch(`${dataUrl}/ingredients`, {
     headers: {
@@ -7,12 +13,6 @@ function getData() {
       "Content-Type": "application/json",
     },
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => console.log(`Ошибка: ${err}`));
 }
 
 function postOrderId(array) {
@@ -26,12 +26,6 @@ function postOrderId(array) {
       "ingredients": array,
     })
   })
-    .then((res) => {
-      if (res.ok) return res.json();
-
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
-    .catch((err) => console.log(`Ошибка: ${err}`));
 }
 
-export { getData, postOrderId };
+export { getData, postOrderId, checkResponse };

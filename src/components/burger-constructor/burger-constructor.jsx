@@ -9,7 +9,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import Card from "../card/card";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from "../services/actions/order-details";
+import { getOrderNumber } from "../services/actions/order-details";
 import update from "immutability-helper";
 
 const BurgerConstructor = () => {
@@ -38,7 +38,7 @@ const BurgerConstructor = () => {
   const handleOrderButton = async () => {
     // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
     // будет видно как меняется номер заказа
-    await dispatch(getIngredients(ingredientsId));
+    await dispatch(getOrderNumber(ingredientsId));
     setModal(true);
   };
 
@@ -82,13 +82,19 @@ const BurgerConstructor = () => {
       ref={dropTargetBun}
     >
       <div className="topElement ml-8 mb-4" ref={dropTargetBun}>
-        <ConstructorElement
-          type="top"
-          isLocked={true}
-          text={`${bun.name} (верх)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+        {bun.type ? (
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        ) : (
+          <p className={`${styles.notice} text text_type_main-medium`}>
+            Обязательно добавьте булку ;)
+          </p>
+        )}
       </div>
 
       <ul className={styles.components} ref={dropTargetMain}>
@@ -105,18 +111,22 @@ const BurgerConstructor = () => {
       </ul>
 
       <div className=" ml-8 mt-4" ref={dropTargetBun}>
-        <ConstructorElement
-          type="bottom"
-          isLocked={true}
-          text={`${bun.name} (низ)`}
-          price={bun.price}
-          thumbnail={bun.image}
-        />
+        {bun.type ? (
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={bun.price}
+            thumbnail={bun.image}
+          />
+        ) : (
+          false
+        )}
       </div>
 
       <div className={styles.scoreRow + " mt-10 mr-4"}>
         <p className={styles.finalScore + " text text_type_digits-medium"}>
-          {finalPrice}
+          {finalPrice ? finalPrice : 0}
         </p>
         <div className={styles.currencyBig + " mr-10"}></div>
         <Button type="primary" size="large" onClick={() => handleOrderButton()}>
