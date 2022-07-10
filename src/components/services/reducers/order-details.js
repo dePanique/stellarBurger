@@ -1,13 +1,17 @@
-import { GET_ORDER, GET_ORDER_SUCCESS, GET_ORDER_FAILED } from '../actions/order-details'
+import {
+  GET_ORDER,
+  GET_ORDER_SUCCESS,
+  GET_ORDER_FAILED,
+} from "../actions/order-details";
 
 const initialState = {
   request: false,
   failed: false,
-  name: '',
-  number: '',
-}
+  name: "",
+  number: "",
+};
 
-export const orderDetails = (state=initialState, action) => {
+export const orderDetails = (state = initialState, action) => {
   switch (action.type) {
     case GET_ORDER:
       return {
@@ -34,4 +38,4 @@ export const orderDetails = (state=initialState, action) => {
     default:
       return state;
   }
-}
+};

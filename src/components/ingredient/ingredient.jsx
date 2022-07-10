@@ -6,16 +6,17 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
-import { useEffect } from "react";
 
 const Ingredient = ({ element, handle }) => {
   const dispatch = useDispatch();
 
-  const orderData = useSelector(store => store.burgerConstructor.ingredientsId);
-  const quantity = orderData.filter(el => el === element._id).length;
+  const orderData = useSelector(
+    (store) => store.burgerConstructor.ingredientsId
+  );
+  const quantity = orderData.filter((el) => el === element._id).length;
 
   const [, dragRef] = useDrag({
-    type: element.type === 'bun' ? 'bun' : 'main',
+    type: element.type === "bun" ? "bun" : "main",
     item: element,
   });
 
@@ -25,7 +26,7 @@ const Ingredient = ({ element, handle }) => {
       onClick={() => {
         handle(true);
         dispatch({
-          type: 'SET_CURRENTINGREDIENT',
+          type: "SET_CURRENTINGREDIENT",
           payload: element,
         });
       }}

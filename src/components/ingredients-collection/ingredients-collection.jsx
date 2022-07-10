@@ -24,11 +24,7 @@ const IngredientsCollection = ({ setModal, type }) => {
       {data.map(
         (element) =>
           element.type === type && (
-            <Ingredient
-              key={element._id}
-              element={element}
-              handle={setModal}
-            />
+            <Ingredient key={element._id} element={element} handle={setModal} />
           )
       )}
     </React.Fragment>

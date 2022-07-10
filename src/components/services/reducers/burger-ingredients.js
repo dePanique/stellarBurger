@@ -1,10 +1,9 @@
-import { SET_CURRENTINGREDIENT, RESET_CURRENTINGREDIENT } from "../actions/burger-ingredients";
-const initialState = {
-  ingredient: '',
-  ingredientsStore: '',
-}
+import {
+  SET_CURRENTINGREDIENT,
+  RESET_CURRENTINGREDIENT,
+} from "../actions/burger-ingredients";
 
-export const burgerIngredients = (state={}, action) => {
+export const burgerIngredients = (state = {}, action) => {
   switch (action.type) {
     case SET_CURRENTINGREDIENT:
       return {
@@ -13,9 +12,9 @@ export const burgerIngredients = (state={}, action) => {
       };
 
     case RESET_CURRENTINGREDIENT:
-      return initialState;
+      return state;
 
     default:
       return state;
   }
-}
+};

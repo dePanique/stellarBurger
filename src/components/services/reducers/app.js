@@ -1,10 +1,14 @@
-import { GET_INGREDIENTS, GET_INGREDIENTS_SUCCESS, GET_INGREDIENTS_FAILED } from '../actions/app';
+import {
+  GET_INGREDIENTS,
+  GET_INGREDIENTS_SUCCESS,
+  GET_INGREDIENTS_FAILED,
+} from "../actions/app";
 
 const initialState = {
   request: false,
   failed: false,
   data: [],
-}
+};
 
 export const appStore = (state = initialState, action) => {
   switch (action.type) {
@@ -32,4 +36,4 @@ export const appStore = (state = initialState, action) => {
     default:
       return state;
   }
-}
+};

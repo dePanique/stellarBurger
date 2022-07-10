@@ -1,26 +1,39 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDrop } from "react-dnd";
 import styles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
-  DragIcon,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import Card from "../card/card";
 import { useDispatch, useSelector } from "react-redux";
-import { getIngredients } from '../services/actions/order-details';
+import { getIngredients } from "../services/actions/order-details";
+import update from "immutability-helper";
 
 const BurgerConstructor = () => {
-  const { data, bun, finalPrice, ingredientsId } = useSelector(store => store.burgerConstructor);
+  const { data, bun, finalPrice, ingredientsId } = useSelector(
+    (store) => store.burgerConstructor
+  );
   const [modal, setModal] = useState(false);
+  const [constructorData, setConstructorData] = useState([]);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch({
-      type: 'CALC_FULLPRICE',
-    })
+      type: "CALC_FULLPRICE",
+    });
+    setConstructorData(data);
   }, [data, bun]);
+
+  useEffect(() => {
+    dispatch({
+      type: "REFILL_CONSTRUCTOR",
+      payload: constructorData,
+    });
+  }, [constructorData]);
 
   const handleOrderButton = async () => {
     // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
@@ -30,31 +43,44 @@ const BurgerConstructor = () => {
   };
 
   const [, dropTargetBun] = useDrop({
-    accept: 'bun',
+    accept: "bun",
     drop(bun) {
-        dispatch({
-          type: 'ONBUNDROP',
-          payload: bun
-        })
-        console.log(bun)
+      dispatch({
+        type: "ONBUNDROP",
+        payload: bun,
+      });
     },
   });
 
   const [, dropTargetMain] = useDrop({
     accept: "main",
     drop(main) {
-        dispatch({
-          type: "ONMAINDROP",
-          payload : {
-            ...main,
-            listId: main.listId || Math.random().toString(36).slice(2),
-          },
-        })
+      dispatch({
+        type: "ONMAINDROP",
+        payload: {
+          ...main,
+          listId: main.listId || Math.random().toString(36).slice(2),
+        },
+      });
     },
   });
 
+  const moveCard = useCallback((dragIndex, hoverIndex) => {
+    setConstructorData((prevCards) =>
+      update(prevCards, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, prevCards[dragIndex]],
+        ],
+      })
+    );
+  }, []);
+
   return (
-    <section className={styles.burgerConstructor + " ml-5 pl-4 pt-25"} ref={dropTargetBun} >
+    <section
+      className={styles.burgerConstructor + " ml-5 pl-4 pt-25"}
+      ref={dropTargetBun}
+    >
       <div className="topElement ml-8 mb-4" ref={dropTargetBun}>
         <ConstructorElement
           type="top"
@@ -66,25 +92,16 @@ const BurgerConstructor = () => {
       </div>
 
       <ul className={styles.components} ref={dropTargetMain}>
-        {data && data.map((element) => (
-          <li
-            key={element.listId}
-            className={styles.ingredient + " mb-4"}
-          >
-            <DragIcon type="primary" />
-            <ConstructorElement
-              text={element.name}
-              price={element.price}
-              thumbnail={element.image}
-              handleClose={() => {
-                dispatch({
-                  type: 'DELETE_ITEM',
-                  payload: element.listId,
-                })
-              }}
+        {constructorData &&
+          constructorData.map((element, index) => (
+            <Card
+              key={element.listId}
+              index={index}
+              id={element.listId}
+              element={element}
+              moveCard={moveCard}
             />
-          </li>
-        ))}
+          ))}
       </ul>
 
       <div className=" ml-8 mt-4" ref={dropTargetBun}>
@@ -102,11 +119,7 @@ const BurgerConstructor = () => {
           {finalPrice}
         </p>
         <div className={styles.currencyBig + " mr-10"}></div>
-        <Button
-          type="primary"
-          size="large"
-          onClick={() => handleOrderButton()}
-        >
+        <Button type="primary" size="large" onClick={() => handleOrderButton()}>
           Оформить заказ
         </Button>
       </div>
