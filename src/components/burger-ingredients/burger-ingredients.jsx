@@ -47,7 +47,7 @@ const BurgerIngredients = () => {
     }
   };
 
-  const closeWindow = () => {
+  const closeModal = () => {
     dispatch({
       type: RESET_CURRENT_INGREDIENT,
     })
@@ -105,7 +105,7 @@ const BurgerIngredients = () => {
       </div>
 
       {modal && (
-        <Modal handle={closeWindow}>
+        <Modal handle={closeModal}>
           <IngredientDetails />
         </Modal>
       )}
