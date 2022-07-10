@@ -1,7 +1,7 @@
 import {
   SET_BUN,
   CALC_FULLPRICE,
-  SET_ORDERID,
+  SET_ORDER_ID,
   ON_BUN_DROP,
   ON_MAIN_DROP,
   DELETE_ITEM,
@@ -37,7 +37,7 @@ export const burgerConstructor = (state = initialState, action) => {
           .concat([state.bun._id, state.bun._id]),
       };
 
-    case SET_ORDERID:
+    case SET_ORDER_ID:
       return {
         ...state,
         orderId: action.payload,
