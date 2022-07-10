@@ -11,6 +11,12 @@ import Card from "../card/card";
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderNumber } from '../../services/actions/order-details';
 import update from "immutability-helper";
+import {
+  CALC_FULLPRICE,
+  REFILL_CONSTRUCTOR,
+  ON_BUN_DROP,
+  ON_MAIN_DROP,
+} from "../../services/actions/burger-constructor";
 
 const BurgerConstructor = () => {
   const { data, bun, finalPrice, ingredientsId } = useSelector(
@@ -23,14 +29,14 @@ const BurgerConstructor = () => {
 
   useEffect(() => {
     dispatch({
-      type: "CALC_FULLPRICE",
+      type: CALC_FULLPRICE,
     });
     setConstructorData(data);
   }, [data, bun]);
 
   useEffect(() => {
     dispatch({
-      type: "REFILL_CONSTRUCTOR",
+      type: REFILL_CONSTRUCTOR,
       payload: constructorData,
     });
   }, [constructorData]);
@@ -46,7 +52,7 @@ const BurgerConstructor = () => {
     accept: "bun",
     drop(bun) {
       dispatch({
-        type: "ONBUNDROP",
+        type: ON_BUN_DROP,
         payload: bun,
       });
     },
@@ -56,7 +62,7 @@ const BurgerConstructor = () => {
     accept: "main",
     drop(main) {
       dispatch({
-        type: "ONMAINDROP",
+        type: ON_MAIN_DROP,
         payload: {
           ...main,
           listId: main.listId || Math.random().toString(36).slice(2),

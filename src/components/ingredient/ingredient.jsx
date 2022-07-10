@@ -6,6 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
+import { SET_CURRENTINGREDIENT } from '../../services/actions/burger-ingredients'
 
 const Ingredient = ({ element, handle }) => {
   const dispatch = useDispatch();
@@ -26,7 +27,7 @@ const Ingredient = ({ element, handle }) => {
       onClick={() => {
         handle(true);
         dispatch({
-          type: "SET_CURRENTINGREDIENT",
+          type: SET_CURRENTINGREDIENT,
           payload: element,
         });
       }}

@@ -2,8 +2,8 @@ import {
   SET_BUN,
   CALC_FULLPRICE,
   SET_ORDERID,
-  ONBUNDROP,
-  ONMAINDROP,
+  ON_BUN_DROP,
+  ON_MAIN_DROP,
   DELETE_ITEM,
   REFILL_CONSTRUCTOR,
 } from "../actions/burger-constructor";
@@ -43,14 +43,14 @@ export const burgerConstructor = (state = initialState, action) => {
         orderId: action.payload,
       };
 
-    case ONBUNDROP: {
+    case ON_BUN_DROP: {
       return {
         ...state,
         bun: action.payload,
       };
     }
 
-    case ONMAINDROP: {
+    case ON_MAIN_DROP: {
       return {
         ...state,
         data: [...state.data, action.payload],

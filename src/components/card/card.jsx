@@ -6,6 +6,7 @@ import {
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import { useRef } from "react";
+import { DELETE_ITEM } from '../../services/actions/burger-constructor'
 
 const Card = ({ element, id, moveCard, index }) => {
   const dispatch = useDispatch();
@@ -85,7 +86,7 @@ const Card = ({ element, id, moveCard, index }) => {
         thumbnail={element.image}
         handleClose={() => {
           dispatch({
-            type: "DELETE_ITEM",
+            type: DELETE_ITEM,
             payload: element.listId,
           });
         }}
