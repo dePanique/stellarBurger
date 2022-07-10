@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styles from "./order-details.module.css";
 import { useSelector } from "react-redux";
 
@@ -28,10 +27,6 @@ const OrderDetails = () => {
       </p>
     </React.Fragment>
   );
-};
-
-OrderDetails.propTypes = {
-  orderId: PropTypes.number.isRequired,
 };
 
 export default OrderDetails;
