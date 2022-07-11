@@ -2,14 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import Ingredient from "../ingredient/ingredient";
 import styles from "./ingredients-collection.module.css";
-import { dataTemplate } from "../../utils/constants";
+import { useSelector } from "react-redux";
 
-const IngredientsCollection = ({ setIngredient, setModal, type, data }) => {
+const IngredientsCollection = ({ setModal, type }) => {
   const ingredientType = {
     bun: "Булки",
     sauce: "Соусы",
     main: "Начинки",
   };
+
+  const { data } = useSelector((store) => store.appStore);
+
   return (
     <React.Fragment>
       <p
@@ -21,12 +24,7 @@ const IngredientsCollection = ({ setIngredient, setModal, type, data }) => {
       {data.map(
         (element) =>
           element.type === type && (
-            <Ingredient
-              key={element._id}
-              element={element}
-              setIngredient={setIngredient}
-              handle={setModal}
-            />
+            <Ingredient key={element._id} element={element} handle={setModal} />
           )
       )}
     </React.Fragment>
@@ -34,10 +32,8 @@ const IngredientsCollection = ({ setIngredient, setModal, type, data }) => {
 };
 
 IngredientsCollection.propTypes = {
-  setIngredient: PropTypes.func.isRequired,
   setModal: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(dataTemplate.isRequired).isRequired,
 };
 
 export default IngredientsCollection;

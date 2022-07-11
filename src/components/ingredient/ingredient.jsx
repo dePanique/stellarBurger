@@ -4,17 +4,36 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
+import { useDrag } from "react-dnd";
+import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients'
 
-const Ingredient = ({ element, handle, setIngredient }) => {
+const Ingredient = ({ element, handle }) => {
+  const dispatch = useDispatch();
+
+  const orderData = useSelector(
+    (store) => store.burgerConstructor.ingredientsId
+  );
+  const quantity = orderData.filter((el) => el === element._id).length;
+
+  const [, dragRef] = useDrag({
+    type: element.type === "bun" ? "bun" : "main",
+    item: element,
+  });
+
   return (
     <div
       className={styles.box + " ml-4 mr-2 mt-6"}
       onClick={() => {
         handle(true);
-        setIngredient(element);
+        dispatch({
+          type: SET_CURRENT_INGREDIENT,
+          payload: element,
+        });
       }}
+      ref={dragRef}
     >
-      <Counter count={1} size="default" />
+      <Counter count={quantity} size="default" />
       <img className="pl-4 pr-4 mb-1" src={element.image} alt="#" />
       <p className="text text_type_digits-default mr-2">{element.price}</p>
       <CurrencyIcon type="primary" />
@@ -32,7 +51,6 @@ Ingredient.propTypes = {
     name: PropTypes.string.isRequired,
   }).isRequired,
   handle: PropTypes.func.isRequired,
-  setIngredient: PropTypes.func.isRequired,
 };
 
 export default Ingredient;

@@ -42,3 +42,9 @@
   justify-content: flex-end;
   align-items: center;
 }
+
+.notice {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}

@@ -1,9 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import styles from "./ingredient-details.module.css";
-import { dataTemplateObject } from "../../utils/constants";
+import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ data }) => {
+const IngredientDetails = () => {
+  const data = useSelector((store) => store.burgerIngredients.ingredient);
+
   return (
     <React.Fragment>
       <h3
@@ -57,7 +58,7 @@ const IngredientDetails = ({ data }) => {
             {data.fat}
           </p>
         </li>
-        
+
         <li className={styles.nutrientBlock + " ml-5"}>
           <p className={styles.nutrientType + " text text_type_main-default"}>
             Углеводы, г
@@ -71,13 +72,6 @@ const IngredientDetails = ({ data }) => {
       </ul>
     </React.Fragment>
   );
-};
-
-IngredientDetails.propTypes = {
-  data: PropTypes.oneOfType([
-    PropTypes.bool.isRequired,
-    PropTypes.shape(dataTemplateObject.isRequired).isRequired,
-  ]).isRequired,
 };
 
 export default IngredientDetails;
