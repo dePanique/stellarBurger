@@ -1,19 +1,18 @@
 import React from "react";
-import styles from "./app.module.css";
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
-import Main from "../main/main";
 import { HomePage } from "../../pages"
 
-function App() {
+export default function App() {
 
   return (
-    <div className={styles.app}>
+    <Router>
       <AppHeader />
-      <Main>
-        <HomePage />
-      </Main>
-    </div>
+      <Switch>
+        <Route path="/" exact={true}>
+          <HomePage />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
-
-export default App;
