@@ -19,14 +19,13 @@ export const LoginPage = () => {
   return (
     <Main>
       <div className={styles.column}>
-        <h1 className={styles.title + ` mb-6 text text_type_main-medium text_color_active`}>Вход</h1>
+        <h1 className={styles.title + ` mb-6 text text_type_main-medium`}>Вход</h1>
 
         <form className={styles.form + ` mb-20`} action="submit">
           <EmailInput
             onChange={onEmailInputValueChange}
             value={emailValue}
             name={'email'}
-            placeholder={'0'}
           />
 
           <PasswordInput
