@@ -1,12 +1,13 @@
 import { useState, useCallback } from "react";
 import { Link, useHistory } from 'react-router-dom';
-import Main from "../components/main/main";
-import styles from "./login-page.module.css";
-import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import Main from "../components/main/main"
+import styles from "./register.module.css"
+import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const LoginPage = () => {
+export const RegisterPage = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passValue, setPassValue] = useState('');
+  const [nameValue, setNameValue] = useState('');
 
   const history = useHistory();
 
@@ -24,12 +25,24 @@ export const LoginPage = () => {
     setPassValue(e.target.value);
   };
 
+  const onNameInputValueChange = e => {
+    setNameValue(e.target.value);
+  };
+
   return (
     <Main>
       <div className={styles.column}>
-        <h1 className={styles.title + ` mb-6 text text_type_main-medium`}>Вход</h1>
+        <h1 className={styles.title + ` mb-6 text text_type_main-medium`}>Регистрация</h1>
 
         <form className={styles.form + ` mb-20`} action="submit">
+          <Input
+            onChange={onNameInputValueChange}
+            type={'text'}
+            placeholder={'Имя'}
+            value={nameValue}
+            name={'userName'}
+          />
+
           <EmailInput
             onChange={onEmailInputValueChange}
             value={emailValue}
@@ -48,28 +61,18 @@ export const LoginPage = () => {
               size='medium'
               onClick={onButtonClick}
             >
-              Вход
+              Зарегистрироваться
             </Button>
           </div>
         </form>
 
         <p className="text text_type_main-default text_color_inactive">
-          Вы — новый пользователь?
+          Уже зарегистрированы?
           <Link
             className={styles.link}
-            to='/register'
+            to='/login'
           >
-            {' Зарегистрироваться'}
-          </Link>
-        </p>
-
-        <p className="text text_type_main-default text_color_inactive">
-          Забыли пароль?
-          <Link
-            className={styles.link}
-            to='/forgot-password'
-          >
-            {' Восстановить пароль'}
+            {' Войти'}
           </Link>
         </p>
       </div>
