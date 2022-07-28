@@ -1,0 +1,33 @@
+.title {
+  padding: 0;
+  text-align: center;
+}
+
+.column {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 180px;
+}
+
+.form {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 232px;
+}
+
+.button {
+  width: 128px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.link {
+  color: #4C4CFF;
+  text-decoration: none;
+}
