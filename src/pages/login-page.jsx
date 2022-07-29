@@ -2,7 +2,7 @@ import { useState, useCallback } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
 import styles from "./login-page.module.css";
-import { EmailInput, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 
 export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -30,17 +30,21 @@ export const LoginPage = () => {
         <h1 className={styles.title + ` mb-6 text text_type_main-medium`}>Вход</h1>
 
         <form className={styles.form + ` mb-20`} action="submit">
-          <EmailInput
-            onChange={onEmailInputValueChange}
-            value={emailValue}
-            name={'email'}
-          />
+          <fieldset className={styles.inputColumn}>
+              <Input
+                onChange={onEmailInputValueChange}
+                value={emailValue}
+                name={'email'}
+                placeholder='E-mail'
+              />
 
-          <PasswordInput
-            onChange={onPassInputValueChange}
-            value={passValue}
-            name={'password'}
-          />
+              <PasswordInput
+                onChange={onPassInputValueChange}
+                value={passValue}
+                name={'password'}
+                icon='ShowIcon'
+              />
+          </fieldset>
 
           <div className={styles.button}>
             <Button

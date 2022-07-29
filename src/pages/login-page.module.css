@@ -31,3 +31,19 @@
   color: #4C4CFF;
   text-decoration: none;
 }
+
+.inputColumn {
+  border: none;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0;
+  margin: 0;
+  gap: 24px;
+}
+
+.inputColumn > div > div {
+  width: 480px;
+}

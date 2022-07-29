@@ -17,3 +17,7 @@ root.render(
     <App />
   </Provider>
 );
+
+if (module.hot) {
+  module.hot.accept();
+}
