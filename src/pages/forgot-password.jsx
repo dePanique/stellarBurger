@@ -3,15 +3,38 @@ import { useHistory, Link } from "react-router-dom";
 import Main from "../components/main/main";
 import styles from "./forgot-password.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { requestEmailPassReset, checkResponse } from './../utils/utils';
 
 export const ForgotPassword = () => {
+
   const [emailValue, setEmailValue] = useState('');
+  const [inputPlaceholder, setInputPlaceholder] = useState('Укажите e-mail');
 
   const history = useHistory();
 
   const onButtonClick = useCallback(
-    () => {
-      history.replace({ pathname: '/' })
+    async (e) => {
+      e.preventDefault();
+
+      //TODO запрос всегда присылает success: true
+      await requestEmailPassReset(emailValue)
+        .then((res) => {
+          return checkResponse(res)
+        })
+        .catch((err) => {
+          console.log(`checkResponse в requestEmailPassReset вернул ошибку ${err}`)
+        })
+        .then((res) => {
+
+          if (res.success) {
+            history.replace({ pathname: '/reset-password' })
+          } else {
+            setInputPlaceholder('E-mail не обнаружен, повторите попытку')
+          }
+        })
+        .catch((err) => {
+          console.log(`в requestEmailPassReset ошибка ${err}`);
+        });
     }, [history]
   )
 
@@ -31,7 +54,7 @@ export const ForgotPassword = () => {
               onChange={onEmailInputValueChange}
               value={emailValue}
               name={'email'}
-              placeholder='Укажите e-mail'
+              placeholder={inputPlaceholder}
             />
           </div>
 

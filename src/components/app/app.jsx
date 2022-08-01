@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
-import { HomePage, LoginPage, RegisterPage, ForgotPassword, ResetPassword } from "../../pages"
+import { HomePage, LoginPage, RegisterPage, ForgotPassword, ResetPassword } from "../../pages";
 
 export default function App() {
 

@@ -3,6 +3,7 @@ import { useState, useCallback } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { applyNewPass, checkResponse } from "./../utils/utils"
 
 export const ResetPassword = () => {
   const [newPassValue, setNewPassValue] = useState('');
@@ -11,7 +12,24 @@ export const ResetPassword = () => {
   const history = useHistory();
 
   const onButtonClick = useCallback(
-    () => {
+    (e) => {
+      e.preventDefault();
+
+      //TODO нужен ответ из email
+      applyNewPass()
+      .then((res) => {
+        return checkResponse(res)
+      })
+      .catch((err) => {
+        console.log(`ошибка checkResponse в ResetPassword ${err}`);
+      })
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((err) => {
+        console.log(`ошибка onButtonClick ${err}`);
+      })
+
       history.replace({ pathname: '/' })
     }, [history]
   )
