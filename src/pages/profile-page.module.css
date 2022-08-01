@@ -1,0 +1,38 @@
+.editFrame {
+  width: 860px;
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  margin-top: 120px;
+  margin-left: 340px;
+}
+
+.linksColumn {
+  display: flex;
+  flex-direction: column;
+}
+
+.inputsColumn {
+  width: 480px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 240px;
+}
+
+.input > div > div {
+  width: 480px;
+}
+
+.link {
+  width: 320px;
+  line-height: 64px;
+  text-decoration: none;
+}
+
+.notice {
+  opacity: .4;
+  margin: 0;
+  padding: 0;
+}

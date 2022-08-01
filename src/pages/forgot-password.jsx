@@ -25,7 +25,6 @@ export const ForgotPassword = () => {
           console.log(`checkResponse в requestEmailPassReset вернул ошибку ${err}`)
         })
         .then((res) => {
-
           if (res.success) {
             history.replace({ pathname: '/reset-password' })
           } else {
