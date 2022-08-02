@@ -16,7 +16,6 @@ export const ForgotPassword = () => {
     async (e) => {
       e.preventDefault();
 
-      //TODO запрос всегда присылает success: true
       await requestEmailPassReset(emailValue)
         .then((res) => {
           return checkResponse(res)
@@ -34,7 +33,7 @@ export const ForgotPassword = () => {
         .catch((err) => {
           console.log(`в requestEmailPassReset ошибка ${err}`);
         });
-    }, [history]
+    }, [emailValue, history]
   )
 
   const onEmailInputValueChange = e => {

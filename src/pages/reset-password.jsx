@@ -15,23 +15,15 @@ export const ResetPassword = () => {
     (e) => {
       e.preventDefault();
 
-      //TODO нужен ответ из email
-      applyNewPass()
+      applyNewPass(newPassValue, confirmPassValue)
       .then((res) => {
         return checkResponse(res)
       })
       .catch((err) => {
         console.log(`ошибка checkResponse в ResetPassword ${err}`);
       })
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((err) => {
-        console.log(`ошибка onButtonClick ${err}`);
-      })
-
       history.replace({ pathname: '/' })
-    }, [history]
+    }, [history, newPassValue, confirmPassValue]
   )
   const onNewPassValueChange = e => {
     setNewPassValue(e.target.value);
@@ -40,6 +32,7 @@ export const ResetPassword = () => {
   const onConfirmPassValueChange = e => {
     setConfirmPassValue(e.target.value);
   };
+
   return (
     <Main>
       <div className={styles.column}>

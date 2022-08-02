@@ -36,12 +36,11 @@ function requestEmailPassReset(email) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "email": email
+      "email": `${email}`
     })
   })
 }
 
-//TODO нужен ответ из email
 function applyNewPass(pass, token) {
   return fetch(`${dataUrl}/password-reset/reset`, {
     method: 'POST',
@@ -50,25 +49,25 @@ function applyNewPass(pass, token) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(  {
-      "password": "",
-      "token": ""
+      "password": pass,
+      "token": token
     })
   })
 }
 
-// function createAccount() {
-//   return fetch(`${dataUrl}/auth/register`, {
-//     method: 'POST',
-//     headers: {
-//       baseURL: dataUrl,
-//       "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify({
-//       "email": "testpanique@yandex.ru",
-//       "password": "pass",
-//       "name": "Panique"
-//     })
-//   })
-// }
+function createAccount() {
+  return fetch(`${dataUrl}/auth/register`, {
+    method: 'POST',
+    headers: {
+      baseURL: dataUrl,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "email": "de.simpl@yandex.ru",
+      "password": "simpl62",
+      "name": "Paniq"
+    })
+  })
+}
 
-export { getData, postOrderId, checkResponse, requestEmailPassReset, applyNewPass };
+export { getData, postOrderId, checkResponse, requestEmailPassReset, applyNewPass, createAccount };
