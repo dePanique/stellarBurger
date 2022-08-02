@@ -19,3 +19,7 @@
   margin-left: 112px;
   list-style-type: none;
 }
+
+.link:nth-child(1) {
+  gap: 8px;
+}

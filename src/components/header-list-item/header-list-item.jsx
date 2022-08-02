@@ -1,12 +1,24 @@
 import PropTypes from "prop-types";
 import styles from "./header-list-item.module.css";
+import { Link } from "react-router-dom";
 
 const HeaderListItem = ({ ...props }) => {
+  const links = {
+    "Конструктор": "/",
+    "Лента заказов": "#",
+    "Личный кабинет": "/profile",
+  }
+
   return props.logo ? (
-    <li className={styles.logo}>
-      <a href={props.href || "#"} className={styles.link}>
+    <li
+      className={styles.logo}
+      onClick={() => props.setIsActive()}
+    >
+      <Link
+        to={{ pathname: "/" }}
+        className={styles.link}>
         {props.logo}
-      </a>
+      </Link>
     </li>
   ) : (
     <li
@@ -15,18 +27,21 @@ const HeaderListItem = ({ ...props }) => {
         " pl-5 pt-4 pr-5 pb-4" +
         (props.itemStyle ? props.itemStyle : "")
       }
+      onClick={() => props.setIsActive()}
     >
-      <a href={props.href || "#"} className={styles.link + " ml-2 "}>
+      <Link
+        to={{ pathname: `${links[props.spanText]}` }}
+        className={
+          props.isActive ? (
+            styles.link + ' text_type_main-default text text_color_primary'
+          ) : (
+            styles.link + ' text_type_main-default text text_color_inactive'
+          )
+        }
+      >
         {props.icon}
-        <span
-          className={
-            ((props.isActive && " text_color_primary ") ||
-              "text_color_inactive ") + " ml-2 text text_type_main-default"
-          }
-        >
-          {props.spanText}
-        </span>
-      </a>
+        {props.spanText}
+      </Link>
     </li>
   );
 };
@@ -38,8 +53,10 @@ HeaderListItem.propTypes = {
   ]),
   icon: PropTypes.element,
   isActive: PropTypes.bool.isRequired,
+  setIsActive: PropTypes.func,
   spanText: PropTypes.string.isRequired,
   itemStyle: PropTypes.string,
+  href: PropTypes.string,
 };
 
 export default HeaderListItem;
