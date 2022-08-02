@@ -10,6 +10,8 @@
 .linksColumn {
   display: flex;
   flex-direction: column;
+  margin: 0;
+  padding: 0;
 }
 
 .inputsColumn {
@@ -33,6 +35,12 @@
 
 .notice {
   opacity: .4;
-  margin: 0;
-  padding: 0;
+}
+
+.listElement {
+  list-style-type: none;
+}
+
+.colorPrimary {
+  color: inherit;
 }

@@ -3,6 +3,10 @@
   border-radius: 40px;
 }
 
+.element:nth-of-type(2) {
+  color: inherit;
+}
+
 .element:nth-of-type(4) {
   margin-left: auto;
 }
@@ -22,4 +26,8 @@
 
 .link:nth-child(1) {
   gap: 8px;
+}
+
+.textPrimary {
+  color: inherit;
 }

@@ -1,47 +1,63 @@
 import PropTypes from "prop-types";
 import styles from "./header-list-item.module.css";
-import { Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react";
+import {
+  Logo,
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const HeaderListItem = ({ ...props }) => {
+  const { pathname } = useLocation();
+
   const links = {
-    "Конструктор": "/",
-    "Лента заказов": "#",
-    "Личный кабинет": "/profile",
+    "Конструктор": ["/", {
+      primary: <BurgerIcon type="primary"/>,
+      secondary: <BurgerIcon type="secondary"/>
+    }],
+    "Лента заказов": ["#", {
+      primary: <ListIcon type="primary"/>,
+      secondary: <ListIcon type="secondary"/>
+    }],
+    "Личный кабинет": ["/profile", {
+      primary: <ProfileIcon type="primary"/>,
+      secondary: <ProfileIcon type="secondary"/>
+    }],
+    "Лого": ["/", <Logo/>],
   }
+
+  const linkPath = links[props.spanText][0];
+  let itemIcon = links[props.spanText][1];
+
+  useEffect(() => {
+
+  }, [pathname])
 
   return props.logo ? (
     <li
-      className={styles.logo}
-      onClick={() => props.setIsActive()}
+      className={styles.link}
     >
       <Link
         to={{ pathname: "/" }}
-        className={styles.link}>
-        {props.logo}
+        className={styles.logo}
+      >
+        {<Logo/>}
       </Link>
     </li>
   ) : (
     <li
-      className={
-        styles.element +
-        " pl-5 pt-4 pr-5 pb-4" +
-        (props.itemStyle ? props.itemStyle : "")
-      }
-      onClick={() => props.setIsActive()}
+      className={styles.element + " pl-5 pt-4 pr-5 pb-4 mt-4 mb-4"}
     >
-      <Link
-        to={{ pathname: `${links[props.spanText]}` }}
-        className={
-          props.isActive ? (
-            styles.link + ' text_type_main-default text text_color_primary'
-          ) : (
-            styles.link + ' text_type_main-default text text_color_inactive'
-          )
-        }
+      <NavLink
+        exact to={{ pathname: linkPath }}
+        className={styles.link + ' text text_type_main-default' + (pathname === linkPath ? '':' text_color_inactive')}
+        activeClassName={' text_color_primary'}
       >
-        {props.icon}
+        {pathname === linkPath ? itemIcon.primary : itemIcon.secondary }
         {props.spanText}
-      </Link>
+      </NavLink>
     </li>
   );
 };
@@ -51,9 +67,6 @@ HeaderListItem.propTypes = {
     PropTypes.element.isRequired,
     PropTypes.bool.isRequired,
   ]),
-  icon: PropTypes.element,
-  isActive: PropTypes.bool.isRequired,
-  setIsActive: PropTypes.func,
   spanText: PropTypes.string.isRequired,
   itemStyle: PropTypes.string,
   href: PropTypes.string,
