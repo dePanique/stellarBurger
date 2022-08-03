@@ -84,6 +84,19 @@ function logIn(email, pass) {
   })
 }
 
+function updateAccessToken(refreshToken) {
+  return fetch(`${dataUrl}/auth/token`, {
+    method: 'POST',
+    headers: {
+      baseURL: dataUrl,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "token": refreshToken,
+    })
+  })
+}
+
 export {
   getData,
   postOrderId,
@@ -92,4 +105,5 @@ export {
   applyNewPass,
   createAccount,
   logIn,
+  updateAccessToken,
 };

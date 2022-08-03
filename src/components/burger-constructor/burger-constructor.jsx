@@ -32,7 +32,6 @@ const BurgerConstructor = () => {
       type: CALC_FULLPRICE,
     });
     setConstructorData(data);
-    console.log(localStorage.getItem('refreshToken'));
   }, [data, bun]);
 
   useEffect(() => {

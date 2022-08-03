@@ -4,13 +4,13 @@ import Main from "../components/main/main";
 import styles from "./login-page.module.css";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
-import { logInEnch } from "../services/actions/log-in";
+import { logInEnch, updateAccessTokenEnch } from "../services/actions/log-in";
 
 export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passValue, setPassValue] = useState('');
 
-  const { success } = useSelector(store => store.logInStore);
+  const { success, refreshToken, accessToken } = useSelector(store => store.logInStore);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -19,14 +19,20 @@ export const LoginPage = () => {
       e.preventDefault();
       dispatch(logInEnch(emailValue, passValue));
     }, [history, emailValue, passValue]
-  )
+  );
 
   useEffect(() => {
+    let refreshTimer;
     if (success) {
       history.replace({ pathname: '/' })
+      refreshTimer = setTimeout(function callIt() {
+        dispatch(updateAccessTokenEnch(refreshToken))
+        setTimeout(callIt, 15000)
+      }, 15000);
     } else {
+      clearTimeout(refreshTimer);
     }
-  }, [success]);
+  }, [accessToken]);
 
   const onEmailInputValueChange = e => {
     setEmailValue(e.target.value);
