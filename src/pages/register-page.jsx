@@ -17,22 +17,21 @@ export const RegisterPage = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const {success} = useSelector((store) => store.profileStore)
+  const {success} = useSelector((store) => store.signInStore);
 
   const onButtonClick = useCallback(
     async (e) => {
       e.preventDefault()
-      await dispatch(signIn(emailValue, passValue, nameValue))
+      dispatch(signIn(emailValue, passValue, nameValue))
     }, [history, emailValue, passValue, nameValue]
-  )
+  );
 
   useEffect(() => {
     if (success) {
-      history.replace({ pathname: '/' })
+      history.replace({ pathname: '/' });
     } else {
-      setEmailValue('smthn went wrng =(')
     }
-  }, [success])
+  }, [success]);
 
   const onEmailInputValueChange = e => {
     setEmailValue(e.target.value);

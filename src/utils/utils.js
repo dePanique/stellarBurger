@@ -70,4 +70,26 @@ function createAccount(email, pass, name) {
   })
 }
 
-export { getData, postOrderId, checkResponse, requestEmailPassReset, applyNewPass, createAccount };
+function logIn(email, pass) {
+  return fetch(`${dataUrl}/auth/login`, {
+    method: 'POST',
+    headers: {
+      baseURL: dataUrl,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "email": email,
+      "password": pass,
+    })
+  })
+}
+
+export {
+  getData,
+  postOrderId,
+  checkResponse,
+  requestEmailPassReset,
+  applyNewPass,
+  createAccount,
+  logIn,
+};

@@ -6,17 +6,11 @@ import {
 
 const initialState = {
   success: false,
-  user: {
-    email: '',
-    name: '',
-  },
-  accessToken: '',
-  refreshToken: '',
   request: false,
   failed: false,
 }
 
-export const profileStore = (state = initialState, action) => {
+export const signInStore = (state = initialState, action) => {
 
   switch (action.type) {
 
@@ -32,17 +26,11 @@ export const profileStore = (state = initialState, action) => {
       return {
         request: false,
         success: action.payload.success,
-        user: {
-          email: action.payload.user.email,
-          name: action.payload.user.name,
-        },
-        accessToken: action.payload.accessToken,
-        refreshToken: action.payload.refreshToken,
         failed: false,
       };
 
     case SIGN_IN_FAILED:
-      
+
       return {
         ...initialState,
         failed: true,
