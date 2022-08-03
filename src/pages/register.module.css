@@ -31,3 +31,7 @@
   color: #4C4CFF;
   text-decoration: none;
 }
+
+.form > div > div {
+  width: 480px;
+}

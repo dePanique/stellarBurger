@@ -1,32 +1,40 @@
+import styles from "./app-header.module.css";
 import { useState } from "react";
 import HeaderListItem from "../header-list-item/header-list-item";
-import styles from "./app-header.module.css";
 
 const AppHeader = () => {
   return (
     <header className={styles.header}>
       <nav>
-        <ul className={styles.row + " pt-4 pb-4 text_color_primary "}>
-          <HeaderListItem
-            spanText="Конструктор"
-            href="/"
-          />
+        <ul className={styles.row + " pt-4 pb-4 "}>
 
-          <HeaderListItem
-            spanText="Лента заказов"
-            href="#"
-          />
+          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 "}>
+            <HeaderListItem
+              spanText="Конструктор"
+              href="/"
+            />
+          </li>
 
-          <HeaderListItem
-            logo
-            spanText="Лого"
-          />
+          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 "}>
+            <HeaderListItem
+              spanText="Лента заказов"
+              href="#"
+            />
+          </li>
 
-          <HeaderListItem
-            spanText="Личный кабинет"
-            href="/profile"
+          <li className={styles.link}>
+            <HeaderListItem
+              logo
+              spanText="Лого"
+            />
+          </li>
 
-          />
+          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 "}>
+            <HeaderListItem
+              spanText="Личный кабинет"
+              href="/profile"
+            />
+          </li>
         </ul>
       </nav>
     </header>

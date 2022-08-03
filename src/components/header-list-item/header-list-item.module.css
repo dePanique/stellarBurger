@@ -3,6 +3,10 @@
   border-radius: 40px;
 }
 
+.link:nth-child(1) {
+  gap: 8px;
+}
+
 .element:nth-of-type(2) {
   color: inherit;
 }
@@ -22,12 +26,4 @@
 .logo {
   margin-left: 112px;
   list-style-type: none;
-}
-
-.link:nth-child(1) {
-  gap: 8px;
-}
-
-.textPrimary {
-  color: inherit;
 }

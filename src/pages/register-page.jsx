@@ -1,21 +1,38 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main"
 import styles from "./register.module.css"
-import { EmailInput, PasswordInput, Button, Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  EmailInput,
+  PasswordInput,
+  Button, Input
+} from "@ya.praktikum/react-developer-burger-ui-components";
+import { signIn } from "../services/actions/profileInfo";
 
 export const RegisterPage = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passValue, setPassValue] = useState('');
   const [nameValue, setNameValue] = useState('');
 
+  const dispatch = useDispatch();
   const history = useHistory();
+  const {success} = useSelector((store) => store.profileStore)
 
   const onButtonClick = useCallback(
-    () => {
-      history.replace({ pathname: '/' })
-    }, [history]
+    async (e) => {
+      e.preventDefault()
+      await dispatch(signIn(emailValue, passValue, nameValue))
+    }, [history, emailValue, passValue, nameValue]
   )
+
+  useEffect(() => {
+    if (success) {
+      history.replace({ pathname: '/' })
+    } else {
+      setEmailValue('smthn went wrng =(')
+    }
+  }, [success])
 
   const onEmailInputValueChange = e => {
     setEmailValue(e.target.value);

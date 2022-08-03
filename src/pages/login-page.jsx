@@ -3,11 +3,13 @@ import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
 import styles from "./login-page.module.css";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch } from "react-redux";
 
 export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passValue, setPassValue] = useState('');
 
+  const dispatch = useDispatch();
   const history = useHistory();
 
   const onButtonClick = useCallback(

@@ -55,7 +55,7 @@ function applyNewPass(pass, token) {
   })
 }
 
-function createAccount() {
+function createAccount(email, pass, name) {
   return fetch(`${dataUrl}/auth/register`, {
     method: 'POST',
     headers: {
@@ -63,9 +63,9 @@ function createAccount() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "email": "de.simpl@yandex.ru",
-      "password": "simpl62",
-      "name": "Paniq"
+      "email": email,
+      "password": pass,
+      "name": name,
     })
   })
 }

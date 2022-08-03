@@ -24,35 +24,35 @@ export const ProfilePage = () => {
       <div className={styles.linksColumn}>
         <nav className="mb-20">
           <ul className={styles.linksColumn + ` text_color_primary `}>
-            <NavLink
-              exact to={{ pathname: '/profile' }}
-              className={styles.link + ' text text_type_main-medium text_color_inactive '}
-              activeClassName={styles.colorPrimary}
-            >
-              <li className={styles.listElement}>
+            <li className={styles.listElement}>
+              <NavLink
+                exact to={{ pathname: '/profile' }}
+                className={styles.link + ' text text_type_main-medium text_color_inactive '}
+                activeClassName={styles.colorPrimary}
+              >
                 {'Профиль'}
-              </li>
-            </NavLink>
+              </NavLink>
+            </li>
 
-            <NavLink
-              exact to='/profile/orders'
-              className={styles.link + ' text text_type_main-medium text_color_inactive '}
-              activeClassName={styles.colorPrimary}
-            >
-              <li className={styles.listElement}>
+            <li className={styles.listElement}>
+              <NavLink
+                exact to='/profile/orders'
+                className={styles.link + ' text text_type_main-medium text_color_inactive '}
+                activeClassName={styles.colorPrimary}
+              >
                 {'История заказов'}
-              </li>
-            </NavLink>
+              </NavLink>
+            </li>
 
-            <NavLink
-              exact to='/'
-              className={styles.link + ' text text_type_main-medium text_color_inactive '}
-              activeClassName={styles.colorPrimary}
-            >
-              <li className={styles.listElement}>
+            <li className={styles.listElement}>
+              <NavLink
+                exact to='/'
+                className={styles.link + ' text text_type_main-medium text_color_inactive '}
+                activeClassName={styles.colorPrimary}
+              >
                 {'Выход'}
-              </li>
-            </NavLink>
+              </NavLink>
+            </li>
           </ul>
         </nav>
 
