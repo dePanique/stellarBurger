@@ -12,7 +12,6 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const isDataAvailable = useSelector((store) => store.appStore.success);
 
-  console.log(localStorage.getItem('refreshToken'));
 
   useEffect(() => {
     dispatch(getIngredients());

@@ -20,7 +20,7 @@
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  height: 240px;
+  height: 320px;
 }
 
 .input > div > div {
@@ -43,4 +43,26 @@
 
 .colorPrimary {
   color: inherit;
+}
+
+.buttonRow {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.buttonConfirm {
+  width: 167px;
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+
+.buttonCancel {
+  margin-right: 20px;
+}
+
+.buttonCancel > button {
+  padding: 16px 8px;
 }

@@ -1,3 +1,5 @@
+import { getCookie } from './cookies';
+
 const dataUrl = "https://norma.nomoreparties.space/api";
 
 const checkResponse = (res) => {
@@ -110,6 +112,35 @@ function logOut(refreshToken) {
   })
 }
 
+function editUserInfo(token, name, login, pass) {
+
+  return fetch(`${dataUrl}/auth/user`, {
+    method: 'PATCH',
+    headers: {
+      baseURL: dataUrl,
+      "Content-Type": "application/json",
+      authorization: `${token}`,
+    },
+    body: JSON.stringify({
+      "name": name,
+      "login": login,
+      "password": pass,
+    })
+  })
+}
+
+async function getUserInfo() {
+
+  const token = getCookie('accessToken');
+  return await fetch(`${dataUrl}/auth/user`, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      authorization: `Barear ${token}`,
+    },
+  })
+}
+
 export {
   getData,
   postOrderId,
@@ -120,4 +151,6 @@ export {
   logIn,
   updateAccessToken,
   logOut,
+  editUserInfo,
+  getUserInfo,
 };

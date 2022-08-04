@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import styles from "./profile-page.module.css";
-import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutEnch } from "../services/actions/profile-page";
+import { getUserInfoEnch } from "../services/actions/profile-page";
 
 
 export const ProfilePage = () => {
@@ -11,8 +12,8 @@ export const ProfilePage = () => {
   const [nameValue, setNameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const dispatch = useDispatch();
-  const { success } = useSelector(store => store.logInStore);
-
+  const history = useHistory();
+  const { success, accessToken } = useSelector(store => store.logInStore);
 
   const onEmailChange = e => {
     setEmailValue(e.target.value);
@@ -31,13 +32,18 @@ export const ProfilePage = () => {
     dispatch(logOutEnch(localStorage.getItem('refreshToken')));
   };
 
-  useEffect(() => {
-    if (success) {
+  const cancel = (e) => {
+    e.preventDefault();
+  }
 
+  useEffect(() => {
+    if (!success) {
+      console.log(success);
+      history.replace({ pathname: '/' });
     } else {
-      //history.replace({ pathname: '/' });
+      dispatch(getUserInfoEnch());
     }
-  }, [success])
+  }, [])
 
   return (
     <div className={styles.editFrame}>
@@ -82,7 +88,7 @@ export const ProfilePage = () => {
         </p>
       </div>
 
-      <div className={styles.inputsColumn + ` ml-15 mb-20`} action="submit">
+      <form className={styles.inputsColumn + ` ml-15`} action="submit">
         <div className={styles.input}>
           <Input
             onChange={onEmailChange}
@@ -112,7 +118,27 @@ export const ProfilePage = () => {
             icon='EditIcon'
           />
         </div>
-      </div>
+        <div className={styles.buttonRow}>
+          <div className={styles.buttonCancel}>
+            <Button
+              type="secondary"
+              size="medium"
+            >
+              Отмена
+            </Button>
+          </div>
+
+          <div className={styles.buttonConfirm}>
+            <Button
+              type="primary"
+              size="medium"
+              onClick={(e) => cancel(e)}
+            >
+              Сохранить
+            </Button>
+          </div>
+        </div>
+      </form>
     </div>
   )
 }

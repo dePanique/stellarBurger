@@ -10,10 +10,9 @@ export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState('');
   const [passValue, setPassValue] = useState('');
 
-  const { success : successLogIn } = useSelector(store => store.logInStore);
-
   const dispatch = useDispatch();
   const history = useHistory();
+  const { success } = useSelector(store => store.logInStore)
 
   const onButtonClick = useCallback(
     (e) => {
@@ -22,13 +21,6 @@ export const LoginPage = () => {
     }, [history, emailValue, passValue]
   );
 
-  useEffect(() => {
-    if (successLogIn) {
-      history.replace({ pathname: '/' });
-    } else {
-    }
-  }, [successLogIn]);
-
   const onEmailInputValueChange = e => {
     setEmailValue(e.target.value);
   };
@@ -36,6 +28,12 @@ export const LoginPage = () => {
   const onPassInputValueChange = e => {
     setPassValue(e.target.value);
   };
+
+  useEffect(() => {
+    if ( success) {
+      history.replace({pathname : '/'});
+    }
+  }, [success])
 
   return (
     <Main>
