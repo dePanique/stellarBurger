@@ -1,26 +1,46 @@
-import { useState } from "react";
-import { useHistory, NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 import styles from "./profile-page.module.css";
 import { Input } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useDispatch, useSelector } from "react-redux";
+import { logOutEnch } from "../services/actions/profile-page";
+
 
 export const ProfilePage = () => {
   const [emailValue, setEmailValue] = useState('');
   const [nameValue, setNameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+  const dispatch = useDispatch();
+  const { success } = useSelector(store => store.logInStore);
+
 
   const onEmailChange = e => {
     setEmailValue(e.target.value);
   };
+
   const onNameChange = e => {
     setNameValue(e.target.value);
   };
+
   const onPasswordChange = e => {
     setPasswordValue(e.target.value);
   };
 
+  const handleLogOut = (e) => {
+    e.preventDefault();
+    dispatch(logOutEnch(localStorage.getItem('refreshToken')));
+  };
+
+  useEffect(() => {
+    if (success) {
+
+    } else {
+      //history.replace({ pathname: '/' });
+    }
+  }, [success])
+
   return (
     <div className={styles.editFrame}>
-
       <div className={styles.linksColumn}>
         <nav className="mb-20">
           <ul className={styles.linksColumn + ` text_color_primary `}>
@@ -49,6 +69,7 @@ export const ProfilePage = () => {
                 exact to='/'
                 className={styles.link + ' text text_type_main-medium text_color_inactive '}
                 activeClassName={styles.colorPrimary}
+                onClick={(e) => handleLogOut(e)}
               >
                 {'Выход'}
               </NavLink>

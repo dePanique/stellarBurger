@@ -2,7 +2,8 @@ import {
   SIGN_IN,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILED,
-} from "../actions/profileInfo";
+  SIGN_IN_RESET,
+} from "../actions/register-page";
 
 const initialState = {
   success: false,
@@ -25,16 +26,19 @@ export const signInStore = (state = initialState, action) => {
 
       return {
         request: false,
-        success: action.payload.success,
+        success: true,
         failed: false,
       };
 
     case SIGN_IN_FAILED:
 
       return {
-        ...initialState,
+        ...state,
         failed: true,
       };
+
+    case SIGN_IN_RESET:
+      return initialState
 
     default:
       return state;

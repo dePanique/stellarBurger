@@ -1,9 +1,10 @@
 import { createAccount, checkResponse } from "../../utils/utils";
-import { LOG_IN_SUCCESS } from "./log-in";
+import { LOG_IN_SUCCESS } from "./login-page";
 
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";
 export const SIGN_IN_FAILED = "SIGN_IN_FAILED";
+export const SIGN_IN_RESET = "SIGN_IN_RESET";
 
 
 export function signIn(email, pass, name) {

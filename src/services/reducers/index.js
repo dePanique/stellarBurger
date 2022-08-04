@@ -3,8 +3,9 @@ import { appStore } from "./app";
 import { burgerConstructor } from "./burger-constructor";
 import { burgerIngredients } from "./burger-ingredients";
 import { orderDetails } from "./order-details";
-import { signInStore } from "./profileInfo";
-import { logInStore } from "./log-in";
+import { signInStore } from "./register-page";
+import { logInStore } from "./login-page";
+import { profilePageStore } from "./profile-page";
 
 export const rootReducer = combineReducers({
   appStore,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   orderDetails,
   signInStore,
   logInStore,
+  profilePageStore,
 });

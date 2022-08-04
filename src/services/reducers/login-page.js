@@ -2,10 +2,11 @@ import {
   LOG_IN,
   LOG_IN_SUCCESS,
   LOG_IN_FAILED,
+  LOG_IN_RESET,
   UPDATE_ACCESS_TOKEN,
   UPDATE_ACCESS_TOKEN_SUCCESS,
   UPDATE_ACCESS_TOKEN_FAILED,
-} from "../actions/log-in";
+} from "../actions/login-page";
 
 const initialState = {
   success: false,
@@ -89,6 +90,9 @@ export const logInStore = (state = initialState, action) => {
           failed: true,
         },
       };
+
+    case LOG_IN_RESET:
+      return initialState;
 
     default:
       return state;

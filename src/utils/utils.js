@@ -97,6 +97,19 @@ function updateAccessToken(refreshToken) {
   })
 }
 
+function logOut(refreshToken) {
+  return fetch(`${dataUrl}/auth/logout`, {
+    method: 'POST',
+    headers: {
+      baseURL: dataUrl,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      "token": refreshToken,
+    })
+  })
+}
+
 export {
   getData,
   postOrderId,
@@ -106,4 +119,5 @@ export {
   createAccount,
   logIn,
   updateAccessToken,
+  logOut,
 };

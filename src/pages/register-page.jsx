@@ -8,7 +8,7 @@ import {
   PasswordInput,
   Button, Input
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { signIn } from "../services/actions/profileInfo";
+import { signIn } from "../services/actions/register-page";
 
 export const RegisterPage = () => {
   const [emailValue, setEmailValue] = useState('');
