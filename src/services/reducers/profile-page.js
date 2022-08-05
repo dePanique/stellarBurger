@@ -6,6 +6,7 @@ import {
   GET_USER_INFO,
   GET_USER_INFO_SUCCESS,
   GET_USER_INFO_FAILED,
+  USER_INFO_RESET,
 } from "../actions/profile-page";
 
 const initialState ={
@@ -84,6 +85,7 @@ export const profilePageStore = (state = initialState, action) => {
           success: true,
           name: action.payload.name,
           email: action.payload.email,
+          failed: false,
         }
       }
 
@@ -93,7 +95,15 @@ export const profilePageStore = (state = initialState, action) => {
         userInfo: {
           ...state.userInfo,
           request: false,
-          failed: true,
+          failed: action.paylod,
+        }
+      }
+
+    case USER_INFO_RESET:
+      return {
+        ...state,
+        userInfo: {
+          ...initialState.userInfo,
         }
       }
 

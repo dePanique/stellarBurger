@@ -112,7 +112,8 @@ function logOut(refreshToken) {
   })
 }
 
-function editUserInfo(token, name, login, pass) {
+function editUserInfo(name, email, pass) {
+  const token = getCookie('accessToken');
 
   return fetch(`${dataUrl}/auth/user`, {
     method: 'PATCH',
@@ -123,20 +124,20 @@ function editUserInfo(token, name, login, pass) {
     },
     body: JSON.stringify({
       "name": name,
-      "login": login,
+      "email": email,
       "password": pass,
     })
   })
 }
 
 async function getUserInfo() {
-
   const token = getCookie('accessToken');
+
   return await fetch(`${dataUrl}/auth/user`, {
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
-      authorization: `Barear ${token}`,
+      authorization: `${token}`,
     },
   })
 }

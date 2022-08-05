@@ -6,6 +6,7 @@ import { orderDetails } from "./order-details";
 import { signInStore } from "./register-page";
 import { logInStore } from "./login-page";
 import { profilePageStore } from "./profile-page";
+import { authStore } from "./auth";
 
 export const rootReducer = combineReducers({
   appStore,
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   signInStore,
   logInStore,
   profilePageStore,
+  authStore,
 });

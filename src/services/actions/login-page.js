@@ -1,5 +1,5 @@
 import { logIn, checkResponse, updateAccessToken } from "../../utils/utils";
-import { setCookie } from "../../utils/cookies"
+import { isCookieExpired, setCookie, setCookieTime } from "../../utils/cookies"
 import { LOG_OUT_RESET } from "./profile-page";
 
 export const LOG_IN = "LOG_IN";
@@ -36,8 +36,6 @@ export function updateAccessTokenEnch(refreshToken) {
           payload: res.accessToken,
         })
 
-        setCookie("accessToken", res.accessToken.split('Bearer ')[1]);
-
       })
       .catch((err) => {
         console.log(`err in updateAccessTokenEnch ${err}`)
@@ -71,8 +69,7 @@ export function logInEnch(email, pass) {
       })
       .then((res) => {
         localStorage.setItem('refreshToken', res.refreshToken);
-
-        setCookie("accessToken", res.accessToken.split('Bearer ')[1], {expires: 8});
+        setCookie('accessToken', res.accessToken);
 
         dispatch({
           type: LOG_IN_SUCCESS,

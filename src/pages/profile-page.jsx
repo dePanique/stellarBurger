@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NavLink, useHistory } from "react-router-dom";
 import styles from "./profile-page.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutEnch } from "../services/actions/profile-page";
 import { getUserInfoEnch } from "../services/actions/profile-page";
-
+import { editUserInfo } from "../utils/utils";
+import { GET_USER_INFO_SUCCESS } from "../services/actions/profile-page";
 
 export const ProfilePage = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -14,6 +15,8 @@ export const ProfilePage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { success, accessToken } = useSelector(store => store.logInStore);
+  const { success : isAuth } = useSelector(store => store.authStore);
+  const { email, name } = useSelector(store => store.profilePageStore.userInfo);
 
   const onEmailChange = e => {
     setEmailValue(e.target.value);
@@ -32,18 +35,36 @@ export const ProfilePage = () => {
     dispatch(logOutEnch(localStorage.getItem('refreshToken')));
   };
 
-  const cancel = (e) => {
+  const cancelForm = (e) => {
     e.preventDefault();
+    setNameValue(name);
+    setEmailValue(email);
   }
 
+  const submitForm = useCallback(
+    (e) => {
+      e.preventDefault();
+
+      dispatch({
+        type: GET_USER_INFO_SUCCESS,
+        payload: {
+          name: nameValue,
+          email: emailValue,
+        }
+      })
+
+      editUserInfo(nameValue, emailValue, passwordValue)
+    }, [nameValue, emailValue, passwordValue]
+  )
+
   useEffect(() => {
-    if (!success) {
-      console.log(success);
-      history.replace({ pathname: '/' });
-    } else {
-      dispatch(getUserInfoEnch());
-    }
+      dispatch(getUserInfoEnch(isAuth));
   }, [])
+
+  useEffect(() => {
+    setNameValue(name);
+    setEmailValue(email);
+  }, [email, name])
 
   return (
     <div className={styles.editFrame}>
@@ -123,6 +144,7 @@ export const ProfilePage = () => {
             <Button
               type="secondary"
               size="medium"
+              onClick={(e) => cancelForm(e)}
             >
               Отмена
             </Button>
@@ -132,7 +154,7 @@ export const ProfilePage = () => {
             <Button
               type="primary"
               size="medium"
-              onClick={(e) => cancel(e)}
+              onClick={(e) => submitForm(e)}
             >
               Сохранить
             </Button>

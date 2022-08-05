@@ -32,4 +32,4 @@ function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 }
 
-export { setCookie, getCookie };
+export { setCookie, getCookie, deleteCookie };
