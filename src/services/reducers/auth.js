@@ -1,7 +1,8 @@
 import {
   AUTH_PROCESS,
   AUTH_SUCCESS,
-  AUTH_FAILED
+  AUTH_FAILED,
+  AUTH_RESET,
 } from "../actions/auth"
 
 const initialState ={
@@ -32,6 +33,11 @@ export const authStore = ( state = initialState, action) => {
         request: false,
         success: false,
         failed: true,
+      }
+
+    case AUTH_RESET:
+      return {
+        ...initialState,
       }
 
     default:

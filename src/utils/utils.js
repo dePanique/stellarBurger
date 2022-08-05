@@ -87,6 +87,8 @@ function logIn(email, pass) {
 }
 
 function updateAccessToken(refreshToken) {
+  console.log(refreshToken);
+  
   return fetch(`${dataUrl}/auth/token`, {
     method: 'POST',
     headers: {

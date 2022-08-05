@@ -1,6 +1,7 @@
 import { logIn, checkResponse, updateAccessToken } from "../../utils/utils";
-import { isCookieExpired, setCookie, setCookieTime } from "../../utils/cookies"
+import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
 import { LOG_OUT_RESET } from "./profile-page";
+import { AUTH_FAILED } from "./auth";
 
 export const LOG_IN = "LOG_IN";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
@@ -11,7 +12,7 @@ export const UPDATE_ACCESS_TOKEN = "UPDATE_ACCESS_TOKEN";
 export const UPDATE_ACCESS_TOKEN_SUCCESS = "UPDATE_ACCESS_TOKEN_SUCCESS";
 export const UPDATE_ACCESS_TOKEN_FAILED = "UPDATE_ACCESS_TOKEN_FAILED";
 
-export function updateAccessTokenEnch(refreshToken) {
+export function updateAccessTokenEnch() {
 
   return function (dispatch) {
 
@@ -19,25 +20,47 @@ export function updateAccessTokenEnch(refreshToken) {
       type: UPDATE_ACCESS_TOKEN,
     })
 
-    updateAccessToken(refreshToken)
+    if (!localStorage.getItem('refreshToken')) {
+      console.log("empty refreshToken");
+      dispatch({
+        type: UPDATE_ACCESS_TOKEN_FAILED,
+      })
+
+      dispatch({
+        type: AUTH_FAILED,
+      })
+
+      return 0
+    }
+
+    updateAccessToken(localStorage.getItem('refreshToken'))
       .then((res) => {
+
         return checkResponse(res)
       })
       .catch((err) => {
+
         console.log(`err in updateAccessTokenEnch ${err}`)
         dispatch({
           type: UPDATE_ACCESS_TOKEN_FAILED,
         })
       })
       .then((res) => {
+        deleteCookie('accessToken');
+        deleteCookie('expire');
+        localStorage.clear('refresToken')
+
+        localStorage.setItem('refreshToken', res.refreshToken)
+        setCookie('accessToken', res.accessToken);
+        setCookieTime();
 
         dispatch({
           type: UPDATE_ACCESS_TOKEN_SUCCESS,
           payload: res.accessToken,
         })
-
       })
       .catch((err) => {
+
         console.log(`err in updateAccessTokenEnch ${err}`)
         dispatch({
           type: UPDATE_ACCESS_TOKEN_FAILED,
@@ -70,6 +93,7 @@ export function logInEnch(email, pass) {
       .then((res) => {
         localStorage.setItem('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken);
+        setCookieTime();
 
         dispatch({
           type: LOG_IN_SUCCESS,

@@ -58,7 +58,8 @@ export const ProfilePage = () => {
   )
 
   useEffect(() => {
-      dispatch(getUserInfoEnch(isAuth));
+    dispatch(getUserInfoEnch());
+    // dispatch(getUserInfoEnch(isAuth));
   }, [])
 
   useEffect(() => {

@@ -25,6 +25,7 @@ function getCookie(name) {
   const matches = document.cookie.match(
     new RegExp('(?:^|; )' + name.replace(/([\.$?*|{}\(\)\[\]\\\/\+^])/g, '\\$1') + '=([^;]*)')
   );
+
   return matches ? decodeURIComponent(matches[1]) : undefined;
 }
 
@@ -32,4 +33,19 @@ function deleteCookie(name) {
   setCookie(name, null, { expires: -1 });
 }
 
-export { setCookie, getCookie, deleteCookie };
+function isCookieExpired() {
+  if (getCookie('expire') === undefined) return true
+
+  const nowTime = new Date(Date.now()).toUTCString()
+  const expireTime = (new Date(getCookie('expire'))).toUTCString();
+
+  return nowTime > expireTime
+}
+
+const setCookieTime = () => {
+  const expireDate = (new Date(Date.now() + 20 * 60 * 1000)).toUTCString();
+
+  setCookie('expire', expireDate);
+}
+
+export { setCookie, getCookie, deleteCookie, setCookieTime, isCookieExpired };

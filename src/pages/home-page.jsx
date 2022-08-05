@@ -18,11 +18,12 @@ export const HomePage = () => {
     dispatch(authenticationEnch());
   }, []);
 
-  console.log(
-    document.cookie,
-    localStorage.getItem('refreshToken')
-  );
-  
+
+  // console.log(
+  //   document.cookie,
+  //   localStorage.getItem('refreshToken'),
+  // );
+
   return (
     isDataAvailable && (
       <Main>

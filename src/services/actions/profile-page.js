@@ -1,7 +1,7 @@
 import { checkResponse, logOut, getUserInfo } from "../../utils/utils";
 import { SIGN_IN_RESET } from "./register-page";
-import { LOG_IN_RESET } from "./login-page";
-import { getCookie, deleteCookie } from "../../utils/cookies";
+import { LOG_IN_RESET, updateAccessTokenEnch } from "./login-page";
+import { deleteCookie, isCookieExpired } from "../../utils/cookies";
 
 export const LOG_OUT = "LOG_OUT";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
@@ -12,6 +12,10 @@ export const GET_USER_INFO = "GET_USER_INFO";
 export const GET_USER_INFO_SUCCESS = "GET_USER_INFO_SUCCESS";
 export const GET_USER_INFO_FAILED = "GET_USER_INFO_FAILED";
 export const USER_INFO_RESET = "USER_INFO_RESET";
+
+export const EDIT_USER_INFO = "EDIT_USER_INFO";
+export const EDIT_USER_INFO_SUCCESS = "EDIT_USER_INFO_SUCCESS";
+export const EDIT_USER_INFO_FAILED = "EDIT_USER_INFO_FAILED";
 
 export function logOutEnch(refreshToken) {
   return function(dispatch) {
@@ -49,7 +53,7 @@ export function logOutEnch(refreshToken) {
 
       localStorage.clear('refreshToken');
       deleteCookie('accessToken');
-      deleteCookie('tokenExpire');
+      deleteCookie('expire');
     })
     .catch((err) => {
       console.log(`err in logOutEnch ${err}`);
@@ -57,19 +61,23 @@ export function logOutEnch(refreshToken) {
   }
 }
 
-export const getUserInfoEnch = (authStatus) => {
+export const getUserInfoEnch = () => {
   return function(dispatch) {
     dispatch({
       type: GET_USER_INFO,
     })
 
-    if (!authStatus) {
+    // if (!authStatus) {
+    //   return dispatch({
+    //     type: GET_USER_INFO_FAILED,
+    //     palyoad: 'authStatus is false'
+    //   })
 
-      return dispatch({
-        type: GET_USER_INFO_FAILED,
-        palyoad: 'authStatus is false'
-      })
+    // }
 
+    if (isCookieExpired()) {
+      console.log('expire');
+      return dispatch(updateAccessTokenEnch())
     }
 
     getUserInfo()
@@ -93,5 +101,16 @@ export const getUserInfoEnch = (authStatus) => {
     .catch((err) => {
       console.log(`err in getUserInfoEnch ${err}`);
     })
+  }
+}
+
+export const editUserInfoEnch = () => {
+  return function(dispatch) {
+
+    dispatch({
+      type: EDIT_USER_INFO,
+    })
+
+
   }
 }

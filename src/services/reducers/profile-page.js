@@ -1,3 +1,4 @@
+import { editUserInfo } from "../../utils/utils";
 import {
   LOG_OUT,
   LOG_OUT_SUCCESS,
@@ -7,6 +8,9 @@ import {
   GET_USER_INFO_SUCCESS,
   GET_USER_INFO_FAILED,
   USER_INFO_RESET,
+  EDIT_USER_INFO,
+  EDIT_USER_INFO_SUCCESS,
+  EDIT_USER_INFO_FAILED,
 } from "../actions/profile-page";
 
 const initialState ={
@@ -21,6 +25,11 @@ const initialState ={
     pass: '',
     request: false,
     success: false,
+    failed: false,
+  },
+  editUserInfo: {
+    success: false,
+    request: false,
     failed: false,
   }
 }
@@ -104,6 +113,35 @@ export const profilePageStore = (state = initialState, action) => {
         ...state,
         userInfo: {
           ...initialState.userInfo,
+        }
+      }
+
+    case EDIT_USER_INFO:
+      return {
+        ...state,
+        editUserInfo: {
+          ...state.editUserInfo,
+          request: true,
+        }
+      }
+
+    case EDIT_USER_INFO_SUCCESS:
+      return {
+        ...state,
+        editUserInfo: {
+          ...state.editUserInfo,
+          request: false,
+          success: true,
+          failed: false,
+        }
+      }
+
+    case EDIT_USER_INFO_FAILED:
+      return {
+        ...state,
+        editUserInfo: {
+          ...state.editUserInfo,
+          failed: true,
         }
       }
 
