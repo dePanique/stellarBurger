@@ -104,7 +104,7 @@ export const profilePageStore = (state = initialState, action) => {
         userInfo: {
           ...state.userInfo,
           request: false,
-          failed: action.paylod,
+          failed: action.payload,
         }
       }
 
@@ -120,14 +120,18 @@ export const profilePageStore = (state = initialState, action) => {
       return {
         ...state,
         editUserInfo: {
-          ...state.editUserInfo,
-          request: true,
+          ...initialState.editUserInfo,
         }
       }
 
     case EDIT_USER_INFO_SUCCESS:
       return {
         ...state,
+        userInfo: {
+          ...state.userInfo,
+          name: action.payload.name,
+          email: action.payload.email,
+        },
         editUserInfo: {
           ...state.editUserInfo,
           request: false,

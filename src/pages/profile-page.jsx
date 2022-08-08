@@ -4,7 +4,7 @@ import styles from "./profile-page.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutEnch } from "../services/actions/profile-page";
-import { getUserInfoEnch } from "../services/actions/profile-page";
+import { getUserInfoEnch, editUserInfoEnch } from "../services/actions/profile-page";
 import { editUserInfo } from "../utils/utils";
 import { GET_USER_INFO_SUCCESS } from "../services/actions/profile-page";
 
@@ -17,6 +17,7 @@ export const ProfilePage = () => {
   const { success, accessToken } = useSelector(store => store.logInStore);
   const { success : isAuth } = useSelector(store => store.authStore);
   const { email, name } = useSelector(store => store.profilePageStore.userInfo);
+  const { success : editSuccess } = useSelector(store => store.profilePageStore.editUserInfo);
 
   const onEmailChange = e => {
     setEmailValue(e.target.value);
@@ -39,33 +40,32 @@ export const ProfilePage = () => {
     e.preventDefault();
     setNameValue(name);
     setEmailValue(email);
+    setPasswordValue('');
   }
 
   const submitForm = useCallback(
     (e) => {
       e.preventDefault();
 
-      dispatch({
-        type: GET_USER_INFO_SUCCESS,
-        payload: {
-          name: nameValue,
-          email: emailValue,
-        }
-      })
-
-      editUserInfo(nameValue, emailValue, passwordValue)
+      dispatch(editUserInfoEnch(nameValue, emailValue, passwordValue));
     }, [nameValue, emailValue, passwordValue]
   )
 
   useEffect(() => {
-    dispatch(getUserInfoEnch());
-    // dispatch(getUserInfoEnch(isAuth));
-  }, [])
-
-  useEffect(() => {
+    console.log('name and email');
     setNameValue(name);
     setEmailValue(email);
-  }, [email, name])
+  }, [name, email])
+
+  useEffect(() => {
+    console.log('edit success');
+    //dispatch(getUserInfoEnch());
+    setPasswordValue('');
+  }, [editSuccess])
+
+  useEffect(() => {
+    dispatch(getUserInfoEnch());
+  }, [])
 
   return (
     <div className={styles.editFrame}>

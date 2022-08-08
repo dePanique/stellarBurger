@@ -1,4 +1,4 @@
-import { checkResponse, logOut, getUserInfo } from "../../utils/utils";
+import { checkResponse, logOut, getUserInfo, editUserInfo } from "../../utils/utils";
 import { SIGN_IN_RESET } from "./register-page";
 import { LOG_IN_RESET, updateAccessTokenEnch } from "./login-page";
 import { deleteCookie, isCookieExpired } from "../../utils/cookies";
@@ -75,9 +75,9 @@ export const getUserInfoEnch = () => {
 
     // }
 
+
     if (isCookieExpired()) {
-      console.log('expire');
-      return dispatch(updateAccessTokenEnch())
+      dispatch(updateAccessTokenEnch())
     }
 
     getUserInfo()
@@ -104,13 +104,42 @@ export const getUserInfoEnch = () => {
   }
 }
 
-export const editUserInfoEnch = () => {
-  return function(dispatch) {
+export const editUserInfoEnch = (nameValue, emailValue, passwordValue) => {
 
+  return function(dispatch) {
+    console.log(nameValue, emailValue, passwordValue);
     dispatch({
       type: EDIT_USER_INFO,
     })
 
+    // if (isCookieExpired()) {
+    //   console.log('expire');
 
+    //   dispatch(updateAccessTokenEnch())
+    // }
+
+    editUserInfo(nameValue, emailValue, passwordValue)
+    .then((res) => {
+      return checkResponse(res)
+    })
+    .catch((err) => {
+      dispatch({
+        type: EDIT_USER_INFO_FAILED,
+      })
+
+      console.log(`err in editUserInfoEnch ${err}`);
+    })
+    .then((res) => {
+      dispatch({
+        type: EDIT_USER_INFO_SUCCESS,
+        payload: {
+          name: nameValue,
+          email: emailValue,
+        }
+      })
+    })
+    .catch((err) => {
+      console.log(`err in editUserInfoEncg ${err}`);
+    })
   }
 }

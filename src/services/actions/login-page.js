@@ -33,6 +33,7 @@ export function updateAccessTokenEnch() {
       return 0
     }
 
+
     updateAccessToken(localStorage.getItem('refreshToken'))
       .then((res) => {
 
@@ -47,12 +48,12 @@ export function updateAccessTokenEnch() {
       })
       .then((res) => {
         deleteCookie('accessToken');
-        deleteCookie('expire');
-        localStorage.clear('refresToken')
-
-        localStorage.setItem('refreshToken', res.refreshToken)
         setCookie('accessToken', res.accessToken);
+        deleteCookie('expire');
         setCookieTime();
+        localStorage.clear('refresToken')
+        localStorage.setItem('refreshToken', res.refreshToken)
+        console.log(res.refreshToken);
 
         dispatch({
           type: UPDATE_ACCESS_TOKEN_SUCCESS,

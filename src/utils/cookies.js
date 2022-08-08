@@ -43,7 +43,7 @@ function isCookieExpired() {
 }
 
 const setCookieTime = () => {
-  const expireDate = (new Date(Date.now() + 20 * 60 * 1000)).toUTCString();
+  const expireDate = (new Date(Date.now() + 1 * 1000)).toUTCString();
 
   setCookie('expire', expireDate);
 }
