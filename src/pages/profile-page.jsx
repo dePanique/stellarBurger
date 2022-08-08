@@ -113,6 +113,16 @@ export const ProfilePage = () => {
       <form className={styles.inputsColumn + ` ml-15`} action="submit">
         <div className={styles.input}>
           <Input
+            onChange={onNameChange}
+            value={nameValue}
+            name={'email'}
+            placeholder="Логин"
+            icon='EditIcon'
+          />
+        </div>
+        
+        <div className={styles.input}>
+          <Input
             onChange={onEmailChange}
             value={emailValue}
             name={'name'}
@@ -121,15 +131,6 @@ export const ProfilePage = () => {
           />
         </div>
 
-        <div className={styles.input}>
-          <Input
-            onChange={onNameChange}
-            value={nameValue}
-            name={'email'}
-            placeholder="Логин"
-            icon='EditIcon'
-          />
-        </div>
 
         <div className={styles.input}>
           <Input

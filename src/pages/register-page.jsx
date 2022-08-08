@@ -59,8 +59,10 @@ export const RegisterPage = () => {
             name={'userName'}
           />
 
-          <EmailInput
+          <Input
             onChange={onEmailInputValueChange}
+            type={'text'}
+            placeholder={'E-mail'}
             value={emailValue}
             name={'email'}
           />

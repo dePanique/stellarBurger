@@ -53,7 +53,6 @@ export function updateAccessTokenEnch() {
         setCookieTime();
         localStorage.clear('refresToken')
         localStorage.setItem('refreshToken', res.refreshToken)
-        console.log(res.refreshToken);
 
         dispatch({
           type: UPDATE_ACCESS_TOKEN_SUCCESS,

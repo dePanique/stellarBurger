@@ -93,6 +93,7 @@ export const getUserInfoEnch = () => {
       })
     })
     .then((res) => {
+      console.log(res);
       dispatch({
         type: GET_USER_INFO_SUCCESS,
         payload: res.user,
@@ -130,6 +131,7 @@ export const editUserInfoEnch = (nameValue, emailValue, passwordValue) => {
       console.log(`err in editUserInfoEnch ${err}`);
     })
     .then((res) => {
+      console.log(res);
       dispatch({
         type: EDIT_USER_INFO_SUCCESS,
         payload: {
