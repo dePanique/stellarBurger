@@ -51,6 +51,7 @@ export const logInStore = (state = initialState, action) => {
         accessTokenStatus: {
           ...state.accessTokenStatus,
           success: true,
+          failed: false,
         }
       };
 

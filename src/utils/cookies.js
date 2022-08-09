@@ -1,5 +1,8 @@
 function setCookie(name, value, props) {
-  props = props || {};
+  props = {
+    path: '/',
+    ...props
+  };
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
     const d = new Date();
@@ -43,8 +46,10 @@ function isCookieExpired() {
 }
 
 const setCookieTime = () => {
-  const expireDate = (new Date(Date.now() + 19 * 60 * 1000)).toUTCString();
+  const expireDate = (new Date(Date.now() + 20 * 60 * 1000)).toUTCString();
 
+  if (getCookie('expire')) deleteCookie('expire');
+  
   setCookie('expire', expireDate);
 }
 

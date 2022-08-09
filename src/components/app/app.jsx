@@ -8,6 +8,10 @@ import {
   ResetPassword,
   ProfilePage,
 } from "../../pages";
+import { ProtectedRoute } from '../protected-route/protected-route';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { authenticationEnch } from '../../services/actions/auth';
 
 export default function App() {
 
@@ -18,21 +22,21 @@ export default function App() {
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
-        <Route path="/login" exact={true}>
+        <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
-        </Route>
-        <Route path="/register" exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute path="/register" exact={true} unAuthOnly>
           <RegisterPage/>
-        </Route>
-        <Route path="/forgot-password" exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute path="/forgot-password" exact={true} unAuthOnly>
           <ForgotPassword/>
-        </Route>
-        <Route path="/reset-password" exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute path="/reset-password" exact={true} unAuthOnly passReset>
           <ResetPassword/>
-        </Route>
-        <Route path="/profile" exact={true}>
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile">
           <ProfilePage/>
-        </Route>
+        </ProtectedRoute>
       </Switch>
     </Router>
   );

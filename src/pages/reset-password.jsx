@@ -1,28 +1,25 @@
 import styles from "./reset-password.module.css";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { applyNewPass, checkResponse } from "./../utils/utils"
+import { useDispatch, useSelector } from "react-redux";
+import { applyNewPassEnch } from "../services/actions/reset-password";
 
 export const ResetPassword = () => {
   const [newPassValue, setNewPassValue] = useState('');
   const [confirmPassValue, setConfirmPassValue] = useState('');
 
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { success: isPassReseted, failed : isPassFailed } = useSelector(store => store.resetPassStore);
 
   const onButtonClick = useCallback(
     (e) => {
       e.preventDefault();
+      dispatch(applyNewPassEnch(newPassValue, confirmPassValue));
 
-      applyNewPass(newPassValue, confirmPassValue)
-      .then((res) => {
-        return checkResponse(res)
-      })
-      .catch((err) => {
-        console.log(`ошибка checkResponse в ResetPassword ${err}`);
-      })
-      history.replace({ pathname: '/' })
     }, [history, newPassValue, confirmPassValue]
   )
   const onNewPassValueChange = e => {
@@ -32,6 +29,13 @@ export const ResetPassword = () => {
   const onConfirmPassValueChange = e => {
     setConfirmPassValue(e.target.value);
   };
+
+  useEffect(() => {
+
+    if (isPassReseted) history.replace({ pathname: '/login' });
+    if (isPassFailed) setConfirmPassValue('Повторите попытку');
+
+  }, [isPassReseted])
 
   return (
     <Main>

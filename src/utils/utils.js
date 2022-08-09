@@ -95,7 +95,7 @@ function updateAccessToken(refreshToken) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      "token": refreshToken,
+      "token": localStorage.getItem('refreshToken'),
     })
   })
 }

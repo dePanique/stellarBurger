@@ -1,12 +1,10 @@
 import { useCallback, useEffect, useState } from "react";
-import { NavLink, useHistory } from "react-router-dom";
+import { NavLink, useHistory, Link } from "react-router-dom";
 import styles from "./profile-page.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logOutEnch } from "../services/actions/profile-page";
 import { getUserInfoEnch, editUserInfoEnch } from "../services/actions/profile-page";
-import { editUserInfo } from "../utils/utils";
-import { GET_USER_INFO_SUCCESS } from "../services/actions/profile-page";
 
 export const ProfilePage = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -14,8 +12,6 @@ export const ProfilePage = () => {
   const [passwordValue, setPasswordValue] = useState('');
   const dispatch = useDispatch();
   const history = useHistory();
-  const { success, accessToken } = useSelector(store => store.logInStore);
-  const { success : isAuth } = useSelector(store => store.authStore);
   const { email, name } = useSelector(store => store.profilePageStore.userInfo);
   const { success : editSuccess } = useSelector(store => store.profilePageStore.editUserInfo);
 
@@ -34,6 +30,7 @@ export const ProfilePage = () => {
   const handleLogOut = (e) => {
     e.preventDefault();
     dispatch(logOutEnch(localStorage.getItem('refreshToken')));
+    history.replace({pathname: '/'});
   };
 
   const cancelForm = (e) => {
@@ -52,14 +49,11 @@ export const ProfilePage = () => {
   )
 
   useEffect(() => {
-    console.log('name and email');
     setNameValue(name);
     setEmailValue(email);
   }, [name, email])
 
   useEffect(() => {
-    console.log('edit success');
-    //dispatch(getUserInfoEnch());
     setPasswordValue('');
   }, [editSuccess])
 
@@ -116,17 +110,17 @@ export const ProfilePage = () => {
             onChange={onNameChange}
             value={nameValue}
             name={'email'}
-            placeholder="Логин"
+            placeholder="Имя"
             icon='EditIcon'
           />
         </div>
-        
+
         <div className={styles.input}>
           <Input
             onChange={onEmailChange}
             value={emailValue}
             name={'name'}
-            placeholder="Имя"
+            placeholder="Логин"
             icon='EditIcon'
           />
         </div>

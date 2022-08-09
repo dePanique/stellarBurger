@@ -1,8 +1,11 @@
 import styles from "./app-header.module.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HeaderListItem from "../header-list-item/header-list-item";
+import { useDispatch } from "react-redux";
+import { authenticationEnch } from "../../services/actions/auth";
 
 const AppHeader = () => {
+
   return (
     <header className={styles.header}>
       <nav>

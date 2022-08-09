@@ -1,9 +1,10 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Main from "../components/main/main";
 import styles from "./forgot-password.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { requestEmailPassReset, checkResponse } from './../utils/utils';
+import { requestEmailPassResetEnch } from "../services/actions/forgot-password";
+import { useDispatch, useSelector } from "react-redux";
 
 export const ForgotPassword = () => {
 
@@ -11,30 +12,20 @@ export const ForgotPassword = () => {
   const [inputPlaceholder, setInputPlaceholder] = useState('Укажите e-mail');
 
   const history = useHistory();
+  const dispatch = useDispatch();
+  const { success: isPassReseted} = useSelector(store => store.forgotPasswordStore)
 
   const onButtonClick = useCallback(
-    async (e) => {
+    (e) => {
       e.preventDefault();
+      dispatch(requestEmailPassResetEnch(emailValue));
 
-      await requestEmailPassReset(emailValue)
-        .then((res) => {
-          return checkResponse(res)
-        })
-        .catch((err) => {
-          console.log(`checkResponse в requestEmailPassReset вернул ошибку ${err}`)
-        })
-        .then((res) => {
-          if (res.success) {
-            history.replace({ pathname: '/reset-password' })
-          } else {
-            setInputPlaceholder('E-mail не обнаружен, повторите попытку')
-          }
-        })
-        .catch((err) => {
-          console.log(`в requestEmailPassReset ошибка ${err}`);
-        });
-    }, [emailValue, history]
+    }, [emailValue]
   )
+
+  useEffect(() => {
+    if (isPassReseted) history.replace({ pathname: '/reset-password' })
+  }, [isPassReseted])
 
   const onEmailInputValueChange = e => {
     setEmailValue(e.target.value);

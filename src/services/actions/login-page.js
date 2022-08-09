@@ -1,7 +1,7 @@
 import { logIn, checkResponse, updateAccessToken } from "../../utils/utils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
 import { LOG_OUT_RESET } from "./profile-page";
-import { AUTH_FAILED } from "./auth";
+import { AUTH_FAILED, AUTH_SUCCESS } from "./auth";
 
 export const LOG_IN = "LOG_IN";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
@@ -34,7 +34,7 @@ export function updateAccessTokenEnch() {
     }
 
 
-    updateAccessToken(localStorage.getItem('refreshToken'))
+    updateAccessToken()
       .then((res) => {
 
         return checkResponse(res)
@@ -45,6 +45,7 @@ export function updateAccessTokenEnch() {
         dispatch({
           type: UPDATE_ACCESS_TOKEN_FAILED,
         })
+
       })
       .then((res) => {
         deleteCookie('accessToken');
@@ -58,6 +59,12 @@ export function updateAccessTokenEnch() {
           type: UPDATE_ACCESS_TOKEN_SUCCESS,
           payload: res.accessToken,
         })
+
+        dispatch({
+          type: AUTH_SUCCESS,
+          payload: res.accessToken,
+        })
+
       })
       .catch((err) => {
 
@@ -91,6 +98,8 @@ export function logInEnch(email, pass) {
         console.log(`err in logInEnch ${err}`);
       })
       .then((res) => {
+        console.log(res);
+
         localStorage.setItem('refreshToken', res.refreshToken);
         setCookie('accessToken', res.accessToken);
         setCookieTime();
