@@ -5,6 +5,8 @@
   width: 272px;
   flex-wrap: wrap;
   justify-content: center;
+  text-decoration: none;
+  color: inherit;
 }
 
 .itemName {

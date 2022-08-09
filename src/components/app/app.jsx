@@ -8,6 +8,7 @@ import {
   ResetPassword,
   ProfilePage,
   Page404,
+  IngredientPage,
 } from "../../pages";
 import { ProtectedRoute } from '../protected-route/protected-route';
 
@@ -24,19 +25,22 @@ export default function App() {
           <LoginPage />
         </ProtectedRoute>
         <ProtectedRoute path="/register" exact={true} unAuthOnly>
-          <RegisterPage/>
+          <RegisterPage />
         </ProtectedRoute>
         <ProtectedRoute path="/forgot-password" exact={true} unAuthOnly>
-          <ForgotPassword/>
+          <ForgotPassword />
         </ProtectedRoute>
         <ProtectedRoute path="/reset-password" exact={true} unAuthOnly passReset>
-          <ResetPassword/>
+          <ResetPassword />
         </ProtectedRoute>
         <ProtectedRoute path="/profile">
-          <ProfilePage/>
+          <ProfilePage />
         </ProtectedRoute>
+        <Route path="/:ingredients/:id" exact={true}>
+          <IngredientPage />
+        </Route>
         <Route>
-          <Page404 path='*'/>
+          <Page404 path='*' />
         </Route>
       </Switch>
     </Router>
