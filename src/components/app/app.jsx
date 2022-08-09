@@ -7,11 +7,9 @@ import {
   ForgotPassword,
   ResetPassword,
   ProfilePage,
+  Page404,
 } from "../../pages";
 import { ProtectedRoute } from '../protected-route/protected-route';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { authenticationEnch } from '../../services/actions/auth';
 
 export default function App() {
 
@@ -37,6 +35,9 @@ export default function App() {
         <ProtectedRoute path="/profile">
           <ProfilePage/>
         </ProtectedRoute>
+        <Route>
+          <Page404 path='*'/>
+        </Route>
       </Switch>
     </Router>
   );

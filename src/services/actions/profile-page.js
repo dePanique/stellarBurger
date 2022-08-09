@@ -1,8 +1,8 @@
 import { checkResponse, logOut, getUserInfo, editUserInfo } from "../../utils/utils";
 import { SIGN_IN_RESET } from "./register-page";
-import { LOG_IN_RESET, updateAccessTokenEnch } from "./login-page";
+import { LOG_IN_RESET, updateAccessTokenEnch, UPDATE_ACCESS_TOKEN_FAILED } from "./login-page";
 import { deleteCookie, isCookieExpired } from "../../utils/cookies";
-import { AUTH_RESET } from "./auth";
+import { AUTH_FAILED, AUTH_RESET } from "./auth";
 
 export const LOG_OUT = "LOG_OUT";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
@@ -48,6 +48,15 @@ export const getUserInfoEnch = () => {
       dispatch({
         type:GET_USER_INFO_FAILED,
       })
+
+      dispatch({
+        type:AUTH_FAILED,
+      })
+
+      dispatch({
+        type:UPDATE_ACCESS_TOKEN_FAILED
+      })
+
     })
     .then((res) => {
       console.log(res);
