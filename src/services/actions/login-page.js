@@ -14,13 +14,14 @@ export const UPDATE_ACCESS_TOKEN_FAILED = "UPDATE_ACCESS_TOKEN_FAILED";
 
 export function updateAccessTokenEnch() {
 
-  return function (dispatch) {
-
+  return async function (dispatch) {
+console.log('3.1');
     dispatch({
       type: UPDATE_ACCESS_TOKEN,
     })
 
     if (!localStorage.getItem('refreshToken')) {
+      console.log('3.2');
       console.log("empty refreshToken");
       dispatch({
         type: UPDATE_ACCESS_TOKEN_FAILED,
@@ -33,21 +34,29 @@ export function updateAccessTokenEnch() {
       return 0
     }
 
-
-    updateAccessToken()
+console.log(3.4);
+    await updateAccessToken()
       .then((res) => {
 
         return checkResponse(res)
       })
       .catch((err) => {
+        console.log(3.5);
+        console.log(err);
 
         console.log(`err in updateAccessTokenEnch ${err}`)
         dispatch({
           type: UPDATE_ACCESS_TOKEN_FAILED,
         })
 
+        dispatch({
+          type: AUTH_FAILED,
+        })
+
       })
       .then((res) => {
+        console.log(3.6);
+        console.log(res);
         deleteCookie('accessToken');
         setCookie('accessToken', res.accessToken);
         deleteCookie('expire');

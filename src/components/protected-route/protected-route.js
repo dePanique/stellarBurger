@@ -16,25 +16,32 @@ export const ProtectedRoute = ({children, unAuthOnly, passReset, ...rest}) => {
   const { failed: isAccessUpdateFailed } = useSelector(store => store.logInStore.accessTokenStatus)
   const { success: isPassReseted} = useSelector(store => store.forgotPasswordStore)
 
-
+console.log('prtocetedR');
   if (unAuthOnly && isAuth) {
+    console.log('prtocetedR1');
     return <Redirect to='/' />
   }
 
   if (unAuthOnly && !isAuth) {
+    console.log('prtocetedR2');
 
     if (passReset && !isPassReseted) {
-      console.log(4)
+      console.log('prtocetedR3');
+
       return <Redirect to='/forgot-password'/>
     }
-    console.log(3);
+    console.log('prtocetedR4');
+
 
     return <Route >{children}</Route>
   }
 
   if (!isAuth || isAccessUpdateFailed) {
+    console.log('prtocetedR5');
+
     return <Redirect to='/login' />
   }
+  console.log('prtocetedR6');
 
 
   return <Route >{children}</Route>
