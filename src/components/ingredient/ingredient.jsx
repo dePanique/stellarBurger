@@ -7,10 +7,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients'
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const Ingredient = ({ element, handle }) => {
   const dispatch = useDispatch();
+  const location = useLocation();
 
   const orderData = useSelector(
     (store) => store.burgerConstructor.ingredientsId
@@ -23,12 +24,15 @@ const Ingredient = ({ element, handle }) => {
   });
 
   return (
-    //<Link >
       <Link
-      to={`/ingredients/${element._id}`}
+        to={{
+          pathname: `/ingredients/${element._id}`,
+          state: {background: location}
+        }}
+
         className={styles.box + " ml-4 mr-2 mt-6 text text_type_main-default"}
         onClick={() => {
-          handle(true);
+          // handle(true);
           dispatch({
             type: SET_CURRENT_INGREDIENT,
             payload: element,
@@ -44,7 +48,6 @@ const Ingredient = ({ element, handle }) => {
           {element.name}
         </p>
       </Link>
-    //</Link>
   );
 };
 
@@ -54,7 +57,6 @@ Ingredient.propTypes = {
     price: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
   }).isRequired,
-  handle: PropTypes.func.isRequired,
 };
 
 export default Ingredient;

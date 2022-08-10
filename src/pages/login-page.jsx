@@ -5,6 +5,7 @@ import styles from "./login-page.module.css";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { logInEnch } from "../services/actions/login-page";
+import { authenticationEnch } from "../services/actions/auth";
 
 export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -34,6 +35,10 @@ export const LoginPage = () => {
       history.replace({pathname : '/'});
     }
   }, [success])
+
+  useEffect(() => {
+    dispatch(authenticationEnch());
+  })
 
   return (
     <Main>

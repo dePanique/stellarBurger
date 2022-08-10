@@ -5,11 +5,29 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { portalContainer } from "./../../utils/constants";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
+import { useHistory } from 'react-router-dom';
+import { useDispatch } from "react-redux";
+import { RESET_CURRENT_INGREDIENT } from "../../services/actions/burger-ingredients";
+
 
 const Modal = (props) => {
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const closeModal = () => {
+    dispatch({
+      type: RESET_CURRENT_INGREDIENT,
+    })
+    //setModal(false);
+    props.history.goBack();
+  }
+
+
   useEffect(() => {
     const quitOnEscape = (e) => {
-      if (e.key === "Escape") props.handle(false);
+      if (e.key === "Escape") {
+        closeModal();
+      };
     };
 
     document.addEventListener("keydown", quitOnEscape);
@@ -20,11 +38,11 @@ const Modal = (props) => {
   });
 
   return ReactDOM.createPortal(
-    <ModalOverlay handle={props.handle}>
+    <ModalOverlay handle={closeModal}>
       <div className={styles.modalWindow}>
         <div
           className={styles.closeWrapper + " mt-15 mr-10"}
-          onClick={() => props.handle()}
+          onClick={closeModal}
         >
           <CloseIcon />
         </div>
@@ -36,7 +54,7 @@ const Modal = (props) => {
 };
 
 Modal.propTypes = {
-  handle: PropTypes.func.isRequired,
+  //handle: PropTypes.func.isRequired,
   children: PropTypes.element,
 };
 

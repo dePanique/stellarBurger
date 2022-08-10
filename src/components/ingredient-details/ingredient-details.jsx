@@ -1,14 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
 const IngredientDetails = ({ingredient}) => {
-
-  // const modalIngredient = useSelector((store) => store.burgerIngredients.ingredient);
   const data = useSelector((store) => store.burgerIngredients.ingredient);
 
+  const { success : isData } = useSelector(store => store.appStore)
+
+  useEffect(() => {
+    if (isData) {
+      
+    }
+
+  }, [isData])
+
+
   return (
-    <React.Fragment>
+    isData && <React.Fragment>
       <h3
         className={
           styles.title + " text text_type_main-large mt-10 ml-10 mr-10"
@@ -17,14 +25,14 @@ const IngredientDetails = ({ingredient}) => {
         Детали ингредиента
       </h3>
 
-      <img className={styles.image} src={data.image_large} alt="#" />
+      <img className={styles.image} src={data?.image_large} alt="#" />
 
       <p
         className={
           styles.ingredientName + " text text_type_main-medium mt-4 mb-8"
         }
       >
-        {data.name}
+        {data?.name}
       </p>
 
       <ul className={styles.nutrientsRow + " text_color_inactive mb-15"}>
@@ -35,7 +43,7 @@ const IngredientDetails = ({ingredient}) => {
           <p
             className={styles.NutrientValue + " text text_type_digits-default"}
           >
-            {data.calories}
+            {data?.calories}
           </p>
         </li>
 
@@ -46,7 +54,7 @@ const IngredientDetails = ({ingredient}) => {
           <p
             className={styles.NutrientValue + " text text_type_digits-default"}
           >
-            {data.proteins}
+            {data?.proteins}
           </p>
         </li>
 
@@ -57,7 +65,7 @@ const IngredientDetails = ({ingredient}) => {
           <p
             className={styles.NutrientValue + " text text_type_digits-default"}
           >
-            {data.fat}
+            {data?.fat}
           </p>
         </li>
 
@@ -68,7 +76,7 @@ const IngredientDetails = ({ingredient}) => {
           <p
             className={styles.NutrientValue + " text text_type_digits-default"}
           >
-            {data.carbohydrates}
+            {data?.carbohydrates}
           </p>
         </li>
       </ul>

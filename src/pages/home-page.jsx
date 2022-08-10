@@ -13,11 +13,6 @@ export const HomePage = () => {
   const dispatch = useDispatch();
   const isDataAvailable = useSelector((store) => store.appStore.success);
 
-  useEffect(() => {
-    dispatch(getIngredients());
-    dispatch(authenticationEnch());
-  }, []);
-
 
   // console.log(
   //   document.cookie,

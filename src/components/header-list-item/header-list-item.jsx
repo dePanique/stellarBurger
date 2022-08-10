@@ -32,7 +32,7 @@ const HeaderListItem = ({ ...props }) => {
 
   return props.logo ? (
     <Link
-      to={{ pathname: "/ingredient" }}
+      to={{ pathname: "/ingredients/60d3b41abdacab0026a733cf" }}
       className={styles.logo}
     >
       {<Logo />}

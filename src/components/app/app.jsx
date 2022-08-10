@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
 import {
   HomePage,
@@ -11,13 +11,30 @@ import {
   IngredientPage,
 } from "../../pages";
 import { ProtectedRoute } from '../protected-route/protected-route';
+import Modal from '../modal/modal';
+import React, { useEffect } from 'react';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { useDispatch } from 'react-redux';
+import { getIngredients } from '../../services/actions/app';
+import { authenticationEnch } from '../../services/actions/auth';
 
 export default function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    history.replace({pathname : `${location.pathname}`, state: {}})
+    dispatch(getIngredients());
+    dispatch(authenticationEnch());
+  }, []);
+
+  const location = useLocation();
+  const history = useHistory();
+  let background = location.state?.background;
 
   return (
-    <Router>
+    <React.Fragment>
       <AppHeader />
-      <Switch>
+      <Switch location={background || location}>
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
@@ -33,16 +50,27 @@ export default function App() {
         <ProtectedRoute path="/reset-password" exact={true} unAuthOnly passReset>
           <ResetPassword />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile">
+        <ProtectedRoute path="/profile" exact={true}>
           <ProfilePage />
         </ProtectedRoute>
-        <Route path="/:ingredients/:id" exact={true}>
+        <Route path="/ingredients/:id" >
           <IngredientPage />
         </Route>
         <Route>
           <Page404 path='*' />
         </Route>
       </Switch>
-    </Router>
+      {background && (
+        <Route
+          path="/ingredients/:id"
+          children={
+            <Modal history={history}>
+              <IngredientDetails/>
+            </Modal>
+          }
+        />
+      )}
+    </React.Fragment>
+
   );
 }

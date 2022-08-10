@@ -24,10 +24,10 @@ const BurgerConstructor = () => {
   );
   const [modal, setModal] = useState(false);
   const [constructorData, setConstructorData] = useState([]);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
+
     dispatch({
       type: CALC_FULLPRICE,
     });
@@ -35,11 +35,16 @@ const BurgerConstructor = () => {
   }, [data, bun]);
 
   useEffect(() => {
-    dispatch({
-      type: REFILL_CONSTRUCTOR,
-      payload: constructorData,
-    });
+
+    if (constructorData.length !== 0) {
+      console.log(constructorData, 'refill');
+      dispatch({
+        type: REFILL_CONSTRUCTOR,
+        payload: constructorData,
+      });
+    }
   }, [constructorData]);
+
 
   const handleOrderButton = async () => {
     // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе

@@ -30,7 +30,6 @@ export const ProfilePage = () => {
   const handleLogOut = (e) => {
     e.preventDefault();
     dispatch(logOutEnch(localStorage.getItem('refreshToken')));
-    history.replace({pathname: '/'});
   };
 
   const cancelForm = (e) => {
@@ -88,7 +87,7 @@ export const ProfilePage = () => {
 
             <li className={styles.listElement}>
               <NavLink
-                exact to='/'
+                exact to='/login'
                 className={styles.link + ' text text_type_main-medium text_color_inactive '}
                 activeClassName={styles.colorPrimary}
                 onClick={(e) => handleLogOut(e)}
