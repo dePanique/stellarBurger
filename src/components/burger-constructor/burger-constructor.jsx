@@ -24,25 +24,26 @@ const BurgerConstructor = () => {
   );
   const [modal, setModal] = useState(false);
   const [constructorData, setConstructorData] = useState([]);
+  const [isButtonActive, setIsButtonActive] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-
+    setIsButtonActive(!Boolean(bun.price))
     dispatch({
       type: CALC_FULLPRICE,
     });
     setConstructorData(data);
+
   }, [data, bun]);
 
   useEffect(() => {
-
     if (constructorData.length !== 0) {
-      console.log(constructorData, 'refill');
       dispatch({
         type: REFILL_CONSTRUCTOR,
         payload: constructorData,
       });
     }
+
   }, [constructorData]);
 
 
@@ -139,8 +140,14 @@ const BurgerConstructor = () => {
         <p className={styles.finalScore + " text text_type_digits-medium"}>
           {finalPrice ? finalPrice : 0}
         </p>
+
         <div className={styles.currencyBig + " mr-10"}></div>
-        <Button type="primary" size="large" onClick={() => bun.price && handleOrderButton()}>
+
+        <Button
+          type="primary"
+          size="large"
+          disabled={isButtonActive}
+          onClick={handleOrderButton}>
           Оформить заказ
         </Button>
       </div>
