@@ -20,6 +20,7 @@ export const signInStore = (state = initialState, action) => {
       return {
         ...state,
         request: true,
+        failed: false,
       };
 
     case SIGN_IN_SUCCESS:

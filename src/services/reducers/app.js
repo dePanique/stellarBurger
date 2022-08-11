@@ -17,6 +17,7 @@ export const appStore = (state = initialState, action) => {
       return {
         ...state,
         request: true,
+        failed: false,
       };
 
     case GET_INGREDIENTS_SUCCESS:

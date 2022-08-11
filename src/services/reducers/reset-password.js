@@ -5,7 +5,7 @@ import {
 } from "../actions/reset-password"
 
 const initialState = {
-  requset: false,
+  request: false,
   success: false,
   failed: false,
 }

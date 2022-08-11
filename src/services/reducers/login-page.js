@@ -14,8 +14,6 @@ const initialState = {
     email: '',
     name: '',
   },
-  accessToken: '',
-  refreshToken: '',
   request: false,
   failed: false,
   accessTokenStatus: {
@@ -45,8 +43,6 @@ export const logInStore = (state = initialState, action) => {
           email: action.payload.user.email,
           name: action.payload.user.name,
         },
-        accessToken: 0,
-        refreshToken: 0,
         failed: false,
         accessTokenStatus: {
           ...state.accessTokenStatus,
@@ -75,7 +71,6 @@ export const logInStore = (state = initialState, action) => {
     case UPDATE_ACCESS_TOKEN_SUCCESS:
       return {
         ...state,
-        accessToken: 0,
         accessTokenStatus: {
           ...state.accessTokenStatus,
           request: false,

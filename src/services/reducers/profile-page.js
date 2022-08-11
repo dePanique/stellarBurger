@@ -1,4 +1,3 @@
-import { editUserInfo } from "../../utils/utils";
 import {
   LOG_OUT,
   LOG_OUT_SUCCESS,

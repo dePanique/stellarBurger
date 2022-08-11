@@ -2,8 +2,7 @@ import styles from "./reset-password.module.css";
 import { useState, useCallback, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
-import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { applyNewPass, checkResponse } from "./../utils/utils"
+import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { applyNewPassEnch } from "../services/actions/reset-password";
 
@@ -13,7 +12,7 @@ export const ResetPassword = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
-  const { success: isPassReseted, failed : isPassFailed } = useSelector(store => store.resetPassStore);
+  const { success: isPassReseted, failed: isPassFailed } = useSelector(store => store.resetPassStore);
 
   const onButtonClick = useCallback(
     (e) => {
@@ -31,10 +30,9 @@ export const ResetPassword = () => {
   };
 
   useEffect(() => {
-
-    if (isPassReseted) history.replace({ pathname: '/login' });
+    //Можно не пускать на муршрут восстановления если пароль сброшен
+    //if (isPassReseted) history.replace({ pathname: '/login' });
     if (isPassFailed) setConfirmPassValue('Повторите попытку');
-
   }, [isPassReseted])
 
   return (
@@ -45,10 +43,10 @@ export const ResetPassword = () => {
         <form className={styles.form + ` mb-20`} action="submit">
 
           <fieldset className={styles.inputColumn}>
-            <Input
+            <PasswordInput
               onChange={onNewPassValueChange}
               value={newPassValue}
-              name={'newEmail'}
+              name={'newPass'}
               placeholder='Введите новый пароль'
               icon='ShowIcon'
             />

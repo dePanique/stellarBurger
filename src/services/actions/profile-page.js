@@ -73,7 +73,6 @@ export const getUserInfoEnch = () => {
 export const editUserInfoEnch = (nameValue, emailValue, passwordValue) => {
 
   return function(dispatch) {
-    console.log(nameValue, emailValue, passwordValue);
     dispatch({
       type: EDIT_USER_INFO,
     })
