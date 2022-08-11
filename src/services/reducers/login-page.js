@@ -68,6 +68,7 @@ export const logInStore = (state = initialState, action) => {
         accessTokenStatus: {
           ...state.accessTokenStatus,
           request: true,
+          failed: false,
         },
       };
 

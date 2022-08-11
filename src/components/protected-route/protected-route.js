@@ -1,55 +1,52 @@
 import { Route, Redirect, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect } from "react";
-import { authenticationEnch } from "../../services/actions/auth";
-import { useLocation } from 'react-router-dom'
-
+import { useSelector } from "react-redux";
+//'6365cfa92e089650ba8a8ed4c2eaf1ba99b428fce063a5a52a76cd1cae61b950c24448750eef7e48'
+//Делает роуты для только авторизованных или только неавторизованных юзеров
 export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest}) => {
-  const dispatch = useDispatch();
-  const location = useLocation();
-  console.log(location);
+  const history = useHistory()
 
   const { success : isAuth } = useSelector(store => store.authStore);
   const { failed: isAccessUpdateFailed } = useSelector(store => store.logInStore.accessTokenStatus)
   const { success: isPassReseted} = useSelector(store => store.forgotPasswordStore)
 
-console.log('prtocetedR');
+  /*** роуты только для неавторизованных ***/
+
+  //Не пускаем авторизованных
   if (unAuthOnly && isAuth) {
-    console.log('prtocetedR1');
-    return <Redirect to='/' />
+    history.goBack()
   }
 
+  //Не допускаем неавторизованных
   if (unAuthOnly && !isAuth) {
-    console.log('prtocetedR2');
 
+    //Не допускаем без прохождения /forgot-password
     if (passReset && !isPassReseted) {
-      console.log('prtocetedR3');
 
       return <Redirect to='/forgot-password'/>
     }
-    console.log('prtocetedR4');
 
-
+    //Запускаем если невторизован
     return (
       <Route
-      path={`${path}`}
-       children={children}
-     />
+      children={children}
+      {...rest}
+      />
     )
   }
 
+  /*** роуты только для авторизованных ***/
+
+  //Роут для неавторизованного юзера
   if (!isAuth || isAccessUpdateFailed) {
-    console.log('prtocetedR5');
 
     return <Redirect to='/login' />
   }
-  console.log('prtocetedR6');
 
-
+  //Роут для авторизованного юзера
   return (
     <Route
-     path={`${path}`}
-      children={children}
+    children={children}
+    {...rest}
     />
   )
 }

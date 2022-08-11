@@ -1,6 +1,6 @@
+import styles from "./burger-constructor.module.css";
 import { useState, useEffect, useCallback } from "react";
 import { useDrop } from "react-dnd";
-import styles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
   Button,
@@ -9,33 +9,33 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import Card from "../card/card";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import { getOrderNumber } from '../../services/actions/order-details';
-import update from "immutability-helper";
 import {
   CALC_FULLPRICE,
   REFILL_CONSTRUCTOR,
   ON_BUN_DROP,
   ON_MAIN_DROP,
 } from "../../services/actions/burger-constructor";
+import update from "immutability-helper";
 
 const BurgerConstructor = () => {
   const { data, bun, finalPrice, ingredientsId } = useSelector(
     (store) => store.burgerConstructor
   );
+  const { success : isAuth } = useSelector(store => store.authStore);
   const [modal, setModal] = useState(false);
   const [constructorData, setConstructorData] = useState([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   useEffect(() => {
     setIsButtonActive(!Boolean(bun.price))
-    dispatch({
-      type: CALC_FULLPRICE,
-    });
-    setConstructorData(data);
+  }, [bun])
 
-  }, [data, bun]);
-
+  //Если изменить положение игредиентов и удалить один из них
+  //то без этого хука игредиенты займут первоначальное расположение
   useEffect(() => {
     if (constructorData.length !== 0) {
       dispatch({
@@ -46,11 +46,28 @@ const BurgerConstructor = () => {
 
   }, [constructorData]);
 
+    useEffect(() => {
+      setConstructorData(data);
+    }, [data])
+
+  useEffect(() => {
+    dispatch({
+      type: CALC_FULLPRICE,
+    });
+
+  }, [data, bun]);
+
+
+
   const handleOrderButton = async () => {
     // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
     // будет видно как меняется номер заказа
-    await dispatch(getOrderNumber(ingredientsId));
-    setModal(true);
+    if (isAuth) {
+      await dispatch(getOrderNumber(ingredientsId));
+      setModal(true);
+    } else {
+      history.replace({ pathname: '/login' });
+    }
   };
 
   const [, dropTargetBun] = useDrop({

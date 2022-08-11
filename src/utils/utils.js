@@ -86,8 +86,7 @@ function logIn(email, pass) {
   })
 }
 
-function updateAccessToken(refreshToken) {
-  console.log(localStorage.getItem('refreshToken'));
+function updateAccessToken() {
   return fetch(`${dataUrl}/auth/token`, {
     method: 'POST',
     headers: {

@@ -32,9 +32,8 @@ export const getUserInfoEnch = () => {
 
     // }
 
-console.log(2);
+
     if (isCookieExpired()) {
-      console.log(3);
       await dispatch(updateAccessTokenEnch())
     }
 
@@ -44,7 +43,6 @@ console.log(2);
       return checkResponse(res)
     })
     .catch((err) => {
-      console.log(4);
       console.log(`err in getUserInfoEnch ${err}`);
 
       dispatch({
@@ -61,8 +59,6 @@ console.log(2);
 
     })
     .then((res) => {
-      console.log(5);
-      console.log(res);
       dispatch({
         type: GET_USER_INFO_SUCCESS,
         payload: res.user,
@@ -100,7 +96,6 @@ export const editUserInfoEnch = (nameValue, emailValue, passwordValue) => {
       console.log(`err in editUserInfoEnch ${err}`);
     })
     .then((res) => {
-      console.log(res);
       dispatch({
         type: EDIT_USER_INFO_SUCCESS,
         payload: {

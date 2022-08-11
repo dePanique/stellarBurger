@@ -32,14 +32,14 @@ const HeaderListItem = ({ ...props }) => {
 
   return props.logo ? (
     <Link
-      to={{ pathname: "/ingredients/60d3b41abdacab0026a733cf" }}
+      to={{ pathname: "/" }}
       className={styles.logo}
     >
       {<Logo />}
     </Link>
   ) : (
     <NavLink
-      exact to={{ pathname: linkPath }}
+      exact to={{ pathname: linkPath , state : pathname}}
       className={styles.link + ' text text_type_main-default ' + (pathname === linkPath ? '' : 'text_color_inactive')}
       activeClassName={'text_color_primary'}
     >

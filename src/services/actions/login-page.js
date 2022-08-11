@@ -15,13 +15,13 @@ export const UPDATE_ACCESS_TOKEN_FAILED = "UPDATE_ACCESS_TOKEN_FAILED";
 export function updateAccessTokenEnch() {
 
   return async function (dispatch) {
-console.log('3.1');
+
     dispatch({
       type: UPDATE_ACCESS_TOKEN,
     })
 
     if (!localStorage.getItem('refreshToken')) {
-      console.log('3.2');
+
       console.log("empty refreshToken");
       dispatch({
         type: UPDATE_ACCESS_TOKEN_FAILED,
@@ -34,29 +34,29 @@ console.log('3.1');
       return 0
     }
 
-console.log(3.4);
+
     await updateAccessToken()
       .then((res) => {
 
         return checkResponse(res)
       })
       .catch((err) => {
-        console.log(3.5);
-        console.log(err);
 
-        console.log(`err in updateAccessTokenEnch ${err}`)
-        dispatch({
-          type: UPDATE_ACCESS_TOKEN_FAILED,
-        })
-
+        if(err === 'Ошибка: 401') {
+          localStorage.clear()
+        }
+        
         dispatch({
           type: AUTH_FAILED,
         })
 
+        dispatch({
+          type: UPDATE_ACCESS_TOKEN_FAILED,
+        })
+
+
       })
       .then((res) => {
-        console.log(3.6);
-        console.log(res);
         deleteCookie('accessToken');
         setCookie('accessToken', res.accessToken);
         deleteCookie('expire');
@@ -76,8 +76,8 @@ console.log(3.4);
 
       })
       .catch((err) => {
-
         console.log(`err in updateAccessTokenEnch ${err}`)
+
         dispatch({
           type: UPDATE_ACCESS_TOKEN_FAILED,
         })
@@ -107,9 +107,8 @@ export function logInEnch(email, pass) {
         console.log(`err in logInEnch ${err}`);
       })
       .then((res) => {
-        console.log(res);
-
         localStorage.setItem('refreshToken', res.refreshToken);
+
         setCookie('accessToken', res.accessToken);
         setCookieTime();
 

@@ -14,12 +14,14 @@ import { ProtectedRoute } from '../protected-route/protected-route';
 import Modal from '../modal/modal';
 import React, { useEffect } from 'react';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/app';
 import { authenticationEnch } from '../../services/actions/auth';
 
 export default function App() {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const { failed : accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
     history.replace({pathname : `${location.pathname}`, state: {}})
@@ -27,8 +29,11 @@ export default function App() {
     dispatch(authenticationEnch());
   }, []);
 
+  useEffect(() => {
+    if (accessFail) history.replace({pathname : '/login'})
+  }, [accessFail])
+
   const location = useLocation();
-  const history = useHistory();
   let background = location.state?.background;
 
   return (

@@ -32,7 +32,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if ( success) {
-      history.replace({pathname : '/'});
+      //history.replace({pathname : '/'});
     }
   }, [success])
 
