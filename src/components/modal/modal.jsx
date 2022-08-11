@@ -5,23 +5,21 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { portalContainer } from "./../../utils/constants";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
-import { useHistory } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { RESET_CURRENT_INGREDIENT } from "../../services/actions/burger-ingredients";
 
-
-const Modal = (props) => {
-  const history = useHistory();
+const Modal = ({closeOrderModal, ...props}) => {
   const dispatch = useDispatch();
 
   const closeModal = () => {
+    if (closeOrderModal) {
+      return closeOrderModal(false);
+    }
     dispatch({
       type: RESET_CURRENT_INGREDIENT,
     })
-    //setModal(false);
     props.history.goBack();
   }
-
 
   useEffect(() => {
     const quitOnEscape = (e) => {
@@ -54,7 +52,7 @@ const Modal = (props) => {
 };
 
 Modal.propTypes = {
-  //handle: PropTypes.func.isRequired,
+  handle: PropTypes.func,
   children: PropTypes.element,
 };
 

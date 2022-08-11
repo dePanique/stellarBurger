@@ -46,7 +46,6 @@ const BurgerConstructor = () => {
 
   }, [constructorData]);
 
-
   const handleOrderButton = async () => {
     // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
     // будет видно как меняется номер заказа
@@ -153,7 +152,7 @@ const BurgerConstructor = () => {
       </div>
 
       {modal && (
-        <Modal handle={setModal}>
+        <Modal closeOrderModal={setModal}>
           <OrderDetails />
         </Modal>
       )}
