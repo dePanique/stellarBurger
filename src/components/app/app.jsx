@@ -21,20 +21,20 @@ import { authenticationEnch } from '../../services/actions/auth';
 export default function App() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { failed : accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
+  const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
-    history.replace({pathname : `${location.pathname}`, state: {}})
+    history.replace({ pathname: `${location.pathname}`, state: {} })
     dispatch(getIngredients());
     dispatch(authenticationEnch());
   }, []);
 
   useEffect(() => {
-    if (accessFail) history.replace({pathname : '/login'})
+    if (accessFail) history.replace({ pathname: '/login' })
   }, [accessFail])
 
   const location = useLocation();
-  let background = location.state?.background;
+  const background = location.state?.background;
 
   return (
     <React.Fragment>
@@ -70,7 +70,7 @@ export default function App() {
           path="/ingredients/:id"
           children={
             <Modal history={history}>
-              <IngredientDetails/>
+              <IngredientDetails />
             </Modal>
           }
         />

@@ -23,7 +23,7 @@ const BurgerConstructor = () => {
   const { data, bun, finalPrice, ingredientsId } = useSelector(
     (store) => store.burgerConstructor
   );
-  const { success : isAuth } = useSelector(store => store.authStore);
+  const { success: isAuth } = useSelector(store => store.authStore);
   const [modal, setModal] = useState(false);
   const [constructorData, setConstructorData] = useState([]);
   const [isButtonActive, setIsButtonActive] = useState(false);
@@ -46,9 +46,9 @@ const BurgerConstructor = () => {
 
   }, [constructorData]);
 
-    useEffect(() => {
-      setConstructorData(data);
-    }, [data])
+  useEffect(() => {
+    setConstructorData(data);
+  }, [data])
 
   useEffect(() => {
     dispatch({

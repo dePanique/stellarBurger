@@ -29,9 +29,7 @@ export const getUserInfoEnch = () => {
     //     type: GET_USER_INFO_FAILED,
     //     palyoad: 'authStatus is false'
     //   })
-
     // }
-
 
     if (isCookieExpired()) {
       await dispatch(updateAccessTokenEnch())
@@ -39,7 +37,6 @@ export const getUserInfoEnch = () => {
 
     getUserInfo()
     .then((res) => {
-
       return checkResponse(res)
     })
     .catch((err) => {
@@ -56,7 +53,6 @@ export const getUserInfoEnch = () => {
       dispatch({
         type:UPDATE_ACCESS_TOKEN_FAILED
       })
-
     })
     .then((res) => {
       dispatch({
@@ -71,7 +67,6 @@ export const getUserInfoEnch = () => {
 }
 
 export const editUserInfoEnch = (nameValue, emailValue, passwordValue) => {
-
   return function(dispatch) {
     dispatch({
       type: EDIT_USER_INFO,

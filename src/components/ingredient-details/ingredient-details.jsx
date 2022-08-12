@@ -1,19 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
-const IngredientDetails = ({ingredient}) => {
+const IngredientDetails = () => {
   const data = useSelector((store) => store.burgerIngredients.ingredient);
 
-  const { success : isData } = useSelector(store => store.appStore)
-
-  useEffect(() => {
-    if (isData) {
-      
-    }
-
-  }, [isData])
-
+  const { success: isData } = useSelector(store => store.appStore)
 
   return (
     isData && <React.Fragment>

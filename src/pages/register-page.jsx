@@ -4,7 +4,6 @@ import Main from "../components/main/main"
 import styles from "./register.module.css"
 import { useDispatch, useSelector } from "react-redux";
 import {
-  EmailInput,
   PasswordInput,
   Button, Input
 } from "@ya.praktikum/react-developer-burger-ui-components";

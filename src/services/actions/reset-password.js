@@ -6,7 +6,6 @@ export const RESET_PASS_FAILED = 'RESET_PASS_FAILED';
 
 export const applyNewPassEnch = (pass, token) => {
   return function (dispatch) {
-
     dispatch({
       type: RESET_PASS,
     })
@@ -23,8 +22,6 @@ export const applyNewPassEnch = (pass, token) => {
         })
       })
       .then((res) => {
-        console.log(res);
-
         dispatch({
           type: RESET_PASS_SUCCESS
         })

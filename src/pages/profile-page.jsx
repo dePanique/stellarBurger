@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from "react";
-import { NavLink, useHistory, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import styles from "./profile-page.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,6 @@ export const ProfilePage = () => {
   const [nameValue, setNameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const dispatch = useDispatch();
-  const history = useHistory();
   const { email, name } = useSelector(store => store.profilePageStore.userInfo);
   const { success : editSuccess } = useSelector(store => store.profilePageStore.editUserInfo);
 

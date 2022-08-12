@@ -6,7 +6,6 @@ export const AUTH_RESET = 'AUTH_RESET';
 export const authenticationEnch = () => {
 
   return function(dispatch) {
-
     dispatch({
       type: AUTH_PROCESS
     })

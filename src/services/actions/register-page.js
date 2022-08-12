@@ -9,9 +9,7 @@ export const SIGN_IN_FAILED = "SIGN_IN_FAILED";
 export const SIGN_IN_RESET = "SIGN_IN_RESET";
 
 export function signIn(email, pass, name) {
-
   return function (dispatch) {
-
     dispatch({
       type: SIGN_IN,
     })
@@ -22,7 +20,6 @@ export function signIn(email, pass, name) {
         return checkResponse(res)
       })
       .catch((err) => {
-
         dispatch({
           type: SIGN_IN_FAILED,
         })
@@ -30,8 +27,6 @@ export function signIn(email, pass, name) {
         console.log(`err in createAccount ${err}`);
       })
       .then((res) => {
-        console.log(res);
-
         deleteCookie('accessToken');
         setCookie('accessToken', res.accessToken);
         deleteCookie('expire');

@@ -41,7 +41,6 @@ function isCookieExpired() {
 
   const nowTime = new Date(Date.now()).toUTCString()
   const expireTime = (new Date(getCookie('expire'))).toUTCString();
-  console.log(expireTime);
 
   return nowTime > expireTime
 }

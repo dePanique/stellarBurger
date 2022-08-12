@@ -31,8 +31,8 @@ export const LoginPage = () => {
   };
 
   useEffect(() => {
-    if ( success) {
-      //history.replace({pathname : '/'});
+    if (success) {
+      history.goBack()
     }
   }, [success])
 
@@ -47,19 +47,19 @@ export const LoginPage = () => {
 
         <form className={styles.form + ` mb-20`} action="submit">
           <fieldset className={styles.inputColumn}>
-              <Input
-                onChange={onEmailInputValueChange}
-                value={emailValue}
-                name={'email'}
-                placeholder='E-mail'
-              />
+            <Input
+              onChange={onEmailInputValueChange}
+              value={emailValue}
+              name={'email'}
+              placeholder='E-mail'
+            />
 
-              <PasswordInput
-                onChange={onPassInputValueChange}
-                value={passValue}
-                name={'password'}
-                icon='ShowIcon'
-              />
+            <PasswordInput
+              onChange={onPassInputValueChange}
+              value={passValue}
+              name={'password'}
+              icon='ShowIcon'
+            />
           </fieldset>
 
           <div className={styles.button}>

@@ -17,6 +17,7 @@ export const authStore = ( state = initialState, action) => {
       return {
         ...state,
         request: true,
+        failed: false,
       }
 
     case AUTH_SUCCESS:

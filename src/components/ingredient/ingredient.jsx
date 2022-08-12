@@ -9,7 +9,7 @@ import { useDrag } from "react-dnd";
 import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients'
 import { Link, useLocation } from 'react-router-dom';
 
-const Ingredient = ({ element, handle }) => {
+const Ingredient = ({ element }) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
@@ -24,30 +24,29 @@ const Ingredient = ({ element, handle }) => {
   });
 
   return (
-      <Link
-        to={{
-          pathname: `/ingredients/${element._id}`,
-          state: {background: location}
-        }}
+    <Link
+      to={{
+        pathname: `/ingredients/${element._id}`,
+        state: { background: location }
+      }}
 
-        className={styles.box + " ml-4 mr-2 mt-6 text text_type_main-default"}
-        onClick={() => {
-          // handle(true);
-          dispatch({
-            type: SET_CURRENT_INGREDIENT,
-            payload: element,
-          });
-        }}
-        ref={dragRef}
-      >
-        <Counter count={quantity} size="default" />
-        <img className="pl-4 pr-4 mb-1" src={element.image} alt="#" />
-        <p className="text text_type_digits-default mr-2">{element.price}</p>
-        <CurrencyIcon type="primary" />
-        <p className={styles.itemName + " text text_type_main-default mt-1"}>
-          {element.name}
-        </p>
-      </Link>
+      className={styles.box + " ml-4 mr-2 mt-6 text text_type_main-default"}
+      onClick={() => {
+        dispatch({
+          type: SET_CURRENT_INGREDIENT,
+          payload: element,
+        });
+      }}
+      ref={dragRef}
+    >
+      <Counter count={quantity} size="default" />
+      <img className="pl-4 pr-4 mb-1" src={element.image} alt="#" />
+      <p className="text text_type_digits-default mr-2">{element.price}</p>
+      <CurrencyIcon type="primary" />
+      <p className={styles.itemName + " text text_type_main-default mt-1"}>
+        {element.name}
+      </p>
+    </Link>
   );
 };
 

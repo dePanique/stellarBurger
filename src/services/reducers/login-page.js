@@ -27,14 +27,12 @@ export const logInStore = (state = initialState, action) => {
   switch (action.type) {
 
     case LOG_IN:
-
       return {
         ...state,
         request: true,
       };
 
     case LOG_IN_SUCCESS:
-
       return {
         ...state,
         request: false,
@@ -52,7 +50,6 @@ export const logInStore = (state = initialState, action) => {
       };
 
     case LOG_IN_FAILED:
-
       return {
         ...initialState,
         failed: true,

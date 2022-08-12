@@ -15,7 +15,6 @@ export const UPDATE_ACCESS_TOKEN_FAILED = "UPDATE_ACCESS_TOKEN_FAILED";
 export function updateAccessTokenEnch() {
 
   return async function (dispatch) {
-
     dispatch({
       type: UPDATE_ACCESS_TOKEN,
     })
@@ -45,7 +44,7 @@ export function updateAccessTokenEnch() {
         if(err === 'Ошибка: 401') {
           localStorage.clear()
         }
-        
+
         dispatch({
           type: AUTH_FAILED,
         })

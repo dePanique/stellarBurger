@@ -24,7 +24,6 @@ export const ForgotPassword = () => {
   )
 
   useEffect(() => {
-    console.log(2);
     if (isPassReseted) history.replace({ pathname: '/reset-password' })
   }, [isPassReseted])
 
