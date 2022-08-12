@@ -1,6 +1,6 @@
 import { Route, Redirect, useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
-//'6365cfa92e089650ba8a8ed4c2eaf1ba99b428fce063a5a52a76cd1cae61b950c24448750eef7e48'
+
 //Делает роуты для только авторизованных или только неавторизованных юзеров
 export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest}) => {
   const history = useHistory()
