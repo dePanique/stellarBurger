@@ -23,6 +23,12 @@
   height: 320px;
 }
 
+.inputsBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 .input > div > div {
   width: 480px;
 }
