@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import styles from "./profile-page.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
