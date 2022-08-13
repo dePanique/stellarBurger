@@ -129,19 +129,11 @@ export function logOutEnch(refreshToken) {
         dispatch({
           type: LOG_OUT_SUCCESS,
         })
-      })
-      .catch((err) => {
-        console.log(`err in logOutEnch ${err}`);
-      })
-      .then((res) => {
+
         dispatch({
           type: SIGN_IN_RESET,
         })
-      })
-      .catch((err) => {
-        console.log(`err in logOutEnch ${err}`);
-      })
-      .then((res) => {
+
         dispatch({
           type: LOG_IN_RESET,
         })
@@ -149,11 +141,7 @@ export function logOutEnch(refreshToken) {
         localStorage.clear('refreshToken');
         deleteCookie('accessToken');
         deleteCookie('expire');
-      })
-      .catch((err) => {
-        console.log(`err in logOutEnch ${err}`);
-      })
-      .then(() => {
+        
         dispatch({
           type: AUTH_RESET,
         })

@@ -40,7 +40,6 @@ export function updateAccessTokenEnch() {
         return checkResponse(res)
       })
       .catch((err) => {
-
         if(err === 'Ошибка: 401') {
           localStorage.clear()
         }
@@ -52,8 +51,6 @@ export function updateAccessTokenEnch() {
         dispatch({
           type: UPDATE_ACCESS_TOKEN_FAILED,
         })
-
-
       })
       .then((res) => {
         deleteCookie('accessToken');
@@ -87,7 +84,6 @@ export function updateAccessTokenEnch() {
 export function logInEnch(email, pass) {
 
   return function (dispatch) {
-
     dispatch({
       type: LOG_IN,
     })
@@ -98,7 +94,6 @@ export function logInEnch(email, pass) {
         return checkResponse(res)
       })
       .catch((err) => {
-
         dispatch({
           type: LOG_IN_FAILED,
         })
