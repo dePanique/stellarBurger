@@ -1,0 +1,54 @@
+.main {
+  box-sizing: border-box;
+  max-width: 1240px;
+
+  margin: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.tapeColumn {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 608px;
+  height: 852px;
+
+  margin-top: 40px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.tapeTitle {
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.tapeContainer {
+  box-sizing: border-box;
+  height: 852px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.tapeContainer::-webkit-scrollbar {
+  background: #2F2F37;
+  width: 8px;
+}
+
+.tapeContainer::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  height: 640px;
+}
+
+.ordersAnalysis {
+  box-sizing: border-box;
+  width: 580px;
+  border: 1px solid salmon;
+}

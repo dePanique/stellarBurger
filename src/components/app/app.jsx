@@ -9,6 +9,7 @@ import {
   ProfilePage,
   Page404,
   IngredientPage,
+  FeedPage,
 } from "../../pages";
 import { ProtectedRoute } from '../protected-route/protected-route';
 import Modal from '../modal/modal';
@@ -42,6 +43,9 @@ export default function App() {
       <Switch location={background || location}>
         <Route path="/" exact={true}>
           <HomePage />
+        </Route>
+        <Route path="/feed" exact={true}>
+          <FeedPage />
         </Route>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
