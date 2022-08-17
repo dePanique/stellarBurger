@@ -13,7 +13,7 @@ export const TapePlate = () => {
             styles.orderNumber +
             ` text text_type_digits-default`
           }>
-            #345535
+            #034534
           </h2>
 
           <p className={
@@ -28,15 +28,15 @@ export const TapePlate = () => {
           styles.burgerName +
           ` text text_type_main-medium mt-6`
         }>
-          Death Star Starship Main бургер
+          Inters Star Starship Main бургер
         </p>
 
-        <p className={
+        {/* <p className={
           styles.burgerStatus +
           ` text text_type_main-default mt-2 `
         }>
           Создан
-        </p>
+        </p> */}
 
       </div>
         <div className={styles.detailPlate + ` mt-6 mb-6`}>
@@ -93,49 +93,22 @@ export const TapePlate = () => {
             </li>
 
             <li className={styles.ingredientIcon + ` ` + styles[`left_${6}`]}>
+                <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>+3</p>
               <div className={styles.iconFrame + ` ` + styles.iconFade}>
                 <img
                       src="https://code.s3.yandex.net/react/code/cheese-mobile.png"
                       alt=""
                       className={styles.ingredientImage}
                 />
-                <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>+3</p>
               </div>
             </li>
-
-            {/* <li className={styles.ingredientIcon}>
-              <div className={styles.iconFrame}>
-              <img
-                src="https://code.s3.yandex.net/react/code/bun-02-mobile.png"
-                alt=""
-                className={styles.ingredientImage}
-              />
-              <p className={styles.ingredientsAmount + ` text text_type_digits-small`}>
-                +4
-              </p>
-              </div>
-            </li>
-
-            <li className={styles.ingredientIcon}>
-              <div className={styles.iconFrame}>
-              <img
-                src="https://code.s3.yandex.net/react/code/bun-02-mobile.png"
-                alt=""
-                className={styles.ingredientImage}
-              />
-              <p className={styles.ingredientsAmount + ` text text_type_digits-small`}>
-                +4
-              </p>
-              </div>
-            </li> */}
           </ul>
 
-          <article className={styles.priceIcon}>
-            <p className={styles.orderPrice}>3596</p>
+          <article className={styles.priceIcon + ` ml-6`}>
+            <p className={styles.orderPrice + `  text text_type_digits-default`}>3596</p>
             <CurrencyIcon type="primary" />
           </article>
         </div>
-
     </article>
   )
 }
