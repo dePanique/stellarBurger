@@ -1,0 +1,141 @@
+.main {
+  box-sizing: border-box;
+  max-width: 1240px;
+
+  margin: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-content: center;
+  justify-content: center;
+}
+
+.tapeColumn {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 601px;
+  height: 852px;
+
+  margin-top: 40px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.tapeTitle {
+  box-sizing: border-box;
+  margin-bottom: 20px;
+}
+.tapeContainer {
+  box-sizing: border-box;
+  height: 852px;
+
+  display: flex;
+  flex-direction: column;
+
+  overflow-y: scroll;
+  scroll-behavior: smooth;
+}
+
+.tapeContainer::-webkit-scrollbar {
+  background: transparent;
+  width: 8px;
+}
+
+.tapeContainer::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  height: 200px;
+}
+
+.tapeContainer::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+  margin-bottom: 68px;
+}
+
+.ordersAnalysis {
+  box-sizing: border-box;
+  width: 580px;
+
+  margin-top: 100px;
+}
+
+.ordersProcessing {
+  display: flex;
+
+  justify-content: flex-start;
+}
+
+.ordersProcessingColumns {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.completedOrdersColumn {
+  width: 100%;
+  max-width: 272px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.completedOrdersTitle {
+  width: auto;
+}
+
+.completedOrdersList {
+  box-sizing: content-box;
+  max-height: 312px;
+  width: fit-content;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  columns: 1;
+}
+
+.completedColumnItem {
+  width: auto;
+  line-height: 24px;
+}
+
+.ordersInWorkColumn {
+  width: 100%;
+  max-width: 272px;
+
+  list-style: none;
+
+  margin: 0;
+  padding: 0;
+}
+
+.ordersInWorkList {
+  box-sizing: content-box;
+  max-height: 312px;
+  width: fit-content;
+
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  columns: 1;
+}
+
+.ordersInWorkItem  {
+  width: fit-content;
+}
+
+.ordersOverallAmount {
+  text-shadow:
+  0px 0px 16px rgba(51, 51, 255, 0.25),
+  0px 0px 8px rgba(51, 51, 255, 0.25),
+  0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.todayOrdersAmount {
+  text-shadow:
+  0px 0px 16px rgba(51, 51, 255, 0.25),
+  0px 0px 8px rgba(51, 51, 255, 0.25),
+  0px 4px 32px rgba(51, 51, 255, 0.5);
+}

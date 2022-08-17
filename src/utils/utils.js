@@ -142,6 +142,32 @@ async function getUserInfo() {
   })
 }
 
+const makeColumnsList = (list, styles) => {
+  let updatedList = [];
+  if (list.length > 20) {
+    updatedList = list.splice(list.length - 1 - 20);
+  } else {
+    updatedList = list
+  }
+
+  return updatedList.map((el, index) => {
+    if (index === 9 || index + 1 === updatedList.length ) {
+      return (
+        <li className={styles.completedColumnItem + ' text text_type_digits-default'}>
+          034567
+        </li>
+      )
+    }
+
+    return (
+      <li className={styles.completedColumnItem + ' text text_type_digits-default mb-2'}>
+        034567
+      </li>
+    )
+  })
+}
+
+
 export {
   getData,
   postOrderId,
@@ -154,4 +180,5 @@ export {
   logOut,
   editUserInfo,
   getUserInfo,
+  makeColumnsList,
 };
