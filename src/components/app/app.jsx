@@ -1,37 +1,81 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import styles from "./app.module.css";
+import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
 import AppHeader from "../app-header/app-header";
-import Main from "../main/main";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { getIngredients } from "../../services/actions/app";
+import {
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ForgotPassword,
+  ResetPassword,
+  ProfilePage,
+  Page404,
+  IngredientPage,
+} from "../../pages";
+import { ProtectedRoute } from '../protected-route/protected-route';
+import Modal from '../modal/modal';
+import React, { useEffect } from 'react';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import { useDispatch, useSelector } from 'react-redux';
+import { getIngredients } from '../../services/actions/app';
+import { authenticationEnch } from '../../services/actions/auth';
 
-function App() {
+export default function App() {
   const dispatch = useDispatch();
-  const isDataAvailable = useSelector((store) => store.appStore.success);
+  const history = useHistory();
+  const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
+    history.replace({ pathname: `${location.pathname}`, state: {} })
     dispatch(getIngredients());
+    dispatch(authenticationEnch());
   }, []);
 
+  useEffect(() => {
+    if (accessFail) history.replace({ pathname: '/login' })
+  }, [accessFail])
+
+  const location = useLocation();
+  const background = location.state?.background;
+
   return (
-    <div className={styles.app}>
+    <React.Fragment>
       <AppHeader />
-      <Main>
-        {isDataAvailable && (
-          <React.Fragment>
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </DndProvider>
-          </React.Fragment>
-        )}
-      </Main>
-    </div>
+      <Switch location={background || location}>
+        <Route path="/" exact={true}>
+          <HomePage />
+        </Route>
+        <ProtectedRoute path="/login" exact={true} unAuthOnly>
+          <LoginPage />
+        </ProtectedRoute>
+        <ProtectedRoute path="/register" exact={true} unAuthOnly>
+          <RegisterPage />
+        </ProtectedRoute>
+        <ProtectedRoute path="/forgot-password" exact={true} unAuthOnly>
+          <ForgotPassword />
+        </ProtectedRoute>
+        <ProtectedRoute path="/reset-password" exact={true} unAuthOnly passReset>
+          <ResetPassword />
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile" exact={true}>
+          <ProfilePage />
+        </ProtectedRoute>
+        <Route path="/ingredients/:id" >
+          <IngredientPage />
+        </Route>
+        <Route>
+          <Page404 path='*' />
+        </Route>
+      </Switch>
+      {background && (
+        <Route
+          path="/ingredients/:id"
+          children={
+            <Modal history={history}>
+              <IngredientDetails />
+            </Modal>
+          }
+        />
+      )}
+    </React.Fragment>
+
   );
 }
-
-export default App;

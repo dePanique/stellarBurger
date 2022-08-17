@@ -1,37 +1,40 @@
-import HeaderListItem from "../header-list-item/header-list-item";
 import styles from "./app-header.module.css";
-import {
-  Logo,
-  BurgerIcon,
-  ListIcon,
-  ProfileIcon,
-} from "@ya.praktikum/react-developer-burger-ui-components";
+import HeaderListItem from "../header-list-item/header-list-item";
 
 const AppHeader = () => {
+
   return (
     <header className={styles.header}>
       <nav>
-        <ul className={styles.row + " pt-4 pb-4"}>
-          <HeaderListItem
-            icon={<BurgerIcon type="primary" />}
-            spanText="Конструктор"
-            isActive={true}
-          />
+        <ul className={styles.row + " pt-4 pb-4 "}>
 
-          <HeaderListItem
-            icon={<ListIcon type="secondary" />}
-            spanText={"Лента заказов"}
-            itemStyle={" ml-2"}
-            isActive={false}
-          />
+          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 "}>
+            <HeaderListItem
+              spanText="Конструктор"
+              href="/"
+            />
+          </li>
 
-          <HeaderListItem logo={<Logo />} spanText="logo" isActive={false} />
+          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 "}>
+            <HeaderListItem
+              spanText="Лента заказов"
+              href="#"
+            />
+          </li>
 
-          <HeaderListItem
-            icon={<ProfileIcon type="secondary" />}
-            spanText="Личный кабинет"
-            isActive={false}
-          />
+          <li className={styles.link}>
+            <HeaderListItem
+              logo
+              spanText="Лого"
+            />
+          </li>
+
+          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 "}>
+            <HeaderListItem
+              spanText="Личный кабинет"
+              href="/profile"
+            />
+          </li>
         </ul>
       </nav>
     </header>

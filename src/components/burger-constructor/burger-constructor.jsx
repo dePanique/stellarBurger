@@ -1,6 +1,6 @@
+import styles from "./burger-constructor.module.css";
 import { useState, useEffect, useCallback } from "react";
 import { useDrop } from "react-dnd";
-import styles from "./burger-constructor.module.css";
 import {
   ConstructorElement,
   Button,
@@ -9,43 +9,65 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import Card from "../card/card";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
 import { getOrderNumber } from '../../services/actions/order-details';
-import update from "immutability-helper";
 import {
   CALC_FULLPRICE,
   REFILL_CONSTRUCTOR,
   ON_BUN_DROP,
   ON_MAIN_DROP,
 } from "../../services/actions/burger-constructor";
+import update from "immutability-helper";
 
 const BurgerConstructor = () => {
   const { data, bun, finalPrice, ingredientsId } = useSelector(
     (store) => store.burgerConstructor
   );
+  const { success: isAuth } = useSelector(store => store.authStore);
   const [modal, setModal] = useState(false);
   const [constructorData, setConstructorData] = useState([]);
-
+  const [isButtonActive, setIsButtonActive] = useState(false);
   const dispatch = useDispatch();
+  const history = useHistory();
+
+  useEffect(() => {
+    setIsButtonActive(!Boolean(bun.price))
+  }, [bun])
+
+  //Если изменить положение игредиентов и удалить один из них
+  //то без этого хука игредиенты займут первоначальное расположение
+  useEffect(() => {
+    if (constructorData.length !== 0) {
+      dispatch({
+        type: REFILL_CONSTRUCTOR,
+        payload: constructorData,
+      });
+    }
+
+  }, [constructorData]);
+
+  useEffect(() => {
+    setConstructorData(data);
+  }, [data])
 
   useEffect(() => {
     dispatch({
       type: CALC_FULLPRICE,
     });
-    setConstructorData(data);
+
   }, [data, bun]);
 
-  useEffect(() => {
-    dispatch({
-      type: REFILL_CONSTRUCTOR,
-      payload: constructorData,
-    });
-  }, [constructorData]);
+
 
   const handleOrderButton = async () => {
     // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
     // будет видно как меняется номер заказа
-    await dispatch(getOrderNumber(ingredientsId));
-    setModal(true);
+    if (isAuth) {
+      await dispatch(getOrderNumber(ingredientsId));
+      setModal(true);
+    } else {
+      history.replace({ pathname: '/login' });
+    }
   };
 
   const [, dropTargetBun] = useDrop({
@@ -134,14 +156,20 @@ const BurgerConstructor = () => {
         <p className={styles.finalScore + " text text_type_digits-medium"}>
           {finalPrice ? finalPrice : 0}
         </p>
+
         <div className={styles.currencyBig + " mr-10"}></div>
-        <Button type="primary" size="large" onClick={() => bun.price && handleOrderButton()}>
+
+        <Button
+          type="primary"
+          size="large"
+          disabled={isButtonActive}
+          onClick={handleOrderButton}>
           Оформить заказ
         </Button>
       </div>
 
       {modal && (
-        <Modal handle={setModal}>
+        <Modal closeOrderModal={setModal}>
           <OrderDetails />
         </Modal>
       )}

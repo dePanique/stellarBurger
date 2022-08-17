@@ -1,45 +1,57 @@
 import PropTypes from "prop-types";
 import styles from "./header-list-item.module.css";
+import { NavLink, Link, useLocation } from "react-router-dom";
+import {
+  Logo,
+  BurgerIcon,
+  ListIcon,
+  ProfileIcon,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const HeaderListItem = ({ ...props }) => {
+  const { pathname } = useLocation();
+
+  const links = {
+    "Конструктор": ["/", {
+      primary: <BurgerIcon type="primary" />,
+      secondary: <BurgerIcon type="secondary" />
+    }],
+    "Лента заказов": ["#", {
+      primary: <ListIcon type="primary" />,
+      secondary: <ListIcon type="secondary" />
+    }],
+    "Личный кабинет": ["/profile", {
+      primary: <ProfileIcon type="primary" />,
+      secondary: <ProfileIcon type="secondary" />
+    }],
+    "Лого": ["/", <Logo />],
+  }
+
+  const linkPath = links[props.spanText][0];
+  const itemIcon = links[props.spanText][1];
+
   return props.logo ? (
-    <li className={styles.logo}>
-      <a href={props.href || "#"} className={styles.link}>
-        {props.logo}
-      </a>
-    </li>
-  ) : (
-    <li
-      className={
-        styles.element +
-        " pl-5 pt-4 pr-5 pb-4" +
-        (props.itemStyle ? props.itemStyle : "")
-      }
+    <Link
+      to={{ pathname: "/" }}
+      className={styles.logo}
     >
-      <a href={props.href || "#"} className={styles.link + " ml-2 "}>
-        {props.icon}
-        <span
-          className={
-            ((props.isActive && " text_color_primary ") ||
-              "text_color_inactive ") + " ml-2 text text_type_main-default"
-          }
-        >
-          {props.spanText}
-        </span>
-      </a>
-    </li>
+      {<Logo />}
+    </Link>
+  ) : (
+    <NavLink
+      exact to={{ pathname: linkPath , state : pathname}}
+      className={styles.link + ' text text_type_main-default ' + (pathname === linkPath ? '' : 'text_color_inactive')}
+      activeClassName={'text_color_primary'}
+    >
+      {pathname === linkPath ? itemIcon.primary : itemIcon.secondary}
+      {props.spanText}
+    </NavLink>
   );
 };
 
 HeaderListItem.propTypes = {
-  logo: PropTypes.oneOfType([
-    PropTypes.element.isRequired,
-    PropTypes.bool.isRequired,
-  ]),
-  icon: PropTypes.element,
-  isActive: PropTypes.bool.isRequired,
   spanText: PropTypes.string.isRequired,
-  itemStyle: PropTypes.string,
+  href: PropTypes.string,
 };
 
 export default HeaderListItem;
