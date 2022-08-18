@@ -98,6 +98,7 @@
 .completedColumnItem {
   width: auto;
   line-height: 24px;
+  color: var(--colors-interface-success);
 }
 
 .ordersInWorkColumn {

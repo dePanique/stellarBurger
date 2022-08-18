@@ -153,14 +153,14 @@ const makeColumnsList = (list, styles) => {
   return updatedList.map((el, index) => {
     if (index === 9 || index + 1 === updatedList.length ) {
       return (
-        <li className={styles.completedColumnItem + ' text text_type_digits-default'}>
+        <li className={styles + ' text text_type_digits-default'}>
           034567
         </li>
       )
     }
 
     return (
-      <li className={styles.completedColumnItem + ' text text_type_digits-default mb-2'}>
+      <li className={styles + ' text text_type_digits-default mb-2'}>
         034567
       </li>
     )

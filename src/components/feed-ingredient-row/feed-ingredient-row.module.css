@@ -1,0 +1,51 @@
+
+.ingredientRow {
+  width: 100%;
+  max-width: 608px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.iconContainer {
+  border-radius: 100px;
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(
+    63.18deg, #801AB3 0%,
+    #4C4CFF 100%);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.iconCover {
+  border-radius: 100px;
+  width: 60px;
+  height: 60px;
+  background-color: var(--background-alt);
+}
+
+.ingredientImage {
+  width: 112px;
+  height: 56px;
+  margin-left: -26px;
+}
+
+.priceCalculating {
+  line-height: 24px;
+  margin-right: 9px;
+}
+
+.ingredientName {
+  height: fit-content;
+  max-width: 320px;
+}
+
+.priceRow {
+  margin-left: auto;
+
+  display: flex;
+  max-height: 24px;
+}

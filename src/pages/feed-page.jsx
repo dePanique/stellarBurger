@@ -39,7 +39,7 @@ export const FeedPage = () => {
             </h3>
 
             <ul className={styles.completedOrdersList}>
-              {makeColumnsList(numbersO, styles)}
+              {makeColumnsList(numbersO, styles.completedColumnItem)}
 
             </ul>
           </article>
@@ -50,7 +50,7 @@ export const FeedPage = () => {
             </h3>
 
             <ul className={styles.ordersInWorkList}>
-              {makeColumnsList(numbersO, styles)}
+              {makeColumnsList(numbersO, styles.ordersInWorkItem)}
             </ul>
           </article>
         </article>

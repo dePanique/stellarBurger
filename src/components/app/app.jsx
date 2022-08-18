@@ -10,6 +10,7 @@ import {
   Page404,
   IngredientPage,
   FeedPage,
+  FeedOrder,
 } from "../../pages";
 import { ProtectedRoute } from '../protected-route/protected-route';
 import Modal from '../modal/modal';
@@ -46,6 +47,9 @@ export default function App() {
         </Route>
         <Route path="/feed" exact={true}>
           <FeedPage />
+        </Route>
+        <Route path="/feed/id" exact={true}>
+          <FeedOrder />
         </Route>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
