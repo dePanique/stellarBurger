@@ -3,10 +3,10 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-export const TapePlate = () => {
+export const TapePlate = ({padding}) => {
 
   return (
-    <article className={styles.box}>
+    <article className={styles.box + ` ` + styles[`${padding}`]}>
       <div className={styles.column}>
         <div className={styles.title + ` mt-6`}>
           <h2 className={
@@ -31,12 +31,12 @@ export const TapePlate = () => {
           Inters Star Starship Main бургер
         </p>
 
-        {/* <p className={
+        <p className={
           styles.burgerStatus +
           ` text text_type_main-default mt-2 `
         }>
           Создан
-        </p> */}
+        </p>
 
       </div>
         <div className={styles.detailPlate + ` mt-6 mb-6`}>

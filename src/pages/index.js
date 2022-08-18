@@ -8,6 +8,8 @@ import { Page404 } from "./page404";
 import { IngredientPage } from "./ingredient-page";
 import { FeedPage } from "./feed-page";
 import { FeedOrder } from "./feed-order";
+import { EditProfile } from "./edit-profile";
+import { ProfileOrders } from "./profile-orders";
 
 export {
   HomePage,
@@ -20,4 +22,6 @@ export {
   IngredientPage,
   FeedPage,
   FeedOrder,
+  EditProfile,
+  ProfileOrders,
 };

@@ -2,11 +2,11 @@
 .header {
   max-width: 1920px;
   display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-content: center;
   background: var(--background);
-  margin: auto;
+}
+
+.panel {
+  margin-left: 311px;
 }
 
 .row {

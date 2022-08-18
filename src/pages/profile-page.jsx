@@ -5,172 +5,88 @@ import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-component
 import { useDispatch, useSelector } from "react-redux";
 import { logOutEnch } from "../services/actions/profile-page";
 import { getUserInfoEnch, editUserInfoEnch } from "../services/actions/profile-page";
+import { BrowserRouter as Router, Switch, Route, useLocation, useHistory } from 'react-router-dom';
+import { EditProfile } from "./edit-profile";
+import { ProfileOrders } from "./profile-orders";
+import ProtectedRoute from "../components/protected-route/protected-route";
+
 
 export const ProfilePage = () => {
-  const [emailValue, setEmailValue] = useState('');
-  const [nameValue, setNameValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
+
   const dispatch = useDispatch();
-  const { email, name } = useSelector(store => store.profilePageStore.userInfo);
-  const { success: editSuccess } = useSelector(store => store.profilePageStore.editUserInfo);
-
-  const onEmailChange = e => {
-    setEmailValue(e.target.value);
-
-    if (e.target.value === email) {
-      setIsEditing(false);
-    } else {
-      setIsEditing(true);
-    }
-  };
-
-  const onNameChange = e => {
-    setNameValue(e.target.value);
-
-    if (e.target.value === name) {
-      setIsEditing(false);
-    } else {
-      setIsEditing(true);
-    }
-  };
-
-  const onPasswordChange = e => {
-    setPasswordValue(e.target.value);
-    setIsEditing(true);
-  };
+  const history = useHistory()
 
   const handleLogOut = (e) => {
     e.preventDefault();
     dispatch(logOutEnch(localStorage.getItem('refreshToken')));
   };
 
-  const cancelForm = (e) => {
-    e.preventDefault();
-
-    setNameValue(name);
-    setEmailValue(email);
-    setPasswordValue('');
-  }
-
-  const submitForm = useCallback(
-    (e) => {
-      e.preventDefault();
-      dispatch(editUserInfoEnch(nameValue, emailValue, passwordValue));
-    }, [nameValue, emailValue, passwordValue]
-  )
-
-  useEffect(() => {
-    setNameValue(name);
-    setEmailValue(email);
-  }, [name, email])
-
-  useEffect(() => {
-    setPasswordValue('');
-    setIsEditing(false);
-  }, [editSuccess])
-
   useEffect(() => {
     dispatch(getUserInfoEnch());
   }, [])
 
   return (
-    <div className={styles.editFrame}>
-      <div className={styles.linksColumn}>
-        <nav className="mb-20">
-          <ul className={styles.linksColumn + ` text_color_primary `}>
-            <li className={styles.listElement}>
-              <NavLink
-                exact to={{ pathname: '/profile' }}
-                className={styles.link + ' text text_type_main-medium text_color_inactive '}
-                activeClassName={styles.colorPrimary}
-              >
-                {'Профиль'}
-              </NavLink>
-            </li>
+    <main className={styles.main}>
+      <div className={styles.editFrame}>
+        <div className={styles.linksColumn}>
+          <nav className="mb-20">
+            <ul className={styles.linksColumn + ` text_color_primary `}>
+              <li className={styles.listElement}>
+                <NavLink
+                  exact to={{ pathname: '/profile' }}
+                  className={styles.link + ' text text_type_main-medium text_color_inactive '}
+                  activeClassName={styles.colorPrimary}
+                >
+                  {'Профиль'}
+                </NavLink>
+              </li>
 
-            <li className={styles.listElement}>
-              <NavLink
-                exact to='/profile/orders'
-                className={styles.link + ' text text_type_main-medium text_color_inactive '}
-                activeClassName={styles.colorPrimary}
-              >
-                {'История заказов'}
-              </NavLink>
-            </li>
+              <li className={styles.listElement}>
+                <NavLink
+                  exact to='/profile/orders'
+                  className={styles.link + ' text text_type_main-medium text_color_inactive '}
+                  activeClassName={styles.colorPrimary}
+                >
+                  {'История заказов'}
+                </NavLink>
+              </li>
 
-            <li className={styles.listElement}>
-              <NavLink
-                exact to='/login'
-                className={styles.link + ' text text_type_main-medium text_color_inactive '}
-                activeClassName={styles.colorPrimary}
-                onClick={(e) => handleLogOut(e)}
-              >
-                {'Выход'}
-              </NavLink>
-            </li>
-          </ul>
-        </nav>
+              <li className={styles.listElement}>
+                <NavLink
+                  exact to='/login'
+                  className={styles.link + ' text text_type_main-medium text_color_inactive '}
+                  activeClassName={styles.colorPrimary}
+                  onClick={(e) => handleLogOut(e)}
+                >
+                  {'Выход'}
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
 
-        <p className={styles.notice + ` text text_type_main-default text_color_inactive`}>
-          В&nbsp;этом разделе вы&nbsp;можете изменить свои персональные данные
-        </p>
+          <p className={styles.notice + ` text text_type_main-default text_color_inactive`}>
+            В&nbsp;этом разделе вы&nbsp;можете изменить свои персональные данные
+          </p>
+        </div>
       </div>
 
-      <form className={styles.inputsColumn + ` ml-15`} action="submit">
-        <div className={styles.inputsBox}>
-          <div className={styles.input}>
-            <Input
-              onChange={onNameChange}
-              value={nameValue}
-              name={'name'}
-              placeholder="Имя"
-              icon='EditIcon'
-            />
-          </div>
+        <Switch>
+          <ProtectedRoute
+            path="/profile"
+            exact={true}
+            unAuthOnly={false}
+          >
+            <EditProfile />
+          </ProtectedRoute>
+          <ProtectedRoute
+            path="/profile/orders"
+            exact={true}
+            unAuthOnly={false}
+          >
+            <ProfileOrders />
+          </ProtectedRoute>
+        </Switch>
 
-          <div className={styles.input + ` mt-6 mb-6`}>
-            <Input
-              onChange={onEmailChange}
-              value={emailValue}
-              name={'email'}
-              placeholder="Логин"
-              icon='EditIcon'
-            />
-          </div>
-
-          <div className={styles.input}>
-            <Input
-              onChange={onPasswordChange}
-              value={passwordValue}
-              name={'password'}
-              placeholder="Пароль"
-              icon='EditIcon'
-            />
-          </div>
-        </div>
-        {isEditing && <div className={styles.buttonRow}>
-          <div className={styles.buttonCancel}>
-            <Button
-              type="secondary"
-              size="medium"
-              onClick={(e) => cancelForm(e)}
-            >
-              Отмена
-            </Button>
-          </div>
-
-          <div className={styles.buttonConfirm}>
-            <Button
-              type="primary"
-              size="medium"
-              onClick={(e) => submitForm(e)}
-            >
-              Сохранить
-            </Button>
-          </div>
-        </div>}
-      </form>
-    </div>
+    </main>
   )
 }

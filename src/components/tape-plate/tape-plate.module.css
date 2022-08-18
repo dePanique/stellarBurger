@@ -1,8 +1,5 @@
 .box {
   box-sizing: border-box;
-  max-width: 584px;
-
-  margin-bottom: 16px;
 
   display: flex;
   flex-direction: column;
@@ -18,11 +15,12 @@
 .column {
   box-sizing: border-box;
   width: 100%;
-  max-width: 536px;
 
   display: flex;
   flex-direction: column;
   align-self: center;
+  padding-left: 24px;
+  padding-right: 24px;
 }
 
 .title {
@@ -155,4 +153,12 @@
 .orderPrice {
   display: block;
   margin-right: 9px;
+}
+
+.smallPadding {
+  margin-bottom: 16px;
+}
+
+.mediumPadding {
+  margin-bottom: 24px;
 }

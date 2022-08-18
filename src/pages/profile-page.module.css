@@ -1,10 +1,16 @@
+.main {
+  display: flex;
+  max-width: 100%;
+  margin: auto;
+  margin-left: 331px;
+}
+
 .editFrame {
-  width: 860px;
+  width: auto;
   display: flex;
   flex-direction: row;
   align-content: space-between;
-  margin-top: 120px;
-  margin-left: 340px;
+  margin-top: 122px;
 }
 
 .linksColumn {
@@ -12,25 +18,7 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
-}
-
-.inputsColumn {
-  width: 480px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 320px;
-}
-
-.inputsBox {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-
-.input > div > div {
-  width: 480px;
+  list-style: none;
 }
 
 .link {
@@ -41,6 +29,7 @@
 
 .notice {
   opacity: .4;
+  max-width: 320px;
 }
 
 .listElement {
@@ -49,26 +38,4 @@
 
 .colorPrimary {
   color: inherit;
-}
-
-.buttonRow {
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-}
-
-.buttonConfirm {
-  width: 167px;
-  display: flex;
-  flex-direction: column;
-  align-self: center;
-}
-
-.buttonCancel {
-  margin-right: 20px;
-}
-
-.buttonCancel > button {
-  padding: 16px 8px;
 }

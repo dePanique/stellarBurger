@@ -18,14 +18,14 @@ export const FeedPage = () => {
           Лента заказов
         </h1>
         <div className={styles.tapeContainer + ` pr-2`}>
-          <TapePlate />
-          <TapePlate />
-          <TapePlate />
-          <TapePlate />
-          <TapePlate />
-          <TapePlate />
-          <TapePlate />
-          <TapePlate />
+          <TapePlate padding={`smallPadding`}/>
+          <TapePlate padding={`smallPadding`}/>
+          <TapePlate padding={`smallPadding`}/>
+          <TapePlate padding={`smallPadding`}/>
+          <TapePlate padding={`smallPadding`}/>
+          <TapePlate padding={`smallPadding`}/>
+          <TapePlate padding={`smallPadding`}/>
+          <TapePlate padding={`smallPadding`}/>
         </div>
       </section>
 

@@ -1,0 +1,21 @@
+.ordersContainer {
+  width: 100%;
+  max-width: 852px;
+  height: 916px;
+  overflow-y: scroll;
+  margin-top: 41px;
+}
+
+.ordersContainer::-webkit-scrollbar {
+  width: 8px;
+  background: transparent;
+}
+.ordersContainer::-webkit-scrollbar-thumb {
+  background: #8585AD;
+  height: 200px;
+}
+
+.ordersContainer::-webkit-scrollbar-track {
+  background-color: #2F2F37;
+  margin-bottom: 48px;
+}
