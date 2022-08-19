@@ -27,6 +27,7 @@ export default function App() {
   const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
+    console.log(2);
     history.replace({ pathname: `${location.pathname}`, state: {} })
     dispatch(getIngredients());
     dispatch(authenticationEnch());

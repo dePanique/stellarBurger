@@ -9,6 +9,7 @@ import { profilePageStore } from "./profile-page";
 import { authStore } from "./auth";
 import { forgotPasswordStore } from "./forgot-password";
 import { resetPassStore } from "./reset-password";
+import { feedPage } from "./feed-page";
 
 export const rootReducer = combineReducers({
   appStore,
