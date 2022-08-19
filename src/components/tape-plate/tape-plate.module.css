@@ -162,3 +162,8 @@
 .mediumPadding {
   margin-bottom: 24px;
 }
+
+.link {
+  color: unset;
+  text-decoration: none;
+}

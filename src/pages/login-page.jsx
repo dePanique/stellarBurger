@@ -32,6 +32,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (success) {
+      console.log(5);
       history.goBack()
     }
   }, [success])

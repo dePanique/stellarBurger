@@ -19,6 +19,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/app';
 import { authenticationEnch } from '../../services/actions/auth';
+import { BurgerDetails } from '../burger-details/burger-details';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -63,8 +64,8 @@ export default function App() {
         <ProtectedRoute path="/reset-password" exact={true} unAuthOnly passReset>
           <ResetPassword />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile" unAuthOnly={false}>
-          <ProfilePage />
+        <ProtectedRoute path="/profile" unAuthOnly={false}
+          render={() => <ProfilePage />}>
         </ProtectedRoute>
         <Route path="/ingredients/:id" >
           <IngredientPage />
@@ -74,14 +75,24 @@ export default function App() {
         </Route>
       </Switch>
       {background && (
-        <Route
-          path="/ingredients/:id"
-          children={
-            <Modal history={history}>
-              <IngredientDetails />
-            </Modal>
-          }
-        />
+        <Switch >
+          <Route
+            path="/ingredients/:id"
+            children={
+              <Modal history={history}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/id"
+            children={
+              <Modal history={history}>
+                <BurgerDetails />
+              </Modal>
+            }
+          />
+        </Switch>
       )}
     </React.Fragment>
 

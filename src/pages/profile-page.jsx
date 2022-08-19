@@ -15,6 +15,7 @@ export const ProfilePage = () => {
 
   const dispatch = useDispatch();
   const history = useHistory()
+  const location = useLocation()
 
   const handleLogOut = (e) => {
     e.preventDefault();
@@ -22,6 +23,8 @@ export const ProfilePage = () => {
   };
 
   useEffect(() => {
+    // console.log(history);
+    // console.log(location);
     dispatch(getUserInfoEnch());
   }, [])
 
@@ -71,20 +74,20 @@ export const ProfilePage = () => {
       </div>
 
         <Switch>
-          <ProtectedRoute
+          <Route
             path="/profile"
             exact={true}
             unAuthOnly={false}
           >
             <EditProfile />
-          </ProtectedRoute>
-          <ProtectedRoute
+          </Route>
+          <Route
             path="/profile/orders"
             exact={true}
             unAuthOnly={false}
           >
             <ProfileOrders />
-          </ProtectedRoute>
+          </Route>
         </Switch>
 
     </main>
