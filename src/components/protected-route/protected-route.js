@@ -48,10 +48,10 @@ console.log(3);
   /*** роуты только для авторизованных ***/
 
   // Роут для неавторизованного юзера
-  // if (!isAuth || isAccessUpdateFailed) {
+  if (!token || !isAuth || isAccessUpdateFailed) {
 
-  //   return <Redirect to='/login' />
-  // }
+    return <Redirect to='/login' />
+  }
 
   //Роут для авторизованного юзера
 

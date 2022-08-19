@@ -80,9 +80,9 @@ export default function App() {
         <ProtectedRoute path="/profile" unAuthOnly={false}
           render={() => <ProfilePage />}>
         </ProtectedRoute>
-        {/* <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
+        <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
           render={() => <ProfilePage />}>
-        </ProtectedRoute> */}
+        </ProtectedRoute>
         <Route path="/ingredients/:id" >
           <IngredientPage />
         </Route>
