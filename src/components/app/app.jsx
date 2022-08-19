@@ -56,19 +56,21 @@ export default function App() {
         <Route
           path="/feed"
           exact={true}
-          render={() => <FeedPage />}
         >
+          <FeedPage />
         </Route>
         <Route
           path="/feed/id"
           exact={true}
-          render={() => <FeedPage />}
-        />
+        >
+          <OrderPage />
+        </Route>
         <ProtectedRoute
-          path="/profile/id"
+          path="/profile/orders/id"
           exact={true}
-          render={() => <FeedPage />}
-        />
+        >
+          <OrderPage />
+        </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
         </ProtectedRoute>
@@ -84,9 +86,9 @@ export default function App() {
         <ProtectedRoute path="/profile" unAuthOnly={false}
           render={() => <ProfilePage />}>
         </ProtectedRoute>
-        {/* <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
+        <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
           render={() => <ProfilePage />}>
-        </ProtectedRoute> */}
+        </ProtectedRoute>
         <Route path="/ingredients/:id" >
           <IngredientPage />
         </Route>
@@ -114,7 +116,7 @@ export default function App() {
             )}
           />
           <Route
-            path="/profile/id"
+            path="/profile/orders/id"
 
             render={() => (
               <Modal history={history}>

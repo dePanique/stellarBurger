@@ -74,20 +74,20 @@ export const ProfilePage = () => {
       </div>
 
         <Switch>
-          <Route
+          <ProtectedRoute
             path="/profile"
             exact={true}
             unAuthOnly={false}
           >
             <EditProfile />
-          </Route>
-          <Route
+          </ProtectedRoute>
+          <ProtectedRoute
             path="/profile/orders"
             exact={true}
             unAuthOnly={false}
           >
             <ProfileOrders />
-          </Route>
+          </ProtectedRoute>
         </Switch>
 
     </main>

@@ -16,9 +16,10 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       } = wsActions;
       //console.log(getState());
 
-      if (type === wsInit) {
-        console.log(1);
-        socket = new WebSocket(wsUrl);
+
+      if (type === false) {
+        socket = new WebSocket(`${wsUrl}`);
+
       }
       if (socket) {
         socket.onopen = event => {

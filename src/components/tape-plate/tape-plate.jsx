@@ -9,12 +9,13 @@ export const TapePlate = ({padding}) => {
 
   const location = useLocation()
 
-const route = location?.pathname.split('/')[1]
+const route = location?.pathname.split('/')[1] === 'profile' ? '/profile/orders/id' : '/feed/id'
+console.log(route);
   return (
     <Link
     className={styles.link}
     to={{
-      pathname: `/${route}/id`,
+      pathname: `${route}`,
       state: { background: location }
     }}>
       <article className={styles.box + ` ` + styles[`${padding}`]}>
