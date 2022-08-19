@@ -150,8 +150,10 @@ const makeColumnsList = (list, styles) => {
     updatedList = list
   }
 
+  updatedList = list
+
   return updatedList.map((el, index) => {
-    if (index === 9 || index + 1 === updatedList.length ) {
+    if (index === updatedList.length - 1 || !((index + 1 )%10) ) {
       return (
         <li key={Math.random().toString(36).slice(2)} className={styles + ' text text_type_digits-default'}>
           034567

@@ -124,7 +124,8 @@
 }
 
 .ordersInWorkItem  {
-  width: fit-content;
+  width: auto;
+  line-height: 24px;
 }
 
 .ordersOverallAmount {
