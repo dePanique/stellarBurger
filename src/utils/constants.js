@@ -10,7 +10,7 @@ import {
 import { socketMiddleware } from "../services/middleware/socketMiddleware";
 
 const wsActions = {
-  wsInit: false,
+  wsInit: WS_CONNECTION_START,
   onOpen: WS_CONNECTION_SUCCESS,
   onClose: WS_CONNECTION_CLOSED,
   onError: WS_CONNECTION_ERROR,

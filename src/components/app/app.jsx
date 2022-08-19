@@ -20,6 +20,7 @@ import { getIngredients } from '../../services/actions/app';
 import { authenticationEnch } from '../../services/actions/auth';
 import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
+import { feedEnch } from '../../services/middleware/wsActionTypes';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -31,6 +32,11 @@ export default function App() {
     history.replace({ pathname: `${location.pathname}`, state: {} })
     dispatch(getIngredients());
     dispatch(authenticationEnch());
+    dispatch(feedEnch('start'))
+
+    return () => {
+      dispatch(feedEnch('close'))
+    }
   }, []);
 
   useEffect(() => {

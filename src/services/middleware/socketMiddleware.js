@@ -14,21 +14,26 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         onMessage,
         wsSendMessage,
       } = wsActions;
-      console.log(getState());
+      //console.log(getState());
 
       if (type === wsInit) {
-        socket = new WebSocket(`${wsUrl}`);
+        console.log(1);
+        socket = new WebSocket(wsUrl);
       }
       if (socket) {
         socket.onopen = event => {
-          dispatch({ type: onOpen, payload: event });
+          console.log('open', event);
+          // dispatch({ type: onOpen, payload: event });
         };
 
         socket.onerror = event => {
-          dispatch({ type: onError, payload: event });
+          console.log(event);
+
+          // dispatch({ type: onError, payload: event });
         };
 
         socket.onmessage = event => {
+          console.log('mess', event);
           // const { data } = event;
           // const parsedData = JSON.parse(data);
           // const { success, ...restParsedData } = parsedData;
@@ -37,7 +42,9 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         };
 
         socket.onclose = event => {
-          dispatch({ type: onClose, payload: event });
+          console.log(5);
+
+          socket = null
         };
 
         // if (type === wsSendMessage) {
