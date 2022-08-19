@@ -10,7 +10,6 @@ import {
   Page404,
   IngredientPage,
   FeedPage,
-  FeedOrder,
 } from "../../pages";
 import { ProtectedRoute } from '../protected-route/protected-route';
 import Modal from '../modal/modal';
@@ -20,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/app';
 import { authenticationEnch } from '../../services/actions/auth';
 import { BurgerDetails } from '../burger-details/burger-details';
+import { OrderPage } from '../../pages/order-page';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -50,8 +50,11 @@ export default function App() {
           <FeedPage />
         </Route>
         <Route path="/feed/id" exact={true}>
-          <FeedOrder />
+          <OrderPage />
         </Route>
+        <ProtectedRoute path="/profile/id" exact={true}>
+          <OrderPage />
+        </ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
         </ProtectedRoute>
@@ -67,6 +70,9 @@ export default function App() {
         <ProtectedRoute path="/profile" unAuthOnly={false}
           render={() => <ProfilePage />}>
         </ProtectedRoute>
+        {/* <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
+          render={() => <ProfilePage />}>
+        </ProtectedRoute> */}
         <Route path="/ingredients/:id" >
           <IngredientPage />
         </Route>
@@ -86,11 +92,21 @@ export default function App() {
           />
           <Route
             path="/feed/id"
-            children={
+
+            render={() => (
               <Modal history={history}>
                 <BurgerDetails />
               </Modal>
-            }
+            )}
+          />
+          <Route
+            path="/profile/id"
+
+            render={() => (
+              <Modal history={history}>
+                <BurgerDetails />
+              </Modal>
+            )}
           />
         </Switch>
       )}
