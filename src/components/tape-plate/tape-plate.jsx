@@ -8,7 +8,7 @@ export const TapePlate = ({padding}) => {
   const params = useParams()
 
   const location = useLocation()
-console.log(location?.pathname.split('/')[1]);
+
 const route = location?.pathname.split('/')[1]
   return (
     <Link

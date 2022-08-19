@@ -46,15 +46,22 @@ export default function App() {
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
-        <Route path="/feed" exact={true}>
-          <FeedPage />
+        <Route
+          path="/feed"
+          exact={true}
+          render={() => <FeedPage />}
+        >
         </Route>
-        <Route path="/feed/id" exact={true}>
-          <OrderPage />
-        </Route>
-        <ProtectedRoute path="/profile/id" exact={true}>
-          <OrderPage />
-        </ProtectedRoute>
+        <Route
+          path="/feed/id"
+          exact={true}
+          render={() => <FeedPage />}
+        />
+        <ProtectedRoute
+          path="/profile/id"
+          exact={true}
+          render={() => <FeedPage />}
+        />
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
         </ProtectedRoute>

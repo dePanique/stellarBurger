@@ -12,7 +12,7 @@ export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest})
   const location = useLocation()
 
   if (token && !unAuthOnly) {
-    console.log('2');
+    
     return <Route
       children={children}
       {...rest}
