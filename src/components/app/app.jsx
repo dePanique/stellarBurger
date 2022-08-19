@@ -50,19 +50,21 @@ export default function App() {
         <Route
           path="/feed"
           exact={true}
-          render={() => <FeedPage />}
         >
+          <FeedPage />
         </Route>
         <Route
           path="/feed/id"
           exact={true}
-          render={() => <FeedPage />}
-        />
+        >
+          <OrderPage />
+        </Route>
         <ProtectedRoute
-          path="/profile/id"
+          path="/profile/orders/id"
           exact={true}
-          render={() => <FeedPage />}
-        />
+        >
+          <OrderPage />
+        </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
         </ProtectedRoute>
@@ -108,7 +110,7 @@ export default function App() {
             )}
           />
           <Route
-            path="/profile/id"
+            path="/profile/orders/id"
 
             render={() => (
               <Modal history={history}>

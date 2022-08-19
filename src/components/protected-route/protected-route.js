@@ -12,7 +12,7 @@ export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest})
   const location = useLocation()
 
   if (token && !unAuthOnly) {
-    
+
     return <Route
       children={children}
       {...rest}
@@ -47,7 +47,7 @@ console.log(3);
 
   /*** роуты только для авторизованных ***/
 
-  //Роут для неавторизованного юзера
+  // Роут для неавторизованного юзера
   // if (!isAuth || isAccessUpdateFailed) {
 
   //   return <Redirect to='/login' />
