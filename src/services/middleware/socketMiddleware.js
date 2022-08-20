@@ -1,4 +1,3 @@
-
 export const socketMiddleware = (wsUrl, wsActions) => {
   return store => {
     let socket = null;
@@ -13,38 +12,33 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         onError,
         onMessage,
         wsSendMessage,
+        getFeed,
+        getErr
       } = wsActions;
-      //console.log(getState());
 
+      if (type === wsInit) {
+        socket = new WebSocket(wsUrl);
 
-      if (type === false) {
-        socket = new WebSocket(`${wsUrl}`);
-
+      } else if (type === onClose) {
+        console.log('close');
+        socket.close()
+        socket = null;
       }
+
       if (socket) {
+
         socket.onopen = event => {
-          console.log('open', event);
-          // dispatch({ type: onOpen, payload: event });
         };
 
         socket.onerror = event => {
-          console.log(event);
-
-          // dispatch({ type: onError, payload: event });
+          dispatch({ type: getErr, payload: 'error' });
         };
 
         socket.onmessage = event => {
-          console.log('mess', event);
-          // const { data } = event;
-          // const parsedData = JSON.parse(data);
-          // const { success, ...restParsedData } = parsedData;
-
-          // dispatch({ type: onMessage, payload: restParsedData });
+          dispatch({ type: getFeed, payload: JSON.parse(event.data)})
         };
 
         socket.onclose = event => {
-          console.log(5);
-
           socket = null
         };
 

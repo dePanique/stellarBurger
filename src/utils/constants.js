@@ -7,6 +7,7 @@ import {
   WS_GET_MESSAGE,
   WS_SEND_MESSAGE,
 } from "../services/middleware/wsActionTypes";
+import { GET_FEED, GET_ERR } from "../services/actions/feed-page";
 import { socketMiddleware } from "../services/middleware/socketMiddleware";
 
 const wsActions = {
@@ -16,6 +17,8 @@ const wsActions = {
   onError: WS_CONNECTION_ERROR,
   onMessage: WS_GET_MESSAGE,
   wsSendMessage: WS_SEND_MESSAGE,
+  getFeed: GET_FEED,
+  getErr: GET_ERR,
 };
 
 const portalContainer = document.querySelector("#modals");

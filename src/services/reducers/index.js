@@ -22,4 +22,5 @@ export const rootReducer = combineReducers({
   authStore,
   forgotPasswordStore,
   resetPassStore,
+  feedPage,
 });
