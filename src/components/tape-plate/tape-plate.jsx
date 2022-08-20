@@ -5,12 +5,10 @@ import {
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
+import { burgerStatusObj } from '../../utils/constants';
 
 export const TapePlate = ({padding, order, price, img}) => {
-
-
-  console.log(img);
-
+  const [burgerStatus, setBurgerStatus] = useState('');
   const location = useLocation()
   const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
 
@@ -20,7 +18,7 @@ export const TapePlate = ({padding, order, price, img}) => {
   }, [])
 
   useEffect(() => {
-
+    setBurgerStatus(burgerStatusObj[`${order.status}`]);
   }, [order.status])
 
   return (
@@ -68,14 +66,14 @@ export const TapePlate = ({padding, order, price, img}) => {
               ` text text_type_main-default mt-2 ` +
               styles.burgerStatusSuccess
             }>
-              {'Выполнен'}
+              {burgerStatus}
             </p>
           ) : (
             <p className={
               styles.burgerStatus +
               ` text text_type_main-default mt-2 `
             }>
-              {'Готовится Создан'}
+              {burgerStatus}
             </p>
           )}
 
@@ -85,7 +83,10 @@ export const TapePlate = ({padding, order, price, img}) => {
 
             {img.map((element, index) => (
               index < 5 ? (
-                <li className={styles.ingredientIcon + ` ` + styles[`left_${index + 1}`]}>
+                <li
+                  className={styles.ingredientIcon + ` ` + styles[`left_${index + 1}`]}
+                  key={Math.random().toString(36).slice(2)}
+                >
                   <div className={styles.iconFrame}>
                     <img
                       src={element}
@@ -97,7 +98,10 @@ export const TapePlate = ({padding, order, price, img}) => {
               ) : (
                 index === 5 ?
                 (
-                 <li className={styles.ingredientIcon + ` ` + styles.left_6}>
+                 <li
+                  className={styles.ingredientIcon + ` ` + styles.left_6}
+                  key={Math.random().toString(36).slice(2)}
+                 >
                   <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>
                     {`+${img.length - 6}`}
                   </p>

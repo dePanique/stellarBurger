@@ -10,6 +10,7 @@ import {
 import { GET_FEED, GET_ERR } from "../services/actions/feed-page";
 import { socketMiddleware } from "../services/middleware/socketMiddleware";
 
+const feedWSS ='wss://norma.nomoreparties.space/orders/all';
 const wsActions = {
   wsInit: WS_CONNECTION_START,
   onOpen: WS_CONNECTION_SUCCESS,
@@ -20,10 +21,14 @@ const wsActions = {
   getFeed: GET_FEED,
   getErr: GET_ERR,
 };
-
-const portalContainer = document.querySelector("#modals");
-const feedWSS ='wss://norma.nomoreparties.space/orders/all';
 const myMiddleWare = socketMiddleware(feedWSS, wsActions)
+
+const burgerStatusObj = {
+  done: 'Выполнен',
+  pending: 'Отменён',
+  created: 'Готовится',
+}
+const portalContainer = document.querySelector("#modals");
 
 const dataTemplateObject = {
   calories: PropTypes.number.isRequired,
@@ -42,4 +47,11 @@ const dataTemplateObject = {
 
 const dataTemplate = PropTypes.shape(dataTemplateObject.isRequired);
 
-export { dataTemplate, portalContainer, dataTemplateObject, wsActions, myMiddleWare };
+export {
+  dataTemplate,
+  portalContainer,
+  dataTemplateObject,
+  wsActions,
+  myMiddleWare,
+  burgerStatusObj,
+};
