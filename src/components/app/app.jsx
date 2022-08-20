@@ -20,7 +20,7 @@ import { getIngredients } from '../../services/actions/app';
 import { authenticationEnch } from '../../services/actions/auth';
 import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
-import { feedEnch } from '../../services/middleware/wsActionTypes';
+import { feedEnch } from '../../services/actions/feed-page';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -28,7 +28,7 @@ export default function App() {
   const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
-    console.log(2);
+    console.log('App Start');
     history.replace({ pathname: `${location.pathname}`, state: {} })
     dispatch(getIngredients());
     dispatch(authenticationEnch());

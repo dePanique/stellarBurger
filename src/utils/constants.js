@@ -1,26 +1,50 @@
 import PropTypes from "prop-types";
-import {
-  WS_CONNECTION_START,
-  WS_CONNECTION_SUCCESS,
-  WS_CONNECTION_ERROR,
-  WS_CONNECTION_CLOSED,
-  WS_GET_MESSAGE,
-  WS_SEND_MESSAGE,
-} from "../services/middleware/wsActionTypes";
-import { GET_FEED, GET_ERR } from "../services/actions/feed-page";
-import { socketMiddleware } from "../services/middleware/socketMiddleware";
 
-const feedWSS ='wss://norma.nomoreparties.space/orders/all';
+import {
+  socketMiddleware
+} from "../services/middleware/socketMiddleware";
+
+import {
+  WS_FEED_START,
+  WS_FEED_SUCCESS,
+  WS_FEED_MESSAGE,
+  WS_FEED_SEND,
+  WS_FEED_CLOSED,
+  WS_FEED_FAILED,
+ } from "../services/actions/feed-page";
+
+import {
+  WS_PROFILE_ORDERS_START,
+  WS_PROFILE_ORDERS_SUCCESS,
+  WS_PROFILE_ORDERS_MESSAGE,
+  WS_PROFILE_ORDERS_SEND,
+  WS_PROFILE_ORDERS_CLOSED,
+  WS_PROFILE_ORDERS_FAILED,
+} from "../services/actions/profile-orders";
+
+const feedPageWS = {
+  socketInit: WS_FEED_START,
+  onOpen: WS_FEED_SUCCESS,
+  onMessage: WS_FEED_MESSAGE,
+  sendMessage: WS_FEED_SEND,
+  onClose: WS_FEED_CLOSED,
+  onError: WS_FEED_FAILED,
+}
+
+const profileOrderPageWS = {
+  socketInit: WS_PROFILE_ORDERS_START,
+  onOpen: WS_PROFILE_ORDERS_SUCCESS,
+  onMessage: WS_PROFILE_ORDERS_MESSAGE,
+  sendMessage: WS_PROFILE_ORDERS_SEND,
+  onClose: WS_PROFILE_ORDERS_CLOSED,
+  onError: WS_PROFILE_ORDERS_FAILED,
+}
+
 const wsActions = {
-  wsInit: WS_CONNECTION_START,
-  onOpen: WS_CONNECTION_SUCCESS,
-  onClose: WS_CONNECTION_CLOSED,
-  onError: WS_CONNECTION_ERROR,
-  onMessage: WS_GET_MESSAGE,
-  wsSendMessage: WS_SEND_MESSAGE,
-  getFeed: GET_FEED,
-  getErr: GET_ERR,
+  feedPageWS,
+  // profileOrderPageWS
 };
+const feedWSS ='wss://norma.nomoreparties.space/orders/all';
 const myMiddleWare = socketMiddleware(feedWSS, wsActions)
 
 const burgerStatusObj = {
@@ -28,6 +52,7 @@ const burgerStatusObj = {
   pending: 'Отменён',
   created: 'Готовится',
 }
+
 const portalContainer = document.querySelector("#modals");
 
 const dataTemplateObject = {

@@ -181,6 +181,52 @@ const calcBurgerPriceFeedPage = (ingredients, data) => {
   return summ
 }
 
+const createSocket = (wsAction, wsUrl, store, action) => {
+  let socket = null;
+  const { dispatch, getState } = store;
+  const { type, payload } = action;
+
+  const  {
+    socketInit,
+    onOpen,
+    onMessage,
+    sendMessage,
+    onClose,
+    onError,
+  } = wsAction;
+
+  if (type === socketInit) {
+    socket = new WebSocket(wsUrl);
+  }
+
+  if (socket) {
+
+    socket.onopen = event => {
+      dispatch({
+        type: onOpen
+      })
+    };
+
+    socket.onerror = event => {
+      dispatch({
+        type: onError,
+        payload: event
+      });
+    };
+
+    socket.onmessage = event => {
+      dispatch({
+        type: onMessage,
+        payload: JSON.parse(event.data)
+      })
+    };
+
+    socket.onclose = event => {
+      socket = null
+    };
+}
+
+}
 
 export {
   getData,
@@ -196,4 +242,5 @@ export {
   getUserInfo,
   makeColumnsList,
   calcBurgerPriceFeedPage,
+  createSocket,
 };

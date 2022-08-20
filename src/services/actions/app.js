@@ -1,5 +1,5 @@
 import { getData, checkResponse } from '../../utils/utils';
-import { SET_FEED_DATA } from './feed-page';
+import { GET_FEED_INGREDIENTS } from './feed-page';
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -26,7 +26,7 @@ export function getIngredients() {
 
         res.data.forEach((el, index) => {
           dispatch({
-            type: SET_FEED_DATA,
+            type: GET_FEED_INGREDIENTS,
             payload: {
               _id: res.data[index]._id,
               price: res.data[index].price,
