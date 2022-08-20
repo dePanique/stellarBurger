@@ -1,41 +1,29 @@
 import styles from './feed-page.module.css';
 import { TapePlate } from '../components/tape-plate/tape-plate';
 import { makeColumnsList } from '../utils/utils';
+import { useSelector } from 'react-redux';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export const FeedPage = () => {
-  const numbersO = [
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
-    123234,
+  const { total, totalToday, orders } = useSelector(store => store.feedPage)
+  const [doneBurger, setDoneBurgers] = useState([]);
+  const [awaitedBurger, setAwaitedBurger] = useState([])
 
+  const doneBurgers = useMemo(() => {
+    setDoneBurgers([])
+    orders.map(el=> {
+      if (el.status === 'done') {
+        setDoneBurgers(prevEl => [...prevEl, el.number])
+      } else {
+        setAwaitedBurger(prevEl => [ ...prevEl, el.number])
+      }
+    })
+  }, [orders])
 
+  useEffect(() => {
+    console.log(doneBurger);
+  }, [doneBurger])
 
-  ]
 
   return (
     <main className={styles.main}>
@@ -44,14 +32,11 @@ export const FeedPage = () => {
           Лента заказов
         </h1>
         <div className={styles.tapeContainer + ` pr-2`}>
-          <TapePlate padding={`smallPadding`}/>
-          <TapePlate padding={`smallPadding`}/>
-          <TapePlate padding={`smallPadding`}/>
-          <TapePlate padding={`smallPadding`}/>
-          <TapePlate padding={`smallPadding`}/>
-          <TapePlate padding={`smallPadding`}/>
-          <TapePlate padding={`smallPadding`}/>
-          <TapePlate padding={`smallPadding`}/>
+          {orders.map(el => (
+            <TapePlate order={el} padding={`smallPadding`} />
+            )
+          )}
+
         </div>
       </section>
 
@@ -65,7 +50,7 @@ export const FeedPage = () => {
             </h3>
 
             <ul className={styles.completedOrdersList}>
-              {makeColumnsList(numbersO, styles.completedColumnItem)}
+              {makeColumnsList(doneBurger, styles.completedColumnItem)}
 
             </ul>
           </article>
@@ -76,7 +61,7 @@ export const FeedPage = () => {
             </h3>
 
             <ul className={styles.ordersInWorkList}>
-              {makeColumnsList(numbersO, styles.ordersInWorkItem)}
+              {makeColumnsList(awaitedBurger, styles.ordersInWorkItem)}
             </ul>
           </article>
         </article>
@@ -87,7 +72,7 @@ export const FeedPage = () => {
           </h3>
 
           <p className={styles.ordersOverallAmount + ` text text_type_digits-large`}>
-            28 752
+            {total}
           </p>
         </article>
 
@@ -97,7 +82,7 @@ export const FeedPage = () => {
           </h3>
 
           <p className={styles.todayOrdersAmount + ` text text_type_digits-large`}>
-            138
+            {totalToday}
           </p>
         </article>
       </section>

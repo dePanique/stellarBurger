@@ -156,14 +156,14 @@ const makeColumnsList = (list, styles) => {
     if (index === updatedList.length - 1 || !((index + 1 )%10) ) {
       return (
         <li key={Math.random().toString(36).slice(2)} className={styles + ' text text_type_digits-default'}>
-          034567
+          {el}
         </li>
       )
     }
 
     return (
       <li key={Math.random().toString(36).slice(2)} className={styles + ' text text_type_digits-default mb-2'}>
-        034567
+        {el}
       </li>
     )
   })

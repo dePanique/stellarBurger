@@ -35,6 +35,7 @@ export const socketMiddleware = (wsUrl, wsActions) => {
         };
 
         socket.onmessage = event => {
+          console.log('message', event);
           dispatch({ type: getFeed, payload: JSON.parse(event.data)})
         };
 

@@ -5,6 +5,7 @@ const initialState = {
   success: false,
   failed: false,
   online: false,
+  orders: [],
 }
 
 export const feedPage = (state = initialState, action) => {

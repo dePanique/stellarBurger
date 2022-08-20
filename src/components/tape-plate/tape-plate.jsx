@@ -4,7 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation, useParams } from 'react-router-dom';
 
-export const TapePlate = ({padding}) => {
+export const TapePlate = ({padding, order}) => {
   const params = useParams()
 
   const location = useLocation()
