@@ -60,13 +60,13 @@ export default function App() {
           <FeedPage />
         </Route>
         <Route
-          path="/feed/id"
+          path="/feed/:id"
           exact={true}
         >
           <OrderPage />
         </Route>
         <ProtectedRoute
-          path="/profile/orders/id"
+          path="/profile/orders/:id"
           exact={true}
         >
           <OrderPage />
@@ -107,7 +107,7 @@ export default function App() {
             }
           />
           <Route
-            path="/feed/id"
+            path="/feed/:id"
 
             render={() => (
               <Modal history={history}>
@@ -116,7 +116,7 @@ export default function App() {
             )}
           />
           <Route
-            path="/profile/orders/id"
+            path="/profile/orders/:id"
 
             render={() => (
               <Modal history={history}>

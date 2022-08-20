@@ -3,6 +3,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { FeedIngredientRow } from '../feed-ingredient-row/feed-ingredient-row';
 
 export const BurgerDetails = () => {
+  
   return (
     <section className={styles.container}>
       <h1 className={styles.title + ` text text_type_digits-default mb-10`}>

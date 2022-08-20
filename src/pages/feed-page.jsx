@@ -6,23 +6,19 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export const FeedPage = () => {
   const { total, totalToday, orders } = useSelector(store => store.feedPage)
-  const [doneBurger, setDoneBurgers] = useState([]);
-  const [awaitedBurger, setAwaitedBurger] = useState([])
+  const [doneBurgers, setDoneBurgers] = useState([]);
+  const [awaitedBurgers, setAwaitedBurgers] = useState([])
 
-  const doneBurgers = useMemo(() => {
+  useMemo(() => {
     setDoneBurgers([])
-    orders.map(el=> {
+    orders.map( el => {
       if (el.status === 'done') {
         setDoneBurgers(prevEl => [...prevEl, el.number])
       } else {
-        setAwaitedBurger(prevEl => [ ...prevEl, el.number])
+        setAwaitedBurgers(prevEl => [ ...prevEl, el.number])
       }
     })
   }, [orders])
-
-  useEffect(() => {
-    console.log(doneBurger);
-  }, [doneBurger])
 
 
   return (
@@ -33,7 +29,11 @@ export const FeedPage = () => {
         </h1>
         <div className={styles.tapeContainer + ` pr-2`}>
           {orders.map(el => (
-            <TapePlate order={el} padding={`smallPadding`} />
+            <TapePlate
+              key={Math.random().toString(36).slice(2)}
+              order={el}
+              padding={`smallPadding`}
+              />
             )
           )}
 
@@ -50,7 +50,7 @@ export const FeedPage = () => {
             </h3>
 
             <ul className={styles.completedOrdersList}>
-              {makeColumnsList(doneBurger, styles.completedColumnItem)}
+              {makeColumnsList(doneBurgers, styles.completedColumnItem)}
 
             </ul>
           </article>
@@ -61,7 +61,7 @@ export const FeedPage = () => {
             </h3>
 
             <ul className={styles.ordersInWorkList}>
-              {makeColumnsList(awaitedBurger, styles.ordersInWorkItem)}
+              {makeColumnsList(awaitedBurgers, styles.ordersInWorkItem)}
             </ul>
           </article>
         </article>

@@ -144,11 +144,11 @@ async function getUserInfo() {
 
 const makeColumnsList = (list, styles) => {
   let updatedList = [];
-  if (list.length > 20) {
-    updatedList = list.splice(list.length - 1 - 20);
-  } else {
-    updatedList = list
-  }
+  // if (list.length > 20) {
+  //   updatedList = list.splice(list.length - 1 - 20);
+  // } else {
+  //   updatedList = list
+  // }
 
   updatedList = list
 

@@ -2,15 +2,15 @@ import styles from './tape-plate.module.css';
 import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { Link, useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export const TapePlate = ({padding, order}) => {
-  const params = useParams()
+
 
   const location = useLocation()
 
-const route = location?.pathname.split('/')[1] === 'profile' ? '/profile/orders/id' : '/feed/id'
-console.log(route);
+const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
+//console.log(route);
   return (
     <Link
     className={styles.link}
