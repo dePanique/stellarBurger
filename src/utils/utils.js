@@ -169,6 +169,18 @@ const makeColumnsList = (list, styles) => {
   })
 }
 
+const calcBurgerPriceFeedPage = (ingredients, data) => {
+  let summ = 0
+  ingredients.forEach(el => {
+    data.find((dataEl) => {
+      if (el === dataEl._id) {
+        summ += dataEl.price
+      }
+    })
+  })
+  return summ
+}
+
 
 export {
   getData,
@@ -183,4 +195,5 @@ export {
   editUserInfo,
   getUserInfo,
   makeColumnsList,
+  calcBurgerPriceFeedPage,
 };

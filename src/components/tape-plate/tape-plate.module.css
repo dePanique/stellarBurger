@@ -55,6 +55,8 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  list-style: none;
+  color: unset;
 }
 
 .ingredientsRow {
@@ -166,4 +168,9 @@
 .link {
   color: unset;
   text-decoration: none;
+}
+
+.burgerStatusSuccess {
+  width: 100%;
+  color: var(--colors-interface-success);
 }

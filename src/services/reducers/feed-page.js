@@ -1,4 +1,4 @@
-import { GET_ERR, GET_FEED } from "../actions/feed-page";
+import { GET_ERR, GET_FEED, SET_FEED_DATA } from "../actions/feed-page";
 
 const initialState = {
   request: false,
@@ -6,6 +6,7 @@ const initialState = {
   failed: false,
   online: false,
   orders: [],
+  ingredientsData: {}
 }
 
 export const feedPage = (state = initialState, action) => {
@@ -25,6 +26,18 @@ export const feedPage = (state = initialState, action) => {
         ...state,
         request: false,
         failed: true,
+      }
+
+    case SET_FEED_DATA:
+      return {
+        ...state,
+        ingredientsData: {
+          ...state.ingredientsData,
+          [`${action.payload._id}`] : {
+            price: action.payload.price,
+            image_mobile: action.payload.image_mobile
+          }
+        }
       }
 
     default:

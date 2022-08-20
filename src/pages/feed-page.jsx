@@ -1,11 +1,12 @@
 import styles from './feed-page.module.css';
 import { TapePlate } from '../components/tape-plate/tape-plate';
-import { makeColumnsList } from '../utils/utils';
+import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
 import { useSelector } from 'react-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 export const FeedPage = () => {
-  const { total, totalToday, orders } = useSelector(store => store.feedPage)
+  const { data : ingredientsData } = useSelector(store => store.appStore)
+  const { total, totalToday, orders, ingredientsData : ingredientsDetail } = useSelector(store => store.feedPage)
   const [doneBurgers, setDoneBurgers] = useState([]);
   const [awaitedBurgers, setAwaitedBurgers] = useState([])
 
@@ -15,11 +16,12 @@ export const FeedPage = () => {
       if (el.status === 'done') {
         setDoneBurgers(prevEl => [...prevEl, el.number])
       } else {
+        console.log((el.status));
         setAwaitedBurgers(prevEl => [ ...prevEl, el.number])
       }
     })
-  }, [orders])
 
+  }, [orders])
 
   return (
     <main className={styles.main}>
@@ -33,7 +35,9 @@ export const FeedPage = () => {
               key={Math.random().toString(36).slice(2)}
               order={el}
               padding={`smallPadding`}
-              />
+              price={calcBurgerPriceFeedPage(el.ingredients, ingredientsData)}
+              img={el.ingredients.map(ingredientID => ingredientsDetail[ingredientID]['image_mobile'])}
+            />
             )
           )}
 

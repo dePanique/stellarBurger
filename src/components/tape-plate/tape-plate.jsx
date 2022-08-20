@@ -3,14 +3,26 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from 'react-router-dom';
+import { useEffect, useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
-export const TapePlate = ({padding, order}) => {
+export const TapePlate = ({padding, order, price, img}) => {
 
+
+  console.log(img);
 
   const location = useLocation()
+  const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
 
-const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
-//console.log(route);
+  useEffect(() => {
+
+
+  }, [])
+
+  useEffect(() => {
+
+  }, [order.status])
+
   return (
     <Link
     className={styles.link}
@@ -25,14 +37,21 @@ const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/
               styles.orderNumber +
               ` text text_type_digits-default`
             }>
-              #034534
+              {`#${order.number}`}
             </h2>
 
             <p className={
               styles.time +
               ` text text_type_main-default text_color_inactive`
             }>
-              Сегодня, 16:20 i-GMT+3
+              {`${new Date(order.createdAt).toLocaleString(
+                'ru', {
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+                })} i-GMT+3`
+              }
             </p>
           </div>
 
@@ -40,84 +59,68 @@ const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/
             styles.burgerName +
             ` text text_type_main-medium mt-6`
           }>
-            Inters Star Starship Main бургер
+            {order.name}
           </p>
 
-          <p className={
-            styles.burgerStatus +
-            ` text text_type_main-default mt-2 `
-          }>
-            Создан
-          </p>
+          {order?.status === 'done' ? (
+            <p className={
+              styles.burgerStatus +
+              ` text text_type_main-default mt-2 ` +
+              styles.burgerStatusSuccess
+            }>
+              {'Выполнен'}
+            </p>
+          ) : (
+            <p className={
+              styles.burgerStatus +
+              ` text text_type_main-default mt-2 `
+            }>
+              {'Готовится Создан'}
+            </p>
+          )}
 
         </div>
           <div className={styles.detailPlate + ` mt-6 mb-6`}>
-            <ul className={styles.ingredientsRow}>
+          <ul className={styles.ingredientsRow}>
 
-            <li className={styles.ingredientIcon + ` ` + styles[`left_${1}`]}>
-                <div className={styles.iconFrame}>
-                  <img
-                        src="https://code.s3.yandex.net/react/code/bun-01-mobile.png"
-                        alt=""
-                        className={styles.ingredientImage}
-                  />
-                </div>
-              </li>
-
-              <li className={styles.ingredientIcon + ` ` + styles[`left_${2}`]}>
-                <div className={styles.iconFrame}>
-                  <img
-                        src="https://code.s3.yandex.net/react/code/meat-03-mobile.png"
-                        alt=""
-                        className={styles.ingredientImage}
-                  />
-                </div>
-              </li>
-
-              <li className={styles.ingredientIcon + ` ` + styles[`left_${3}`]}>
-                <div className={styles.iconFrame}>
-                  <img
-                        src="https://code.s3.yandex.net/react/code/core-mobile.png"
-                        alt=""
-                        className={styles.ingredientImage}
-                  />
-                </div>
-              </li>
-
-              <li className={styles.ingredientIcon + ` ` + styles[`left_${4}`]}>
-                <div className={styles.iconFrame}>
-                  <img
-                        src="https://code.s3.yandex.net/react/code/mineral_rings-mobile.png"
-                        alt=""
-                        className={styles.ingredientImage}
-                  />
-                </div>
-              </li>
-
-              <li className={styles.ingredientIcon + ` ` + styles[`left_${5}`]}>
-                <div className={styles.iconFrame}>
-                  <img
-                        src="https://code.s3.yandex.net/react/code/sauce-03-mobile.png"
-                        alt=""
-                        className={styles.ingredientImage}
-                  />
-                </div>
-              </li>
-
-              <li className={styles.ingredientIcon + ` ` + styles[`left_${6}`]}>
-                  <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>+3</p>
-                <div className={styles.iconFrame + ` ` + styles.iconFade}>
-                  <img
-                        src="https://code.s3.yandex.net/react/code/cheese-mobile.png"
-                        alt=""
-                        className={styles.ingredientImage}
-                  />
-                </div>
-              </li>
-            </ul>
+            {img.map((element, index) => (
+              index < 5 ? (
+                <li className={styles.ingredientIcon + ` ` + styles[`left_${index + 1}`]}>
+                  <div className={styles.iconFrame}>
+                    <img
+                      src={element}
+                      alt=""
+                      className={styles.ingredientImage}
+                    />
+                  </div>
+                </li>
+              ) : (
+                index === 5 ?
+                (
+                 <li className={styles.ingredientIcon + ` ` + styles.left_6}>
+                  <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>
+                    {`+${img.length - 6}`}
+                  </p>
+                  <div className={styles.iconFrame + ` ` + styles.iconFade}>
+                    <img
+                      src={element}
+                      alt=""
+                      className={styles.ingredientImage}
+                    />
+                  </div>
+                </li>
+                ) : (
+                  null
+                )
+              )
+            )
+            )}
+          </ul>
 
             <article className={styles.priceIcon + ` ml-6`}>
-              <p className={styles.orderPrice + `  text text_type_digits-default`}>3596</p>
+              <p className={styles.orderPrice + `  text text_type_digits-default`}>
+                {price}
+              </p>
               <CurrencyIcon type="primary" />
             </article>
           </div>
