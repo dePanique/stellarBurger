@@ -13,10 +13,6 @@ export const TapePlate = ({ padding, order, price, img }) => {
   const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
 
   useEffect(() => {
-
-  }, [])
-
-  useEffect(() => {
     setBurgerStatus(burgerStatusObj[`${order.status}`]);
   }, [order.status])
 
