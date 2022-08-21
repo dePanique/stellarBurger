@@ -31,6 +31,7 @@ export function getIngredients() {
               _id: res.data[index]._id,
               price: res.data[index].price,
               image_mobile: res.data[index].image_mobile,
+              name: res.data[index].name,
             }
           })
         })

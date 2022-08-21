@@ -18,11 +18,14 @@ function getData() {
 }
 
 function postOrderId(array) {
-  return fetch(`${dataUrl}/orders`, {
+  const token = getCookie('accessToken')
+console.log('post');
+  return fetch(`${dataUrl}/orders?token=${token}`, {
     method: 'POST',
     headers: {
       baseURL: dataUrl,
       "Content-Type": "application/json",
+      authorization: token,
     },
     body: JSON.stringify({
       "ingredients": array,
@@ -181,7 +184,7 @@ const calcBurgerPriceFeedPage = (ingredients, data) => {
   return summ
 }
 
-const createSocket = (wsAction, wsUrl, store, action) => {
+const createSocket = (wsAction, store, action) => {
   let socket = null;
   const { dispatch, getState } = store;
   const { type, payload } = action;
@@ -193,11 +196,17 @@ const createSocket = (wsAction, wsUrl, store, action) => {
     sendMessage,
     onClose,
     onError,
+    closeWS,
   } = wsAction;
 
   if (type === socketInit) {
-    socket = new WebSocket(wsUrl);
+    const { wsUrl, query} = payload;
+    const url = wsUrl + query;
+
+    socket = new WebSocket(url);
   }
+
+  if (type === closeWS) socket.close()
 
   if (socket) {
 
@@ -205,13 +214,6 @@ const createSocket = (wsAction, wsUrl, store, action) => {
       dispatch({
         type: onOpen
       })
-    };
-
-    socket.onerror = event => {
-      dispatch({
-        type: onError,
-        payload: event
-      });
     };
 
     socket.onmessage = event => {
@@ -222,10 +224,24 @@ const createSocket = (wsAction, wsUrl, store, action) => {
     };
 
     socket.onclose = event => {
+      dispatch({
+        type: onClose,
+        payload: JSON.parse(event.data)
+      })
+
       socket = null
     };
-}
 
+    socket.onerror = event => {
+      dispatch({
+        type: onError,
+        payload: event
+      });
+
+      socket = null
+    };
+
+  }
 }
 
 export {

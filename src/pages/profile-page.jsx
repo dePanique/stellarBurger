@@ -23,8 +23,6 @@ export const ProfilePage = () => {
   };
 
   useEffect(() => {
-    // console.log(history);
-    // console.log(location);
     dispatch(getUserInfoEnch());
   }, [])
 

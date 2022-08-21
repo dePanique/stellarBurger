@@ -1,23 +1,26 @@
 import styles from './feed-page.module.css';
 import { TapePlate } from '../components/tape-plate/tape-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { feedEnch } from '../services/actions/feed-page';
 
 export const FeedPage = () => {
-  const { data : ingredientsData } = useSelector(store => store.appStore)
-  const { total, totalToday, orders, ingredientsData : ingredientsDetail } = useSelector(store => store.feedPage)
+  const { data: ingredientsData } = useSelector(store => store.appStore)
+  const { total, totalToday, orders, ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
   const [doneBurgers, setDoneBurgers] = useState([]);
-  const [awaitedBurgers, setAwaitedBurgers] = useState([])
+  const [awaitedBurgers, setAwaitedBurgers] = useState([]);
+
+  const dispatch = useDispatch()
 
   useMemo(() => {
     setDoneBurgers([])
-    orders.map( el => {
+    orders.map(el => {
       if (el.status === 'done') {
         setDoneBurgers(prevEl => [...prevEl, el.number])
       } else {
         console.log((el.status));
-        setAwaitedBurgers(prevEl => [ ...prevEl, el.number])
+        setAwaitedBurgers(prevEl => [...prevEl, el.number])
       }
     })
 
@@ -38,7 +41,7 @@ export const FeedPage = () => {
               price={calcBurgerPriceFeedPage(el.ingredients, ingredientsData)}
               img={el.ingredients.map(ingredientID => ingredientsDetail[ingredientID]['image_mobile'])}
             />
-            )
+          )
           )}
 
         </div>

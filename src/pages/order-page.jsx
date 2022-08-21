@@ -5,7 +5,7 @@ export const OrderPage = () => {
 
   return (
     <main className={styles.main}>
-      <BurgerDetails />
+      {<BurgerDetails />}
     </main>
   )
 }

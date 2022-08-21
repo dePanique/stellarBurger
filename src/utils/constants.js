@@ -20,6 +20,7 @@ import {
   WS_PROFILE_ORDERS_SEND,
   WS_PROFILE_ORDERS_CLOSED,
   WS_PROFILE_ORDERS_FAILED,
+  CLOSE_PROFILE_ORDERS_WS,
 } from "../services/actions/profile-orders";
 
 const feedPageWS = {
@@ -29,6 +30,7 @@ const feedPageWS = {
   sendMessage: WS_FEED_SEND,
   onClose: WS_FEED_CLOSED,
   onError: WS_FEED_FAILED,
+  closeWS : false,
 }
 
 const profileOrderPageWS = {
@@ -38,19 +40,22 @@ const profileOrderPageWS = {
   sendMessage: WS_PROFILE_ORDERS_SEND,
   onClose: WS_PROFILE_ORDERS_CLOSED,
   onError: WS_PROFILE_ORDERS_FAILED,
+  closeWS: CLOSE_PROFILE_ORDERS_WS,
 }
 
 const wsActions = {
   feedPageWS,
-  // profileOrderPageWS
+  profileOrderPageWS
 };
-const feedWSS ='wss://norma.nomoreparties.space/orders/all';
-const myMiddleWare = socketMiddleware(feedWSS, wsActions)
+
+export const WS_URL = 'wss://norma.nomoreparties.space/orders';
+
+const myMiddleWare = socketMiddleware(wsActions)
 
 const burgerStatusObj = {
   done: 'Выполнен',
-  pending: 'Отменён',
-  created: 'Готовится',
+  pending: 'Готовится',
+  created: 'Создан',
 }
 
 const portalContainer = document.querySelector("#modals");

@@ -6,16 +6,14 @@ export const WS_FEED_CLOSED = 'WS_FEED_CLOSED';
 export const WS_FEED_FAILED = 'WS_FEED_FAILED';
 export const GET_FEED_INGREDIENTS = 'GET_FEED_INGREDIENTS';
 
-export const feedEnch = (action) => {
-  return function(dispatch) {
+export const feedEnch = (wsUrl, action) => {
+  return function (dispatch) {
 
     if (action === 'start') {
+
       dispatch({
         type: WS_FEED_START,
-      })
-    } else {
-      dispatch({
-        type: WS_FEED_CLOSED,
+        payload: wsUrl,
       })
     }
   }

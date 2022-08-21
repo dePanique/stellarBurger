@@ -68,7 +68,8 @@ export const feedPage = (state = initialState, action) => {
           ...state.ingredientsData,
           [`${action.payload._id}`] : {
             price: action.payload.price,
-            image_mobile: action.payload.image_mobile
+            image_mobile: action.payload.image_mobile,
+            name: action.payload.name,
           }
         }
       }

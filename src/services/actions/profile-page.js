@@ -1,8 +1,10 @@
 import { checkResponse, logOut, getUserInfo, editUserInfo } from "../../utils/utils";
 import { SIGN_IN_RESET } from "./register-page";
 import { LOG_IN_RESET, updateAccessTokenEnch, UPDATE_ACCESS_TOKEN_FAILED } from "./login-page";
-import { deleteCookie, isCookieExpired } from "../../utils/cookies";
+import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
 import { AUTH_FAILED, AUTH_RESET } from "./auth";
+import { CLOSE_PROFILE_ORDERS_WS, WS_PROFILE_ORDERS_START } from "./profile-orders";
+import { WS_URL } from "../../utils/constants";
 
 export const LOG_OUT = "LOG_OUT";
 export const LOG_OUT_SUCCESS = "LOG_OUT_SUCCESS";
@@ -54,14 +56,30 @@ export const getUserInfoEnch = () => {
         dispatch({
           type: UPDATE_ACCESS_TOKEN_FAILED
         })
+
+        dispatch({
+          type: CLOSE_PROFILE_ORDERS_WS,
+        })
       })
       .then((res) => {
+        dispatch({
+          type: WS_PROFILE_ORDERS_START,
+          payload: {
+            wsUrl: WS_URL,
+            query: `?token=${getCookie('accessToken').split(' ')[1]}`
+          }
+        })
+
         dispatch({
           type: GET_USER_INFO_SUCCESS,
           payload: res.user,
         })
       })
       .catch((err) => {
+        dispatch({
+          type: CLOSE_PROFILE_ORDERS_WS,
+        })
+
         console.log(`err in getUserInfoEnch ${err}`);
       })
   }
@@ -141,7 +159,7 @@ export function logOutEnch(refreshToken) {
         localStorage.clear('refreshToken');
         deleteCookie('accessToken');
         deleteCookie('expire');
-        
+
         dispatch({
           type: AUTH_RESET,
         })

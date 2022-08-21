@@ -7,13 +7,12 @@ import { useEffect, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { burgerStatusObj } from '../../utils/constants';
 
-export const TapePlate = ({padding, order, price, img}) => {
+export const TapePlate = ({ padding, order, price, img }) => {
   const [burgerStatus, setBurgerStatus] = useState('');
   const location = useLocation()
   const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
 
   useEffect(() => {
-
 
   }, [])
 
@@ -23,11 +22,11 @@ export const TapePlate = ({padding, order, price, img}) => {
 
   return (
     <Link
-    className={styles.link}
-    to={{
-      pathname: `${route}`,
-      state: { background: location }
-    }}>
+      className={styles.link}
+      to={{
+        pathname: `${route}`,
+        state: { background: location }
+      }}>
       <article className={styles.box + ` ` + styles[`${padding}`]}>
         <div className={styles.column}>
           <div className={styles.title + ` mt-6`}>
@@ -48,7 +47,7 @@ export const TapePlate = ({padding, order, price, img}) => {
                 day: 'numeric',
                 hour: '2-digit',
                 minute: '2-digit'
-                })} i-GMT+3`
+              })} i-GMT+3`
               }
             </p>
           </div>
@@ -78,7 +77,7 @@ export const TapePlate = ({padding, order, price, img}) => {
           )}
 
         </div>
-          <div className={styles.detailPlate + ` mt-6 mb-6`}>
+        <div className={styles.detailPlate + ` mt-6 mb-6`}>
           <ul className={styles.ingredientsRow}>
 
             {img.map((element, index) => (
@@ -97,37 +96,37 @@ export const TapePlate = ({padding, order, price, img}) => {
                 </li>
               ) : (
                 index === 5 ?
-                (
-                 <li
-                  className={styles.ingredientIcon + ` ` + styles.left_6}
-                  key={Math.random().toString(36).slice(2)}
-                 >
-                  <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>
-                    {`+${img.length - 6}`}
-                  </p>
-                  <div className={styles.iconFrame + ` ` + styles.iconFade}>
-                    <img
-                      src={element}
-                      alt=""
-                      className={styles.ingredientImage}
-                    />
-                  </div>
-                </li>
-                ) : (
-                  null
-                )
+                  (
+                    <li
+                      className={styles.ingredientIcon + ` ` + styles.left_6}
+                      key={Math.random().toString(36).slice(2)}
+                    >
+                      <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>
+                        {`+${img.length - 6}`}
+                      </p>
+                      <div className={styles.iconFrame + ` ` + styles.iconFade}>
+                        <img
+                          src={element}
+                          alt=""
+                          className={styles.ingredientImage}
+                        />
+                      </div>
+                    </li>
+                  ) : (
+                    null
+                  )
               )
             )
             )}
           </ul>
 
-            <article className={styles.priceIcon + ` ml-6`}>
-              <p className={styles.orderPrice + `  text text_type_digits-default`}>
-                {price}
-              </p>
-              <CurrencyIcon type="primary" />
-            </article>
-          </div>
+          <article className={styles.priceIcon + ` ml-6`}>
+            <p className={styles.orderPrice + `  text text_type_digits-default`}>
+              {price}
+            </p>
+            <CurrencyIcon type="primary" />
+          </article>
+        </div>
       </article>
     </Link>
   )

@@ -21,6 +21,9 @@ import { authenticationEnch } from '../../services/actions/auth';
 import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
 import { feedEnch } from '../../services/actions/feed-page';
+import { WS_URL } from '../../utils/constants';
+import { getUserInfoEnch } from '../../services/actions/profile-page';
+import { OrderPageProfile } from '../../pages/order-page-profile';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -28,15 +31,14 @@ export default function App() {
   const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
-    console.log('App Start');
     history.replace({ pathname: `${location.pathname}`, state: {} })
     dispatch(getIngredients());
     dispatch(authenticationEnch());
-    dispatch(feedEnch('start'))
+    dispatch(feedEnch({
+      wsUrl: WS_URL,
+      query: '/all'
+    }, 'start'))
 
-    return () => {
-      dispatch(feedEnch('close'))
-    }
   }, []);
 
   useEffect(() => {
@@ -53,23 +55,14 @@ export default function App() {
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
-        <Route
-          path="/feed"
-          exact={true}
-        >
+        <Route path="/feed" exact={true}>
           <FeedPage />
         </Route>
-        <Route
-          path="/feed/:id"
-          exact={true}
-        >
+        <Route path="/feed/:id" exact={true}>
           <OrderPage />
         </Route>
-        <ProtectedRoute
-          path="/profile/orders/:id"
-          exact={true}
-        >
-          <OrderPage />
+        <ProtectedRoute path="/profile/orders/:id" exact={true}>
+          <OrderPageProfile />
         </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />

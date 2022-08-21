@@ -1,6 +1,6 @@
 import { createSocket } from "../../utils/utils";
 
-export const socketMiddleware = (wsUrl, wsActions) => {
+export const socketMiddleware = (wsActions) => {
   return (store) => {
 
     return (next) => (action) => {
@@ -8,7 +8,8 @@ export const socketMiddleware = (wsUrl, wsActions) => {
       // const { type, payload } = action;
       const { feedPageWS, profileOrderPageWS } = wsActions;
 
-      createSocket(feedPageWS, wsUrl, store, action);
+      createSocket(feedPageWS, store, action);
+      createSocket(profileOrderPageWS, store, action);
 
       next(action);
     };

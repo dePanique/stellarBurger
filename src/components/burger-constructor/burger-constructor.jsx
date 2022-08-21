@@ -59,11 +59,9 @@ const BurgerConstructor = () => {
 
 
 
-  const handleOrderButton = async () => {
-    // VSC пишет что этот await не нужен, но без него, в модальном окне при повторном заказе
-    // будет видно как меняется номер заказа
+  const handleOrderButton = () => {
     if (isAuth) {
-      await dispatch(getOrderNumber(ingredientsId));
+      dispatch(getOrderNumber(ingredientsId));
       setModal(true);
     } else {
       history.replace({ pathname: '/login' });
