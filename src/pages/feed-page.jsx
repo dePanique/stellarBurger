@@ -1,9 +1,8 @@
 import styles from './feed-page.module.css';
 import { TapePlate } from '../components/tape-plate/tape-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
-import { useSelector, useDispatch } from 'react-redux';
-import { useCallback, useEffect, useMemo, useState } from 'react';
-import { feedEnch } from '../services/actions/feed-page';
+import { useSelector } from 'react-redux';
+import {  useMemo, useState } from 'react';
 
 export const FeedPage = () => {
   const { data: ingredientsData } = useSelector(store => store.appStore)
@@ -11,10 +10,9 @@ export const FeedPage = () => {
   const [doneBurgers, setDoneBurgers] = useState([]);
   const [awaitedBurgers, setAwaitedBurgers] = useState([]);
 
-  const dispatch = useDispatch()
-
   useMemo(() => {
     setDoneBurgers([])
+    setAwaitedBurgers([])
     orders.map(el => {
       if (el.status === 'done') {
         setDoneBurgers(prevEl => [...prevEl, el.number])

@@ -3,10 +3,9 @@ import styles from "./burger-ingredients.module.css";
 import IngredientsCollection from "./../ingredients-collection/ingredients-collection";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { useHistory } from 'react-router-dom';
 
 const BurgerIngredients = () => {
+
   const [modal, setModal] = useState(false);
   const [activeTab, setActiveTab] = useState("Булки");
   const [currentScrollPos, setCurrentScrollPos] = useState(0);

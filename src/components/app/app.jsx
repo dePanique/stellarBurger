@@ -22,10 +22,10 @@ import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
 import { feedEnch } from '../../services/actions/feed-page';
 import { WS_URL } from '../../utils/constants';
-import { getUserInfoEnch } from '../../services/actions/profile-page';
 import { OrderPageProfile } from '../../pages/order-page-profile';
 
 export default function App() {
+  
   const dispatch = useDispatch();
   const history = useHistory();
   const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)

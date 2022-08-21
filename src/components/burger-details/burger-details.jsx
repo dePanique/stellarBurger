@@ -1,6 +1,5 @@
 import styles from './burger-details.module.css';
 import { useParams, useLocation } from 'react-router-dom';
-
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FeedIngredientRow } from '../feed-ingredient-row/feed-ingredient-row';
 import { useSelector } from 'react-redux';
@@ -8,9 +7,9 @@ import { calcBurgerPriceFeedPage } from '../../utils/utils';
 import { burgerStatusObj } from '../../utils/constants';
 
 export const BurgerDetails = () => {
+  
   const { data: ingredientsData } = useSelector(store => store.appStore)
-  const { online : feedWSOnline, ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
-  const { online : profileWSOnline } = useSelector(store => store.profileOrders)
+  const { ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
 
   const { id } = useParams();
 

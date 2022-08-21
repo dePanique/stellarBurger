@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import styles from './edit-profile.module.css';
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getUserInfoEnch, editUserInfoEnch } from "../services/actions/profile-page";
-import {  useDispatch, useSelector } from "react-redux";
+import { editUserInfoEnch } from "../services/actions/profile-page";
+import { useDispatch, useSelector } from "react-redux";
 
 export const EditProfile = () => {
 

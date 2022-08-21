@@ -9,7 +9,6 @@ export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest})
   const { failed: isAccessUpdateFailed } = useSelector(store => store.logInStore.accessTokenStatus)
   const { success: isPassReseted} = useSelector(store => store.forgotPasswordStore)
   let token = localStorage.getItem('refreshToken');
-  const location = useLocation()
 
   if (token && !unAuthOnly) {
 

@@ -9,6 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const HeaderListItem = ({ ...props }) => {
+  
   const { pathname } = useLocation();
 
   const links = {

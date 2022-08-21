@@ -3,6 +3,7 @@ import styles from "./ingredient-details.module.css";
 import { useSelector } from "react-redux";
 
 const IngredientDetails = () => {
+  
   const data = useSelector((store) => store.burgerIngredients.ingredient);
 
   const { success: isData } = useSelector(store => store.appStore)

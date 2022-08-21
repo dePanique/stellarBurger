@@ -3,8 +3,7 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from 'react-router-dom';
-import { useEffect, useState, useMemo } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { burgerStatusObj } from '../../utils/constants';
 
 export const TapePlate = ({ padding, order, price, img }) => {
@@ -12,10 +11,12 @@ export const TapePlate = ({ padding, order, price, img }) => {
   const location = useLocation()
   const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
 
+  const isProfile = location?.pathname.split('/')[1];
   useEffect(() => {
     setBurgerStatus(burgerStatusObj[`${order.status}`]);
   }, [order.status])
 
+  console.log(route);
   return (
     <Link
       className={styles.link}
@@ -55,7 +56,7 @@ export const TapePlate = ({ padding, order, price, img }) => {
             {order.name}
           </p>
 
-          {order?.status === 'done' ? (
+          {isProfile === 'profile' && (order?.status === 'done' ? (
             <p className={
               styles.burgerStatus +
               ` text text_type_main-default mt-2 ` +
@@ -70,7 +71,7 @@ export const TapePlate = ({ padding, order, price, img }) => {
             }>
               {burgerStatus}
             </p>
-          )}
+          ))}
 
         </div>
         <div className={styles.detailPlate + ` mt-6 mb-6`}>

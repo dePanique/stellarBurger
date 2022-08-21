@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { RESET_CURRENT_INGREDIENT } from "../../services/actions/burger-ingredients";
 
 const Modal = ({ closeOrderModal, ...props }) => {
+  
   const dispatch = useDispatch();
 
   const closeModal = () => {
