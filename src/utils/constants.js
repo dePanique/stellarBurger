@@ -5,47 +5,23 @@ import {
 } from "../services/middleware/socketMiddleware";
 
 import {
-  WS_FEED_START,
-  WS_FEED_SUCCESS,
-  WS_FEED_MESSAGE,
-  WS_FEED_SEND,
-  WS_FEED_CLOSED,
-  WS_FEED_FAILED,
- } from "../services/actions/feed-page";
-
-import {
-  WS_PROFILE_ORDERS_START,
-  WS_PROFILE_ORDERS_SUCCESS,
-  WS_PROFILE_ORDERS_MESSAGE,
-  WS_PROFILE_ORDERS_SEND,
-  WS_PROFILE_ORDERS_CLOSED,
-  WS_PROFILE_ORDERS_FAILED,
-  CLOSE_PROFILE_ORDERS_WS,
-} from "../services/actions/profile-orders";
-
-const feedPageWS = {
-  socketInit: WS_FEED_START,
-  onOpen: WS_FEED_SUCCESS,
-  onMessage: WS_FEED_MESSAGE,
-  sendMessage: WS_FEED_SEND,
-  onClose: WS_FEED_CLOSED,
-  onError: WS_FEED_FAILED,
-  closeWS : false,
-}
-
-const profileOrderPageWS = {
-  socketInit: WS_PROFILE_ORDERS_START,
-  onOpen: WS_PROFILE_ORDERS_SUCCESS,
-  onMessage: WS_PROFILE_ORDERS_MESSAGE,
-  sendMessage: WS_PROFILE_ORDERS_SEND,
-  onClose: WS_PROFILE_ORDERS_CLOSED,
-  onError: WS_PROFILE_ORDERS_FAILED,
-  closeWS: CLOSE_PROFILE_ORDERS_WS,
-}
+  WS_START,
+  WS_SUCCESS,
+  WS_MESSAGE,
+  WS_SEND,
+  WS_CLOSED,
+  WS_FAILED,
+  CLOSE_WS,
+ } from "../services/actions/websocket";
 
 const wsActions = {
-  feedPageWS,
-  profileOrderPageWS
+  socketInit: WS_START,
+  onOpen: WS_SUCCESS,
+  onMessage: WS_MESSAGE,
+  sendMessage: WS_SEND,
+  onClose: WS_CLOSED,
+  onError: WS_FAILED,
+  closeWS: CLOSE_WS,
 };
 
 export const WS_URL = 'wss://norma.nomoreparties.space/orders';

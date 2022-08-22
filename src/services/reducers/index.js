@@ -11,6 +11,7 @@ import { forgotPasswordStore } from "./forgot-password";
 import { resetPassStore } from "./reset-password";
 import { feedPage } from "./feed-page";
 import { profileOrders } from "./profile-orders";
+import { websocket } from "./websocket";
 
 export const rootReducer = combineReducers({
   appStore,
@@ -25,4 +26,5 @@ export const rootReducer = combineReducers({
   resetPassStore,
   feedPage,
   profileOrders,
+  websocket,
 });

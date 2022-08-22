@@ -7,7 +7,7 @@ import { calcBurgerPriceFeedPage } from '../../utils/utils';
 import { burgerStatusObj } from '../../utils/constants';
 
 export const BurgerDetails = () => {
-  
+
   const { data: ingredientsData } = useSelector(store => store.appStore)
   const { ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
 
@@ -18,16 +18,17 @@ export const BurgerDetails = () => {
 
   const page = { feed : [], profile: []};
 
-  page.feed = useSelector(store=> store.feedPage?.orders)?.filter(el => el._id === id)
-  page.profile = useSelector(store=> store.profileOrders?.data?.orders)?.filter(el => el._id === id)
+  page.feed = useSelector(store => store.websocket?.data?.orders)
+  page.profile = useSelector(store => store.websocket?.data?.orders)?.filter(el => el._id === id)
 
   let order = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0]
 
   const ingredients = { }
+  
   order?.ingredients.forEach((el, _, arr) => {
     ingredients[`${el}`] =
       <FeedIngredientRow
-        key={Math.random().toString(36).slice(2)}
+        key={el}
         img={ingredientsDetail[el]['image_mobile']}
         name={ingredientsDetail[el]['name']}
         price={ingredientsDetail[el]['price']}

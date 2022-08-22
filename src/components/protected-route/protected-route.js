@@ -17,7 +17,7 @@ export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest})
       {...rest}
       />
   }
-console.log(3);
+
   /*** роуты только для неавторизованных ***/
 
   //Не пускаем авторизованных

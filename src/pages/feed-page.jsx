@@ -1,26 +1,47 @@
 import styles from './feed-page.module.css';
 import { TapePlate } from '../components/tape-plate/tape-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
-import { useSelector } from 'react-redux';
-import {  useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import {  useEffect, useMemo, useState } from 'react';
+import { WS_URL } from '../utils/constants';
+import { wsEnch } from '../services/actions/websocket';
 
 export const FeedPage = () => {
   const { data: ingredientsData } = useSelector(store => store.appStore)
-  const { total, totalToday, orders, ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
+  const { ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
+  const { total, totalToday, orders } = useSelector(store => store.websocket.data)
+  
   const [doneBurgers, setDoneBurgers] = useState([]);
   const [awaitedBurgers, setAwaitedBurgers] = useState([]);
 
-  useMemo(() => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(wsEnch({
+      wsUrl: WS_URL,
+      query: '/all'
+    }, 'start'))
+
+    return () => {
+      dispatch(wsEnch({
+      }, 'close'))
+    }
+  }, [])
+
+ useMemo(() => {
     setDoneBurgers([])
     setAwaitedBurgers([])
-    orders.map(el => {
-      if (el.status === 'done') {
-        setDoneBurgers(prevEl => [...prevEl, el.number])
-      } else {
-        console.log((el.status));
-        setAwaitedBurgers(prevEl => [...prevEl, el.number])
-      }
-    })
+
+    if (orders) {
+      return orders.map(el => {
+        if (el.status === 'done') {
+          setDoneBurgers(prevEl => [...prevEl, el.number])
+        } else {
+          console.log((el.status));
+          setAwaitedBurgers(prevEl => [...prevEl, el.number])
+        }
+      })
+    }
 
   }, [orders])
 
@@ -31,13 +52,13 @@ export const FeedPage = () => {
           Лента заказов
         </h1>
         <div className={styles.tapeContainer + ` pr-2`}>
-          {orders.map(el => (
+          {orders && orders.map(el => (
             <TapePlate
-              key={Math.random().toString(36).slice(2)}
+              key={el._id}
               order={el}
               padding={`smallPadding`}
               price={calcBurgerPriceFeedPage(el.ingredients, ingredientsData)}
-              img={el.ingredients.map(ingredientID => ingredientsDetail[ingredientID]['image_mobile'])}
+              img={el?.ingredients.map(ingredientID => ingredientsDetail[ingredientID]['image_mobile'])}
             />
           )
           )}

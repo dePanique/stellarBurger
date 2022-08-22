@@ -2,15 +2,26 @@ import styles from './order-page-profile.module.css';
 import { BurgerDetails } from '../components/burger-details/burger-details';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
-import { getUserInfoEnch } from '../services/actions/profile-page';
+import { wsEnch } from '../services/actions/websocket';
+import { getCookie } from '../utils/cookies';
+import { WS_URL } from '../utils/constants';
 
 export const OrderPageProfile = () => {
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUserInfoEnch())
-  }, []);
+    dispatch(wsEnch({
+      wsUrl: WS_URL,
+      query: `?token=${getCookie('accessToken').split(' ')[1]}`
+    }, 'start'))
+
+    return () => {
+      dispatch(wsEnch({
+      }, 'close'))
+    }
+  }, [])
+
 
   return (
     <main className={styles.main}>

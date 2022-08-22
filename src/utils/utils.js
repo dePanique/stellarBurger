@@ -184,8 +184,7 @@ const calcBurgerPriceFeedPage = (ingredients, data) => {
   return summ
 }
 
-const createSocket = (wsAction, store, action) => {
-  let socket = null;
+const createSocket = (wsAction, store, action, socket) => {
   const { dispatch, getState } = store;
   const { type, payload } = action;
 
@@ -199,14 +198,19 @@ const createSocket = (wsAction, store, action) => {
     closeWS,
   } = wsAction;
 
+  if (type === closeWS) {
+    console.log(socket);
+    socket.close()
+    console.log(socket);
+  }
+
   if (type === socketInit) {
+    console.log(type);
     const { wsUrl, query} = payload;
     const url = wsUrl + query;
 
     socket = new WebSocket(url);
   }
-
-  if (type === closeWS) socket.close()
 
   if (socket) {
 
@@ -224,15 +228,18 @@ const createSocket = (wsAction, store, action) => {
     };
 
     socket.onclose = event => {
+      console.log(type, socket, 'close');
       dispatch({
         type: onClose,
-        payload: JSON.parse(event.data)
+        //payload: JSON.parse(event.data)
       })
 
       socket = null
     };
 
     socket.onerror = event => {
+      console.log(type, socket, 'err');
+
       dispatch({
         type: onError,
         payload: event
@@ -240,7 +247,9 @@ const createSocket = (wsAction, store, action) => {
 
       socket = null
     };
+    console.log(socket, 'ext');
 
+    return socket
   }
 }
 

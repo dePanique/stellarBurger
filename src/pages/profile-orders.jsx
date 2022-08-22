@@ -1,23 +1,38 @@
-import { TapePlate } from '../components/tape-plate/tape-plate';
 import styles from './profile-orders.module.css';
-import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { TapePlate } from '../components/tape-plate/tape-plate';
+import { useDispatch, useSelector } from 'react-redux';
 import { calcBurgerPriceFeedPage } from '../utils/utils';
-import { useMemo } from 'react';
+import { useEffect } from 'react';
+import { wsEnch } from '../services/actions/websocket';
+import { WS_URL } from '../utils/constants';
+import { getCookie } from '../utils/cookies';
 
 export const ProfileOrders = () => {
-  const history = useHistory()
 
-  const { orders } = useSelector(store => store.profileOrders.data)
+  const dispatch = useDispatch();
+
+  const { orders } = useSelector(store => store.websocket.data);
 
   const { data : ingredientsData } = useSelector(store => store.appStore)
   const { ingredientsData : ingredientsDetail } = useSelector(store => store.feedPage)
+
+  useEffect(() => {
+    dispatch(wsEnch({
+      wsUrl: WS_URL,
+      query: `?token=${getCookie('accessToken').split(' ')[1]}`
+    }, 'start'))
+
+    return () => {
+      dispatch(wsEnch({
+      }, 'close'))
+    }
+  }, [])
 
   return (
     <section className={styles.ordersContainer + ` pr-2 ml-15`}>
       {orders && orders.map(el => (
         <TapePlate
-          key={Math.random().toString(36).slice(2)}
+          key={el._id}
           order={el}
           padding={`mediumPadding`}
           price={calcBurgerPriceFeedPage(el.ingredients, ingredientsData)}
