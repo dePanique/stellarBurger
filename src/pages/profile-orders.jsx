@@ -1,5 +1,5 @@
 import styles from './profile-orders.module.css';
-import { TapePlate } from '../components/tape-plate/tape-plate';
+import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { useDispatch, useSelector } from 'react-redux';
 import { calcBurgerPriceFeedPage } from '../utils/utils';
 import { useEffect } from 'react';
@@ -31,7 +31,7 @@ export const ProfileOrders = () => {
   return (
     <section className={styles.ordersContainer + ` pr-2 ml-15`}>
       {orders && orders.map(el => (
-        <TapePlate
+        <FeedPlate
           key={el._id}
           order={el}
           padding={`mediumPadding`}

@@ -1,5 +1,5 @@
 import styles from './feed-page.module.css';
-import { TapePlate } from '../components/tape-plate/tape-plate';
+import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import {  useEffect, useMemo, useState } from 'react';
@@ -10,7 +10,7 @@ export const FeedPage = () => {
   const { data: ingredientsData } = useSelector(store => store.appStore)
   const { ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
   const { total, totalToday, orders } = useSelector(store => store.websocket.data)
-  
+
   const [doneBurgers, setDoneBurgers] = useState([]);
   const [awaitedBurgers, setAwaitedBurgers] = useState([]);
 
@@ -47,13 +47,13 @@ export const FeedPage = () => {
 
   return (
     <main className={styles.main}>
-      <section className={styles.tapeColumn}>
-        <h1 className={styles.tapeTitle + ` text text_type_main-large`}>
+      <section className={styles.feedColumn}>
+        <h1 className={styles.feedTitle + ` text text_type_main-large`}>
           Лента заказов
         </h1>
-        <div className={styles.tapeContainer + ` pr-2`}>
+        <div className={styles.feedContainer + ` pr-2`}>
           {orders && orders.map(el => (
-            <TapePlate
+            <FeedPlate
               key={el._id}
               order={el}
               padding={`smallPadding`}

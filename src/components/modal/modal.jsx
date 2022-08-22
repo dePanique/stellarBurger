@@ -5,20 +5,13 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { portalContainer } from "./../../utils/constants";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { RESET_CURRENT_INGREDIENT } from "../../services/actions/burger-ingredients";
 
 const Modal = ({ closeOrderModal, ...props }) => {
-  
-  const dispatch = useDispatch();
 
   const closeModal = () => {
     if (closeOrderModal) {
       return closeOrderModal(false);
     }
-    dispatch({
-      type: RESET_CURRENT_INGREDIENT,
-    })
     props.history.goBack();
   }
 

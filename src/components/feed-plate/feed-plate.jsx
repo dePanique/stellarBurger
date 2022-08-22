@@ -1,4 +1,4 @@
-import styles from './tape-plate.module.css';
+import styles from './feed-plate.module.css';
 import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
@@ -6,7 +6,7 @@ import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { burgerStatusObj } from '../../utils/constants';
 
-export const TapePlate = ({ padding, order, price, img }) => {
+export const FeedPlate = ({ padding, order, price, img }) => {
   const [burgerStatus, setBurgerStatus] = useState('');
   const location = useLocation()
   const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`

@@ -9,7 +9,7 @@
   justify-content: center;
 }
 
-.tapeColumn {
+.feedColumn {
   box-sizing: border-box;
   width: 100%;
   max-width: 601px;
@@ -21,11 +21,11 @@
   flex-direction: column;
 }
 
-.tapeTitle {
+.feedTitle {
   box-sizing: border-box;
   margin-bottom: 20px;
 }
-.tapeContainer {
+.feedContainer {
   box-sizing: border-box;
   height: 852px;
 
@@ -36,17 +36,17 @@
   scroll-behavior: smooth;
 }
 
-.tapeContainer::-webkit-scrollbar {
+.feedContainer::-webkit-scrollbar {
   background: transparent;
   width: 8px;
 }
 
-.tapeContainer::-webkit-scrollbar-thumb {
+.feedContainer::-webkit-scrollbar-thumb {
   background: #8585AD;
   height: 200px;
 }
 
-.tapeContainer::-webkit-scrollbar-track {
+.feedContainer::-webkit-scrollbar-track {
   background-color: #2F2F37;
   margin-bottom: 68px;
 }
