@@ -1,12 +1,8 @@
 
 .header {
-  max-width: 1920px;
   display: flex;
+  justify-content: center;
   background: var(--background);
-}
-
-.panel {
-  margin-left: 311px;
 }
 
 .row {

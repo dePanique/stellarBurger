@@ -28,6 +28,8 @@ export const ProfilePage = () => {
 
   return (
     <main className={styles.main}>
+      <section className={styles.profile}>
+
       <div className={styles.editFrame}>
         <div className={styles.linksColumn}>
           <nav className="mb-20">
@@ -87,6 +89,7 @@ export const ProfilePage = () => {
             <ProfileOrders />
           </ProtectedRoute>
         </Switch>
+      </section>
 
     </main>
   )

@@ -16,7 +16,6 @@ export const TapePlate = ({ padding, order, price, img }) => {
     setBurgerStatus(burgerStatusObj[`${order.status}`]);
   }, [order.status])
 
-  console.log(route);
   return (
     <Link
       className={styles.link}
