@@ -12,7 +12,9 @@ import {
   WS_CLOSED,
   WS_FAILED,
   CLOSE_WS,
+  webSocketStart,
  } from "../services/actions/websocket";
+import { getCookie } from "./cookies";
 
 const wsActions = {
   socketInit: WS_START,
@@ -25,6 +27,10 @@ const wsActions = {
 };
 
 export const WS_URL = 'wss://norma.nomoreparties.space/orders';
+export const FEED_URL = {
+  wsUrl: WS_URL,
+  query: '/all'
+}
 
 const myMiddleWare = socketMiddleware(wsActions)
 

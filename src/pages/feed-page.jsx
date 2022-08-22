@@ -3,10 +3,11 @@ import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import {  useEffect, useMemo, useState } from 'react';
-import { WS_URL } from '../utils/constants';
-import { wsEnch } from '../services/actions/websocket';
+import { FEED_URL } from '../utils/constants';
+import { closeWebSocket, webSocketStart } from '../services/actions/websocket';
 
 export const FeedPage = () => {
+
   const { data: ingredientsData } = useSelector(store => store.appStore)
   const { ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
   const { total, totalToday, orders } = useSelector(store => store.websocket.data)
@@ -17,15 +18,9 @@ export const FeedPage = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(wsEnch({
-      wsUrl: WS_URL,
-      query: '/all'
-    }, 'start'))
+    dispatch(webSocketStart(FEED_URL));
 
-    return () => {
-      dispatch(wsEnch({
-      }, 'close'))
-    }
+    return () => dispatch(closeWebSocket());
   }, [])
 
  useMemo(() => {

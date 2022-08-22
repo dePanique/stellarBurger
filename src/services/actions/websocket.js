@@ -7,21 +7,19 @@ export const WS_FAILED = 'WS_FAILED';
 
 export const CLOSE_WS = 'CLOSE_WS';
 
-export const wsEnch = (wsUrl, action) => {
-  return function (dispatch) {
-
-    if (action === 'start') {
-      dispatch({
-        type: WS_START,
-        payload: wsUrl,
-      })
-    }
-
-    if (action === 'close') {
-      dispatch({
-        type: CLOSE_WS,
-      })
-    }
-
+export const webSocketStart = (text) => {
+  const action = {
+    type: WS_START,
+    payload: text
   }
+
+  return action
+}
+
+export const closeWebSocket = () => {
+  const action = {
+    type: CLOSE_WS,
+  }
+
+  return action
 }

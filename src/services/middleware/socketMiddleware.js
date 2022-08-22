@@ -4,7 +4,7 @@ export const socketMiddleware = (wsActions) => {
   return (store) => {
 
     return (next) => (action) => {
-      const { dispatch, getState } = store;
+      const { dispatch } = store;
       const { type, payload } = action;
 
       const {

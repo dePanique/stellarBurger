@@ -3,7 +3,7 @@ import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { useDispatch, useSelector } from 'react-redux';
 import { calcBurgerPriceFeedPage } from '../utils/utils';
 import { useEffect } from 'react';
-import { wsEnch } from '../services/actions/websocket';
+import { closeWebSocket, webSocketStart } from '../services/actions/websocket';
 import { WS_URL } from '../utils/constants';
 import { getCookie } from '../utils/cookies';
 
@@ -17,15 +17,12 @@ export const ProfileOrders = () => {
   const { ingredientsData : ingredientsDetail } = useSelector(store => store.feedPage)
 
   useEffect(() => {
-    dispatch(wsEnch({
+    dispatch(webSocketStart({
       wsUrl: WS_URL,
-      query: `?token=${getCookie('accessToken').split(' ')[1]}`
-    }, 'start'))
+      query: `?token=${getCookie('accessToken')?.split(' ')[1]}`
+    }));
 
-    return () => {
-      dispatch(wsEnch({
-      }, 'close'))
-    }
+    return () => dispatch(closeWebSocket());
   }, [])
 
   return (
