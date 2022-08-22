@@ -65,12 +65,8 @@ export const EditProfile = () => {
     setIsEditing(false);
   }, [editSuccess])
 
-  // useEffect(() => {
-  //   dispatch(getUserInfoEnch());
-  // }, [])
-
   return (
-    <form className={styles.inputsColumn + ` ml-15`} action="submit">
+    <form className={styles.inputsColumn + ` ml-15`} action="submit" onSubmit={submitForm}>
       <div className={styles.inputsBox}>
         <div className={styles.input}>
           <Input
@@ -117,7 +113,7 @@ export const EditProfile = () => {
           <Button
             type="primary"
             size="medium"
-            onClick={(e) => submitForm(e)}
+
           >
             Сохранить
           </Button>

@@ -2,6 +2,7 @@ import {
   RESET_PASS,
   RESET_PASS_SUCCESS,
   RESET_PASS_FAILED,
+  RESET_PASS_INITIAL,
 } from "../actions/reset-password"
 
 const initialState = {
@@ -31,6 +32,12 @@ export const resetPassStore = (state = initialState, action) => {
         ...state,
         request: false,
         failed: true,
+      }
+    }
+
+    case RESET_PASS_INITIAL: {
+      return {
+        initialState,
       }
     }
 

@@ -5,6 +5,7 @@ import Main from "../components/main/main";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch, useSelector } from "react-redux";
 import { applyNewPassEnch } from "../services/actions/reset-password";
+import { REQUEST_NEW_PASS_RESET } from "../services/actions/forgot-password";
 
 export const ResetPassword = () => {
   const [newPassValue, setNewPassValue] = useState('');
@@ -14,7 +15,7 @@ export const ResetPassword = () => {
   const dispatch = useDispatch();
   const { success: isPassReseted, failed: isPassFailed } = useSelector(store => store.resetPassStore);
 
-  const onButtonClick = useCallback(
+  const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
       dispatch(applyNewPassEnch(newPassValue, confirmPassValue));
@@ -30,8 +31,9 @@ export const ResetPassword = () => {
   };
 
   useEffect(() => {
-    //Можно не пускать на муршрут восстановления если пароль сброшен
-    //if (isPassReseted) history.replace({ pathname: '/login' });
+    if (isPassReseted) {
+      history.replace({ pathname: '/login' })
+    }
     if (isPassFailed) setConfirmPassValue('Повторите попытку');
   }, [isPassReseted])
 
@@ -40,8 +42,7 @@ export const ResetPassword = () => {
       <div className={styles.column}>
         <h1 className={styles.title + ` mb-6 text text_type_main-medium`}>Восстановление пароля</h1>
 
-        <form className={styles.form + ` mb-20`} action="submit">
-
+        <form className={styles.form + ` mb-20`} action="submit" onSubmit={onSubmit}>
           <fieldset className={styles.inputColumn}>
             <PasswordInput
               onChange={onNewPassValueChange}
@@ -63,7 +64,6 @@ export const ResetPassword = () => {
             <Button
               type='primary'
               size='medium'
-              onClick={onButtonClick}
             >
               Сохранить
             </Button>

@@ -3,6 +3,7 @@ import { checkResponse, requestEmailPassReset } from "../../utils/utils";
 export const REQUEST_NEW_PASS = 'REQUEST_PASS_RESTORE';
 export const REQUEST_NEW_PASS_SUCCESS = 'REQUEST_NEW_PASS_SUCCESS';
 export const REQUEST_NEW_PASS_FAILED = 'REQUEST_NEW_PASS_FAILED';
+export const REQUEST_NEW_PASS_RESET = 'REQUEST_NEW_PASS_RESET';
 
 export const requestEmailPassResetEnch = (email) => {
   return function(dispatch) {

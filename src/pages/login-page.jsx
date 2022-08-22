@@ -6,6 +6,7 @@ import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burg
 import { useDispatch, useSelector } from "react-redux";
 import { logInEnch } from "../services/actions/login-page";
 import { authenticationEnch } from "../services/actions/auth";
+import { REQUEST_NEW_PASS_RESET } from "../services/actions/forgot-password";
 
 export const LoginPage = () => {
   const [emailValue, setEmailValue] = useState('');
@@ -15,7 +16,7 @@ export const LoginPage = () => {
   const history = useHistory();
   const { success } = useSelector(store => store.logInStore)
 
-  const onButtonClick = useCallback(
+  const onSubmit = useCallback(
     (e) => {
       e.preventDefault();
       dispatch(logInEnch(emailValue, passValue));
@@ -32,21 +33,23 @@ export const LoginPage = () => {
 
   useEffect(() => {
     if (success) {
-      console.log(5);
       history.goBack()
     }
   }, [success])
 
   useEffect(() => {
+    dispatch({
+      type: REQUEST_NEW_PASS_RESET,
+    })
     dispatch(authenticationEnch());
-  })
+  }, [])
 
   return (
     <Main>
       <div className={styles.column}>
         <h1 className={styles.title + ` mb-6 text text_type_main-medium`}>Вход</h1>
 
-        <form className={styles.form + ` mb-20`} action="submit">
+        <form className={styles.form + ` mb-20`} action="submit" onSubmit={onSubmit}>
           <fieldset className={styles.inputColumn}>
             <Input
               onChange={onEmailInputValueChange}
@@ -67,7 +70,6 @@ export const LoginPage = () => {
             <Button
               type='primary'
               size='medium'
-              onClick={onButtonClick}
             >
               Вход
             </Button>
