@@ -18,13 +18,13 @@ export const BurgerDetails = () => {
 
   const page = { feed : [], profile: []};
 
-  page.feed = useSelector(store => store.websocket?.data?.orders)
+  page.feed = useSelector(store => store.websocket?.data?.orders)?.filter(el => el._id === id)
   page.profile = useSelector(store => store.websocket?.data?.orders)?.filter(el => el._id === id)
 
   let order = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0]
 
   const ingredients = { }
-  
+
   order?.ingredients.forEach((el, _, arr) => {
     ingredients[`${el}`] =
       <FeedIngredientRow
