@@ -77,7 +77,7 @@ export const FeedPlate = ({ padding, order, price, img }) => {
           <ul className={styles.ingredientsRow}>
 
             {img.map((element, index) => (
-              index < 5 ? (
+              img.length < 7 ? (
                 <li
                   className={styles.ingredientIcon + ` ` + styles[`left_${index + 1}`]}
                   key={Math.random().toString(36).slice(2)}
@@ -91,27 +91,43 @@ export const FeedPlate = ({ padding, order, price, img }) => {
                   </div>
                 </li>
               ) : (
-                index === 5 ?
-                  (
-                    <li
-                      className={styles.ingredientIcon + ` ` + styles.left_6}
-                      key={Math.random().toString(36).slice(2)}
-                    >
-                      <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>
-                        {`+${img.length - 6}`}
-                      </p>
-                      <div className={styles.iconFrame + ` ` + styles.iconFade}>
-                        <img
-                          src={element}
-                          alt=""
-                          className={styles.ingredientImage}
-                        />
-                      </div>
-                    </li>
-                  ) : (
-                    null
-                  )
+                index < 5 ? (
+                  <li
+                    className={styles.ingredientIcon + ` ` + styles[`left_${index + 1}`]}
+                    key={Math.random().toString(36).slice(2)}
+                  >
+                    <div className={styles.iconFrame}>
+                      <img
+                        src={element}
+                        alt=""
+                        className={styles.ingredientImage}
+                      />
+                    </div>
+                  </li>
+                ) : (
+                  index === 5 ?
+                    (
+                      <li
+                        className={styles.ingredientIcon + ` ` + styles.left_6}
+                        key={Math.random().toString(36).slice(2)}
+                      >
+                        <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>
+                          {`+${img.length - 6}`}
+                        </p>
+                        <div className={styles.iconFrame + ` ` + styles.iconFade}>
+                          <img
+                            src={element}
+                            alt=""
+                            className={styles.ingredientImage}
+                          />
+                        </div>
+                      </li>
+                    ) : (
+                      null
+                    )
+                )
               )
+
             )
             )}
           </ul>
