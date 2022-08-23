@@ -37,7 +37,6 @@ export const FeedPage = () => {
         }
       })
     }
-
   }, [orders])
 
   return (

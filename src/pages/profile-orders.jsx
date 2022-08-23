@@ -29,6 +29,7 @@ export const ProfileOrders = () => {
 
   const makeList = (orders) => {
     let newList = []
+    
     for (let i = orders.length - 1; i > 0; i--) {
 
       newList.push(<FeedPlate
@@ -47,7 +48,6 @@ export const ProfileOrders = () => {
     if (orders) {
       setList([])
       setList(makeList(orders))
-      console.log(list);
     }
   }, [orders])
 

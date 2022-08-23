@@ -1,13 +1,14 @@
-import { Route, Redirect, useHistory, useLocation } from "react-router-dom";
+import { Route, Redirect, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-//Делает роуты для только авторизованных или только неавторизованных юзеров
-export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest}) => {
-  const history = useHistory()
+export const ProtectedRoute = ({ path, children, unAuthOnly, passReset, ...rest }) => {
 
-  const { success : isAuth } = useSelector(store => store.authStore);
-  const { failed: isAccessUpdateFailed } = useSelector(store => store.logInStore.accessTokenStatus)
-  const { success: isPassReseted} = useSelector(store => store.forgotPasswordStore)
+  const location = useLocation();
+
+  const { success: isAuth } = useSelector(store => store.authStore);
+  const { failed: isAccessUpdateFailed } = useSelector(store => store.logInStore.accessTokenStatus);
+  const { success: isPassReseted } = useSelector(store => store.forgotPasswordStore);
+
   let token = localStorage.getItem('refreshToken');
 
   if (token && !unAuthOnly) {
@@ -15,44 +16,33 @@ export const ProtectedRoute = ({path, children, unAuthOnly, passReset, ...rest})
     return <Route
       children={children}
       {...rest}
-      />
+    />
   }
 
-  /*** роуты только для неавторизованных ***/
-
-  //Не пускаем авторизованных
   if (unAuthOnly && token) {
-    // console.log(history);
-    history.goBack()
+
+    return <Redirect to={{ pathname: location?.state?.from?.pathname || '/', state: { from: location } }} />
   }
 
-  //Не допускаем неавторизованных
   if (unAuthOnly && !isAuth) {
 
-    //Не допускаем без прохождения /forgot-password
     if (passReset && !isPassReseted) {
 
-      return <Redirect to='/forgot-password'/>
+      return <Redirect to='/forgot-password' />
     }
 
-    //Запускаем если невторизован
     return (
       <Route
-      children={children}
-      {...rest}
+        children={children}
+        {...rest}
       />
     )
   }
 
-  /*** роуты только для авторизованных ***/
-
-  // Роут для неавторизованного юзера
   if (!token || !isAuth || isAccessUpdateFailed) {
 
-    return <Redirect to='/login' />
+    return <Redirect to={{ pathname: '/login', state: { from: location } }} />
   }
-
-  //Роут для авторизованного юзера
 
 }
 

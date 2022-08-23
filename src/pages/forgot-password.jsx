@@ -14,6 +14,7 @@ export const ForgotPassword = () => {
 
   const history = useHistory();
   const dispatch = useDispatch();
+  
   const { success: isPassReseted} = useSelector(store => store.forgotPasswordStore)
 
   const onSubmit = useCallback(

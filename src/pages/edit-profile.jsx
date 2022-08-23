@@ -6,11 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 
 export const EditProfile = () => {
 
+  const dispatch = useDispatch();
+  
   const [emailValue, setEmailValue] = useState('');
   const [nameValue, setNameValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [isEditing, setIsEditing] = useState(false);
-  const dispatch = useDispatch();
 
   const { email, name } = useSelector(store => store.profilePageStore.userInfo);
   const { success: editSuccess } = useSelector(store => store.profilePageStore.editUserInfo);

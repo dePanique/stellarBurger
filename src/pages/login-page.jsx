@@ -14,7 +14,6 @@ export const LoginPage = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const { success } = useSelector(store => store.logInStore)
 
   const onSubmit = useCallback(
     (e) => {
@@ -30,12 +29,6 @@ export const LoginPage = () => {
   const onPassInputValueChange = e => {
     setPassValue(e.target.value);
   };
-
-  useEffect(() => {
-    if (success) {
-      history.goBack()
-    }
-  }, [success])
 
   useEffect(() => {
     dispatch({
