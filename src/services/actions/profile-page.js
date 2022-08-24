@@ -62,13 +62,6 @@ export const getUserInfoEnch = () => {
         })
       })
       .then((res) => {
-        dispatch({
-          type: WS_PROFILE_ORDERS_START,
-          payload: {
-            wsUrl: WS_URL,
-            query: `?token=${getCookie('accessToken').split(' ')[1]}`
-          }
-        })
 
         dispatch({
           type: GET_USER_INFO_SUCCESS,
@@ -76,9 +69,6 @@ export const getUserInfoEnch = () => {
         })
       })
       .catch((err) => {
-        dispatch({
-          type: CLOSE_PROFILE_ORDERS_WS,
-        })
 
         console.log(`err in getUserInfoEnch ${err}`);
       })
