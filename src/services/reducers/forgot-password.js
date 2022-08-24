@@ -2,6 +2,7 @@ import {
   REQUEST_NEW_PASS,
   REQUEST_NEW_PASS_SUCCESS,
   REQUEST_NEW_PASS_FAILED,
+  REQUEST_NEW_PASS_RESET,
 } from "../actions/forgot-password";
 
 const initialState = {
@@ -30,6 +31,11 @@ export const forgotPasswordStore = (state = initialState, action) => {
       return {
         ...initialState,
         failed: true,
+      }
+
+    case REQUEST_NEW_PASS_RESET:
+      return {
+        initialState,
       }
 
     default:

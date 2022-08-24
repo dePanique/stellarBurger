@@ -9,6 +9,7 @@ import {
   ProfilePage,
   Page404,
   IngredientPage,
+  FeedPage,
 } from "../../pages";
 import { ProtectedRoute } from '../protected-route/protected-route';
 import Modal from '../modal/modal';
@@ -17,8 +18,12 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/app';
 import { authenticationEnch } from '../../services/actions/auth';
+import { BurgerDetails } from '../burger-details/burger-details';
+import { OrderPage } from '../../pages/order-page';
+import { OrderPageProfile } from '../../pages/order-page-profile';
 
 export default function App() {
+
   const dispatch = useDispatch();
   const history = useHistory();
   const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
@@ -43,6 +48,15 @@ export default function App() {
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
+        <Route path="/feed" exact={true}>
+          <FeedPage />
+        </Route>
+        <Route path="/feed/:id" exact={true}>
+          <OrderPage />
+        </Route>
+        <ProtectedRoute path="/profile/orders/:id" exact={true}>
+          <OrderPageProfile />
+        </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
           <LoginPage />
         </ProtectedRoute>
@@ -55,8 +69,11 @@ export default function App() {
         <ProtectedRoute path="/reset-password" exact={true} unAuthOnly passReset>
           <ResetPassword />
         </ProtectedRoute>
-        <ProtectedRoute path="/profile" exact={true}>
-          <ProfilePage />
+        <ProtectedRoute path="/profile" unAuthOnly={false}
+          render={() => <ProfilePage />}>
+        </ProtectedRoute>
+        <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
+          render={() => <ProfilePage />}>
         </ProtectedRoute>
         <Route path="/ingredients/:id" >
           <IngredientPage />
@@ -66,14 +83,34 @@ export default function App() {
         </Route>
       </Switch>
       {background && (
-        <Route
-          path="/ingredients/:id"
-          children={
-            <Modal history={history}>
-              <IngredientDetails />
-            </Modal>
-          }
-        />
+        <Switch >
+          <Route
+            path="/ingredients/:id"
+            children={
+              <Modal history={history}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:id"
+
+            render={() => (
+              <Modal history={history}>
+                <BurgerDetails />
+              </Modal>
+            )}
+          />
+          <Route
+            path="/profile/orders/:id"
+
+            render={() => (
+              <Modal history={history}>
+                <BurgerDetails />
+              </Modal>
+            )}
+          />
+        </Switch>
       )}
     </React.Fragment>
 

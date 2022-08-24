@@ -1,4 +1,45 @@
 import PropTypes from "prop-types";
+
+import {
+  socketMiddleware
+} from "../services/middleware/socketMiddleware";
+
+import {
+  WS_START,
+  WS_SUCCESS,
+  WS_MESSAGE,
+  WS_SEND,
+  WS_CLOSED,
+  WS_FAILED,
+  CLOSE_WS,
+  webSocketStart,
+ } from "../services/actions/websocket";
+import { getCookie } from "./cookies";
+
+const wsActions = {
+  socketInit: WS_START,
+  onOpen: WS_SUCCESS,
+  onMessage: WS_MESSAGE,
+  sendMessage: WS_SEND,
+  onClose: WS_CLOSED,
+  onError: WS_FAILED,
+  closeWS: CLOSE_WS,
+};
+
+export const WS_URL = 'wss://norma.nomoreparties.space/orders';
+export const FEED_URL = {
+  wsUrl: WS_URL,
+  query: '/all'
+}
+
+const myMiddleWare = socketMiddleware(wsActions)
+
+const burgerStatusObj = {
+  done: 'Выполнен',
+  pending: 'Готовится',
+  created: 'Создан',
+}
+
 const portalContainer = document.querySelector("#modals");
 
 const dataTemplateObject = {
@@ -18,4 +59,11 @@ const dataTemplateObject = {
 
 const dataTemplate = PropTypes.shape(dataTemplateObject.isRequired);
 
-export { dataTemplate, portalContainer, dataTemplateObject };
+export {
+  dataTemplate,
+  portalContainer,
+  dataTemplateObject,
+  wsActions,
+  myMiddleWare,
+  burgerStatusObj,
+};

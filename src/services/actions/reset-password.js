@@ -3,6 +3,7 @@ import { applyNewPass, checkResponse } from "../../utils/utils";
 export const RESET_PASS = 'RESET_PASS';
 export const RESET_PASS_SUCCESS = 'RESET_PASS_SUCCESS';
 export const RESET_PASS_FAILED = 'RESET_PASS_FAILED';
+export const RESET_PASS_INITIAL = 'RESET_PASS_INITIAL';
 
 export const applyNewPassEnch = (pass, token) => {
   return function (dispatch) {

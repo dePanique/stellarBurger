@@ -1,4 +1,5 @@
 import { getData, checkResponse } from '../../utils/utils';
+import { GET_FEED_INGREDIENTS } from './feed-page';
 
 export const GET_INGREDIENTS = "GET_INGREDIENTS";
 export const GET_INGREDIENTS_SUCCESS = "GET_INGREDIENTS_SUCCESS";
@@ -22,6 +23,18 @@ export function getIngredients() {
           type: GET_INGREDIENTS_SUCCESS,
           payload: res,
         });
+
+        res.data.forEach((el, index) => {
+          dispatch({
+            type: GET_FEED_INGREDIENTS,
+            payload: {
+              _id: res.data[index]._id,
+              price: res.data[index].price,
+              image_mobile: res.data[index].image_mobile,
+              name: res.data[index].name,
+            }
+          })
+        })
       })
       .catch((err) => {
         dispatch({

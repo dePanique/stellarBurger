@@ -18,8 +18,8 @@ export const RegisterPage = () => {
   const history = useHistory();
   const {success} = useSelector((store) => store.signInStore);
 
-  const onButtonClick = useCallback(
-    async (e) => {
+  const onSubmit = useCallback(
+    (e) => {
       e.preventDefault()
       dispatch(signIn(emailValue, passValue, nameValue))
     }, [history, emailValue, passValue, nameValue]
@@ -49,7 +49,7 @@ export const RegisterPage = () => {
       <div className={styles.column}>
         <h1 className={styles.title + ` mb-6 text text_type_main-medium`}>Регистрация</h1>
 
-        <form className={styles.form + ` mb-20`} action="submit">
+        <form className={styles.form + ` mb-20`} action="submit" onSubmit={onSubmit}>
           <Input
             onChange={onNameInputValueChange}
             type={'text'}
@@ -76,7 +76,6 @@ export const RegisterPage = () => {
             <Button
               type='primary'
               size='medium'
-              onClick={onButtonClick}
             >
               Зарегистрироваться
             </Button>

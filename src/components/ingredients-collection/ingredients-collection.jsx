@@ -5,6 +5,7 @@ import styles from "./ingredients-collection.module.css";
 import { useSelector } from "react-redux";
 
 const IngredientsCollection = ({ setModal, type }) => {
+  
   const ingredientType = {
     bun: "Булки",
     sauce: "Соусы",

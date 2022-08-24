@@ -5,10 +5,10 @@ const AppHeader = () => {
 
   return (
     <header className={styles.header}>
-      <nav>
-        <ul className={styles.row + " pt-4 pb-4 "}>
+      <nav className={` pt-4 pb-4`}>
+        <ul className={styles.row}>
 
-          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 "}>
+          <li className={styles.element + " pl-5 pt-4 pr-5 pb-4 mr-2 "}>
             <HeaderListItem
               spanText="Конструктор"
               href="/"

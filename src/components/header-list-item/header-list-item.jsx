@@ -9,6 +9,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 const HeaderListItem = ({ ...props }) => {
+  
   const { pathname } = useLocation();
 
   const links = {
@@ -16,7 +17,7 @@ const HeaderListItem = ({ ...props }) => {
       primary: <BurgerIcon type="primary" />,
       secondary: <BurgerIcon type="secondary" />
     }],
-    "Лента заказов": ["#", {
+    "Лента заказов": ["/feed", {
       primary: <ListIcon type="primary" />,
       secondary: <ListIcon type="secondary" />
     }],

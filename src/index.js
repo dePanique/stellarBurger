@@ -4,9 +4,11 @@ import { configureStore } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers/index';
 import { BrowserRouter } from 'react-router-dom';
+import { myMiddleWare } from './utils/constants';
 
 const store = configureStore({
   reducer: rootReducer,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(myMiddleWare)
 })
 
 const root = ReactDOM.createRoot(

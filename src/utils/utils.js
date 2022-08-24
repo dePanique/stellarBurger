@@ -18,11 +18,14 @@ function getData() {
 }
 
 function postOrderId(array) {
-  return fetch(`${dataUrl}/orders`, {
+  const token = getCookie('accessToken')
+console.log('post');
+  return fetch(`${dataUrl}/orders?token=${token}`, {
     method: 'POST',
     headers: {
       baseURL: dataUrl,
       "Content-Type": "application/json",
+      authorization: token,
     },
     body: JSON.stringify({
       "ingredients": array,
@@ -142,6 +145,114 @@ async function getUserInfo() {
   })
 }
 
+const makeColumnsList = (list, styles) => {
+  let updatedList = [];
+  // if (list.length > 20) {
+  //   updatedList = list.splice(list.length - 1 - 20);
+  // } else {
+  //   updatedList = list
+  // }
+
+  updatedList = list
+
+  return updatedList.map((el, index) => {
+    if (index === updatedList.length - 1 || !((index + 1 )%10) ) {
+      return (
+        <li key={Math.random().toString(36).slice(2)} className={styles + ' text text_type_digits-default'}>
+          {el}
+        </li>
+      )
+    }
+
+    return (
+      <li key={Math.random().toString(36).slice(2)} className={styles + ' text text_type_digits-default mb-2'}>
+        {el}
+      </li>
+    )
+  })
+}
+
+const calcBurgerPriceFeedPage = (ingredients, data) => {
+  let summ = 0
+  ingredients.forEach(el => {
+    data.find((dataEl) => {
+      if (el === dataEl._id) {
+        summ += dataEl.price
+      }
+    })
+  })
+  return summ
+}
+
+const createSocket = (wsAction, store, action, socket) => {
+  const { dispatch, getState } = store;
+  const { type, payload } = action;
+
+  const  {
+    socketInit,
+    onOpen,
+    onMessage,
+    sendMessage,
+    onClose,
+    onError,
+    closeWS,
+  } = wsAction;
+
+  if (type === closeWS) {
+    console.log(socket);
+    socket.close()
+    console.log(socket);
+  }
+
+  if (type === socketInit) {
+    console.log(type);
+    const { wsUrl, query} = payload;
+    const url = wsUrl + query;
+
+    socket = new WebSocket(url);
+  }
+
+  if (socket) {
+
+    socket.onopen = event => {
+      dispatch({
+        type: onOpen
+      })
+    };
+
+    socket.onmessage = event => {
+      dispatch({
+        type: onMessage,
+        payload: JSON.parse(event.data)
+      })
+    };
+
+    socket.onclose = event => {
+      console.log(type, socket, 'close');
+      dispatch({
+        type: onClose,
+        //payload: JSON.parse(event.data)
+      })
+
+      socket = null
+    };
+
+    socket.onerror = event => {
+      console.log(type, socket, 'err');
+
+      dispatch({
+        type: onError,
+        payload: event
+      });
+
+      socket = null
+    };
+    console.log(socket, 'ext');
+
+    return socket
+  }
+}
+
 export {
   getData,
   postOrderId,
@@ -154,4 +265,7 @@ export {
   logOut,
   editUserInfo,
   getUserInfo,
+  makeColumnsList,
+  calcBurgerPriceFeedPage,
+  createSocket,
 };
