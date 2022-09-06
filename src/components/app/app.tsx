@@ -84,9 +84,9 @@ export default function App() {
         <Route path="/ingredients/:id" >
           <IngredientPage />
         </Route>
-        {/* <Route>
-          <Page404 path='*' />
-        </Route> */}
+        <Route path='*'>
+          <Page404 />
+        </Route>
       </Switch>
       {/* {background && (
         <Switch >
