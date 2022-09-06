@@ -11,6 +11,9 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(myMiddleWare)
 })
 
+export type TRootState = ReturnType<typeof rootReducer>
+export type TAppDispatch = typeof store.dispatch
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );

@@ -22,12 +22,15 @@ import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
 import { OrderPageProfile } from '../../pages/order-page-profile';
 import { getCookie } from '../../utils/cookies';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { ILocation } from '../../utils/type';
 
 export default function App() {
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch()
   const history = useHistory();
-  const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
+
+  const { failed: accessFail } = useAppSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
     getCookie('accessToken')
@@ -40,13 +43,14 @@ export default function App() {
     if (accessFail) history.replace({ pathname: '/login' })
   }, [accessFail])
 
-  const location = useLocation();
-  const background = location.state?.background;
+  const location: ILocation<{background?: ILocation}> = useLocation();
+
+  const background: ILocation | undefined = location.state?.background
 
   return (
     <React.Fragment>
       <AppHeader />
-      <Switch location={background || location}>
+      <Switch location={ background || location}>
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
@@ -56,7 +60,7 @@ export default function App() {
         <Route path="/feed/:id" exact={true}>
           <OrderPage />
         </Route>
-        <ProtectedRoute path="/profile/orders/:id" exact={true}>
+        {/* <ProtectedRoute path="/profile/orders/:id" exact={true}>
           <OrderPageProfile />
         </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
@@ -76,15 +80,15 @@ export default function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
           render={() => <ProfilePage />}>
-        </ProtectedRoute>
+        </ProtectedRoute> */}
         <Route path="/ingredients/:id" >
           <IngredientPage />
         </Route>
-        <Route>
+        {/* <Route>
           <Page404 path='*' />
-        </Route>
+        </Route> */}
       </Switch>
-      {background && (
+      {/* {background && (
         <Switch >
           <Route
             path="/ingredients/:id"
@@ -113,7 +117,7 @@ export default function App() {
             )}
           />
         </Switch>
-      )}
+      )} */}
     </React.Fragment>
   );
 }

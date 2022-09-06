@@ -1,8 +1,8 @@
 import Main from "../components/main/main"
-import styles from './page404.module.css'
+import styles from "./page404.module.css"
 
 export const Page404 = () => {
-  
+
   return (
     <Main >
       <div className={styles.column}>
