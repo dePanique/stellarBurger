@@ -1,4 +1,6 @@
-import { combineReducers } from "redux";
+// import { combineReducers } from "redux";
+import { combineReducers } from '@reduxjs/toolkit'
+
 import { appStore } from "./app";
 import { burgerConstructor } from "./burger-constructor";
 import { burgerIngredients } from "./burger-ingredients";
@@ -28,3 +30,5 @@ export const rootReducer = combineReducers({
   profileOrders,
   websocket,
 });
+
+export type TRootState = ReturnType<typeof rootReducer>

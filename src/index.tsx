@@ -12,7 +12,7 @@ const store = configureStore({
 })
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root')
+  document.getElementById('root') as HTMLElement
 );
 
 root.render(
@@ -22,7 +22,3 @@ root.render(
     </BrowserRouter>
   </Provider>
 );
-
-if (module.hot) {
-  module.hot.accept();
-}
