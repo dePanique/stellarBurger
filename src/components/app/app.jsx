@@ -21,6 +21,7 @@ import { authenticationEnch } from '../../services/actions/auth';
 import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
 import { OrderPageProfile } from '../../pages/order-page-profile';
+import { getCookie } from '../../utils/cookies';
 
 export default function App() {
 
@@ -29,6 +30,7 @@ export default function App() {
   const { failed: accessFail } = useSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
+    getCookie('accessToken')
     history.replace({ pathname: `${location.pathname}`, state: {} })
     dispatch(getIngredients());
     dispatch(authenticationEnch());
@@ -113,6 +115,5 @@ export default function App() {
         </Switch>
       )}
     </React.Fragment>
-
   );
 }
