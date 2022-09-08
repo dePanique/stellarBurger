@@ -1,5 +1,5 @@
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import type { TAppDispatch, TRootState } from '..'
 
-export const useAppDispatch: () => TAppDispatch = useDispatch
-export const useAppSelector: TypedUseSelectorHook<TRootState> = useSelector
+export const appUseDispatch: () => TAppDispatch = useDispatch
+export const appUseSelector: TypedUseSelectorHook<TRootState> = useSelector

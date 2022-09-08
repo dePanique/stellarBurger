@@ -22,15 +22,15 @@ import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
 import { OrderPageProfile } from '../../pages/order-page-profile';
 import { getCookie } from '../../utils/cookies';
-import { useAppDispatch, useAppSelector } from '../../utils/hooks';
+import { appUseDispatch, appUseSelector } from '../../utils/hooks';
 import { ILocation } from '../../utils/type';
 
 export default function App() {
 
-  const dispatch = useAppDispatch()
+  const dispatch = appUseDispatch()
   const history = useHistory();
 
-  const { failed: accessFail } = useAppSelector(store => store.logInStore.accessTokenStatus)
+  const { failed: accessFail } = appUseSelector(store => store.logInStore.accessTokenStatus)
 
   useEffect(() => {
     getCookie('accessToken')
@@ -45,7 +45,7 @@ export default function App() {
 
   const location: ILocation<{background?: ILocation}> = useLocation();
 
-  const background: ILocation | undefined = location.state?.background
+  const background: ILocation | undefined = location.state?.background;
 
   return (
     <React.Fragment>
@@ -60,7 +60,7 @@ export default function App() {
         <Route path="/feed/:id" exact={true}>
           <OrderPage />
         </Route>
-        {/* <ProtectedRoute path="/profile/orders/:id" exact={true}>
+        <ProtectedRoute path="/profile/orders/:id" exact={true}>
           <OrderPageProfile />
         </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
@@ -80,7 +80,7 @@ export default function App() {
         </ProtectedRoute>
         <ProtectedRoute path="/profile/orders" exact={true} unAuthOnly={false}
           render={() => <ProfilePage />}>
-        </ProtectedRoute> */}
+        </ProtectedRoute>
         <Route path="/ingredients/:id" >
           <IngredientPage />
         </Route>
