@@ -1,7 +1,8 @@
 import styles from "./app-header.module.css";
 import HeaderListItem from "../header-list-item/header-list-item";
+import { FC } from "react";
 
-const AppHeader = () => {
+const AppHeader: FC = () => {
 
   return (
     <header className={styles.header}>

@@ -1,14 +1,11 @@
 import styles from "./burger-constructor.module.css";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, FC } from "react";
 import { useDrop } from "react-dnd";
 import {
   ConstructorElement,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
 import Card from "../card/card";
-import { useDispatch, useSelector } from "react-redux";
 import { useHistory, Link, useLocation } from 'react-router-dom';
 import { getOrderNumber } from '../../services/actions/order-details';
 import {
@@ -18,18 +15,24 @@ import {
   ON_MAIN_DROP,
 } from "../../services/actions/burger-constructor";
 import update from "immutability-helper";
+import { appUseDispatch, appUseSelector } from "../../utils/hooks";
+import { TIngredient } from "../../utils/type";
 
-const BurgerConstructor = () => {
+const BurgerConstructor: FC = () => {
 
   const location = useLocation()
-  const { data, bun, finalPrice, ingredientsId } = useSelector(
+  const { data, bun, finalPrice, ingredientsId } : {
+    data: [];
+    bun: TIngredient;
+    finalPrice: number;
+    ingredientsId: []
+  } = appUseSelector(
     (store) => store.burgerConstructor
   );
-  const { success: isAuth } = useSelector(store => store.authStore);
-  const [modal, setModal] = useState(false);
-  const [constructorData, setConstructorData] = useState([]);
-  const [isButtonActive, setIsButtonActive] = useState(false);
-  const dispatch = useDispatch();
+  const { success: isAuth } = appUseSelector(store => store.authStore);
+  const [constructorData, setConstructorData] = useState<[]>([]);
+  const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
+  const dispatch = appUseDispatch();
   const history = useHistory();
 
   useEffect(() => {
@@ -45,7 +48,6 @@ const BurgerConstructor = () => {
         payload: constructorData,
       });
     }
-
   }, [constructorData]);
 
   useEffect(() => {
@@ -56,16 +58,11 @@ const BurgerConstructor = () => {
     dispatch({
       type: CALC_FULLPRICE,
     });
-
   }, [data, bun]);
 
-
-
-  const handleOrderButton = () => {
-    console.log(isAuth);
+  const handleOrderButton = ():void => {
     if (isAuth) {
       dispatch(getOrderNumber(ingredientsId));
-      //setModal(true);
     } else {
       history.replace({ pathname: '/login' });
     }
@@ -83,7 +80,7 @@ const BurgerConstructor = () => {
 
   const [, dropTargetMain] = useDrop({
     accept: "main",
-    drop(main) {
+    drop(main:{ listId: string}) {
       dispatch({
         type: ON_MAIN_DROP,
         payload: {
@@ -94,7 +91,7 @@ const BurgerConstructor = () => {
     },
   });
 
-  const moveCard = useCallback((dragIndex, hoverIndex) => {
+  const moveCard = useCallback((dragIndex: number, hoverIndex: number) => {
     setConstructorData((prevCards) =>
       update(prevCards, {
         $splice: [
@@ -104,8 +101,6 @@ const BurgerConstructor = () => {
       })
     );
   }, []);
-
-  console.log(location);
 
   return (
     <section
@@ -123,14 +118,14 @@ const BurgerConstructor = () => {
           />
         ) : (
           <p className={`${styles.notice} text text_type_main-medium`}>
-            Обязательно добавьте булку ;)
+            Обязательно добавьте булку ;
           </p>
         )}
       </div>
 
       <ul className={styles.components} ref={dropTargetMain}>
         {constructorData &&
-          constructorData.map((element, index) => (
+          constructorData.map((element: TIngredient, index) => (
             <Card
               key={element.listId}
               index={index}
@@ -174,9 +169,8 @@ const BurgerConstructor = () => {
               size="large"
               disabled={isButtonActive}
               onClick={handleOrderButton}
-            >
-              Оформить заказ
-            </Button>
+              name='Оформить заказ'
+            />
           </Link>
         ) : (
           <Button
@@ -184,17 +178,10 @@ const BurgerConstructor = () => {
             size="large"
             disabled={isButtonActive}
             onClick={handleOrderButton}
-          >
-            Оформить заказ
-          </Button>
+            name='Оформить заказ'
+          />
         )}
       </div>
-
-      {/* {modal && (
-        <Modal closeOrderModal={setModal}>
-          <OrderDetails />
-        </Modal>
-      )} */}
     </section>
   );
 };
