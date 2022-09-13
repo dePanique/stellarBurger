@@ -2,7 +2,7 @@ import  { FC } from 'react';
 
 import { Route, Redirect, useLocation, RouteProps } from "react-router-dom";
 import { appUseSelector } from '../../utils/hooks';
-import { ILocation } from '../../utils/type';
+import { TLocation } from '../../utils/type';
 
 interface IProtectedRoute extends RouteProps  {
   readonly unAuthOnly?: boolean,
@@ -11,7 +11,7 @@ interface IProtectedRoute extends RouteProps  {
 
 export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly, passReset, ...rest }) => {
 
-  const location: ILocation<{from?: ILocation}> = useLocation();
+  const location: TLocation<{from?: TLocation}> = useLocation();
 
   const { success: isAuth } = appUseSelector(store => store.authStore);
   const { failed: isAccessUpdateFailed } = appUseSelector(store => store.logInStore.accessTokenStatus);

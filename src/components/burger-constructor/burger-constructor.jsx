@@ -20,7 +20,7 @@ import {
 import update from "immutability-helper";
 
 const BurgerConstructor = () => {
-  
+
   const { data, bun, finalPrice, ingredientsId } = useSelector(
     (store) => store.burgerConstructor
   );
@@ -61,6 +61,7 @@ const BurgerConstructor = () => {
 
 
   const handleOrderButton = () => {
+    console.log(isAuth);
     if (isAuth) {
       dispatch(getOrderNumber(ingredientsId));
       setModal(true);

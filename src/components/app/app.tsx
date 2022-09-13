@@ -15,7 +15,6 @@ import { ProtectedRoute } from '../protected-route/protected-route';
 import Modal from '../modal/modal';
 import React, { useEffect } from 'react';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/app';
 import { authenticationEnch } from '../../services/actions/auth';
 import { BurgerDetails } from '../burger-details/burger-details';
@@ -23,12 +22,15 @@ import { OrderPage } from '../../pages/order-page';
 import { OrderPageProfile } from '../../pages/order-page-profile';
 import { getCookie } from '../../utils/cookies';
 import { appUseDispatch, appUseSelector } from '../../utils/hooks';
-import { ILocation } from '../../utils/type';
+import { TLocation } from '../../utils/type';
+import { History } from 'history'
+import OrderDetails from '../order-details/order-details';
+
 
 export default function App() {
 
   const dispatch = appUseDispatch()
-  const history = useHistory();
+  const history: History = useHistory();
 
   const { failed: accessFail } = appUseSelector(store => store.logInStore.accessTokenStatus)
 
@@ -43,9 +45,9 @@ export default function App() {
     if (accessFail) history.replace({ pathname: '/login' })
   }, [accessFail])
 
-  const location: ILocation<{background?: ILocation}> = useLocation();
+  const location: TLocation<{background?: TLocation}> = useLocation();
 
-  const background: ILocation | undefined = location.state?.background;
+  const background: TLocation | undefined = location?.state?.background;
 
   return (
     <React.Fragment>
@@ -88,7 +90,7 @@ export default function App() {
           <Page404 />
         </Route>
       </Switch>
-      {/* {background && (
+      {background && (
         <Switch >
           <Route
             path="/ingredients/:id"
@@ -98,6 +100,7 @@ export default function App() {
               </Modal>
             }
           />
+
           <Route
             path="/feed/:id"
 
@@ -107,6 +110,7 @@ export default function App() {
               </Modal>
             )}
           />
+
           <Route
             path="/profile/orders/:id"
 
@@ -117,7 +121,7 @@ export default function App() {
             )}
           />
         </Switch>
-      )} */}
+      )}
     </React.Fragment>
   );
 }

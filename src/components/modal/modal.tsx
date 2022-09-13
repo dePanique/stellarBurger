@@ -1,22 +1,30 @@
 import styles from "./modal.module.css";
 import ReactDOM from "react-dom";
-import PropTypes from "prop-types";
 import ModalOverlay from "../modal-overlay/modal-overlay";
-import { portalContainer } from "./../../utils/constants";
+import { portalContainer } from "../../utils/constants";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect } from "react";
+import { FC, useEffect } from "react";
+import { ReactNode } from "react";
+import { History } from 'history';
 
-const Modal = ({ closeOrderModal, ...props }) => {
+interface IModal {
+  history: History;
+  children: ReactNode;
+  closeOrderModal?: (arg: boolean)=> void
+}
 
-  const closeModal = () => {
+const Modal: FC<IModal> = ({ history, children, closeOrderModal }) => {
+
+  const closeModal = ():void => {
     if (closeOrderModal) {
       return closeOrderModal(false);
     }
-    props.history.goBack();
+
+    history.goBack();
   }
 
   useEffect(() => {
-    const quitOnEscape = (e) => {
+    const quitOnEscape = (e: { key:string }):void => {
       if (e.key === "Escape") {
         closeModal();
       };
@@ -27,7 +35,7 @@ const Modal = ({ closeOrderModal, ...props }) => {
     return () => {
       document.removeEventListener("keydown", quitOnEscape);
     };
-  });
+  }, []);
 
   return ReactDOM.createPortal(
     <ModalOverlay handle={closeModal}>
@@ -36,18 +44,13 @@ const Modal = ({ closeOrderModal, ...props }) => {
           className={styles.closeWrapper + " mt-15 mr-10"}
           onClick={closeModal}
         >
-          <CloseIcon />
+          <CloseIcon type='primary' />
         </div>
-        {props.children}
+        {children}
       </div>
     </ModalOverlay>,
-    portalContainer
+    portalContainer as HTMLElement
   );
-};
-
-Modal.propTypes = {
-  handle: PropTypes.func,
-  children: PropTypes.element,
 };
 
 export default Modal;

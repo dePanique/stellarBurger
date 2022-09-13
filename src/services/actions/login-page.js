@@ -112,6 +112,11 @@ export function logInEnch(email, pass) {
         });
 
         dispatch({
+          type: AUTH_SUCCESS,
+          payload: res.accessToken,
+        })
+
+        dispatch({
           type: LOG_OUT_RESET,
         })
       })
