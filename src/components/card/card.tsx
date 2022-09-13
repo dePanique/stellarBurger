@@ -5,16 +5,22 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import { useRef } from "react";
+import type { Identifier, XYCoord } from 'dnd-core'
+import { FC, useRef } from "react";
 import { DELETE_ITEM } from '../../services/actions/burger-constructor'
+import { ICard, IDragItem} from "../../utils/type";
 
-const Card = ({ element, id, moveCard, index }) => {
+const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
 
   const dispatch = useDispatch();
 
   //решение от react-dnd
-  const ref = useRef(null);
-  const [{ handlerId }, drop] = useDrop({
+  const ref = useRef<HTMLDivElement>(null);
+  const [{ handlerId }, drop] = useDrop<
+    IDragItem,
+    void,
+    { handlerId: Identifier | null }
+  >({
     accept: "card",
     collect(monitor) {
       return {
@@ -39,7 +45,7 @@ const Card = ({ element, id, moveCard, index }) => {
       // Determine mouse position
       const clientOffset = monitor.getClientOffset();
       // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top;
       // Only perform the move when the mouse has crossed half of the items height
       // When dragging downwards, only move when the cursor is below 50%
       // When dragging upwards, only move when the cursor is above 50%
@@ -74,7 +80,7 @@ const Card = ({ element, id, moveCard, index }) => {
   drag(drop(ref));
 
   return (
-    <li
+    <div
       className={styles.ingredient + " mb-4"}
       ref={ref}
       style={{ opacity }}
@@ -92,7 +98,7 @@ const Card = ({ element, id, moveCard, index }) => {
           });
         }}
       />
-    </li>
+    </div>
   );
 };
 

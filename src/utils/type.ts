@@ -32,3 +32,15 @@ export type TBurgerDetails = {
   updatedAt: string;
   _id: string;
 }
+
+export interface ICard {
+  element:TIngredient
+  id:string
+  moveCard:(dragIndex: number, hoverIndex: number) => void
+  index:number
+}
+
+export interface IDragItem {
+index: number
+id: string
+}
