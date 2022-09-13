@@ -26,7 +26,6 @@ import { TLocation } from '../../utils/type';
 import { History } from 'history'
 import OrderDetails from '../order-details/order-details';
 
-
 export default function App() {
 
   const dispatch = appUseDispatch()
@@ -131,4 +130,10 @@ export default function App() {
       )}
     </React.Fragment>
   );
+}
+
+declare module 'react' {
+  interface FunctionComponent<P = {}> {
+    (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+  }
 }

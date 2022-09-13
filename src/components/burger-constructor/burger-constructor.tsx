@@ -169,8 +169,9 @@ const BurgerConstructor: FC = () => {
               size="large"
               disabled={isButtonActive}
               onClick={handleOrderButton}
-              name='Оформить заказ'
-            />
+              >
+                Оформить заказ
+            </Button>
           </Link>
         ) : (
           <Button
@@ -178,8 +179,9 @@ const BurgerConstructor: FC = () => {
             size="large"
             disabled={isButtonActive}
             onClick={handleOrderButton}
-            name='Оформить заказ'
-          />
+            >
+              Оформить заказ
+          </Button>
         )}
       </div>
     </section>
