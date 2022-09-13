@@ -9,7 +9,7 @@ import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import Card from "../card/card";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from 'react-router-dom';
+import { useHistory, Link, useLocation } from 'react-router-dom';
 import { getOrderNumber } from '../../services/actions/order-details';
 import {
   CALC_FULLPRICE,
@@ -21,6 +21,7 @@ import update from "immutability-helper";
 
 const BurgerConstructor = () => {
 
+  const location = useLocation()
   const { data, bun, finalPrice, ingredientsId } = useSelector(
     (store) => store.burgerConstructor
   );
@@ -64,7 +65,7 @@ const BurgerConstructor = () => {
     console.log(isAuth);
     if (isAuth) {
       dispatch(getOrderNumber(ingredientsId));
-      setModal(true);
+      //setModal(true);
     } else {
       history.replace({ pathname: '/login' });
     }
@@ -103,6 +104,8 @@ const BurgerConstructor = () => {
       })
     );
   }, []);
+
+  console.log(location);
 
   return (
     <section
@@ -159,20 +162,39 @@ const BurgerConstructor = () => {
 
         <div className={styles.currencyBig + " mr-10"}></div>
 
-        <Button
-          type="primary"
-          size="large"
-          disabled={isButtonActive}
-          onClick={handleOrderButton}>
-          Оформить заказ
-        </Button>
+        {!isButtonActive&&isAuth ? (
+          <Link
+            to={{
+              pathname: `/order-details`,
+              state: { background: location }
+            }}
+          >
+            <Button
+              type="primary"
+              size="large"
+              disabled={isButtonActive}
+              onClick={handleOrderButton}
+            >
+              Оформить заказ
+            </Button>
+          </Link>
+        ) : (
+          <Button
+            type="primary"
+            size="large"
+            disabled={isButtonActive}
+            onClick={handleOrderButton}
+          >
+            Оформить заказ
+          </Button>
+        )}
       </div>
 
-      {modal && (
+      {/* {modal && (
         <Modal closeOrderModal={setModal}>
           <OrderDetails />
         </Modal>
-      )}
+      )} */}
     </section>
   );
 };

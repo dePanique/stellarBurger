@@ -103,7 +103,6 @@ export default function App() {
 
           <Route
             path="/feed/:id"
-
             render={() => (
               <Modal history={history}>
                 <BurgerDetails />
@@ -113,10 +112,18 @@ export default function App() {
 
           <Route
             path="/profile/orders/:id"
-
             render={() => (
               <Modal history={history}>
                 <BurgerDetails />
+              </Modal>
+            )}
+          />
+
+          <Route
+            path="/order-details"
+            render={() => (
+              <Modal history={history}>
+                <OrderDetails />
               </Modal>
             )}
           />
