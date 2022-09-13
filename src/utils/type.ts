@@ -22,3 +22,13 @@ export type TIngredient = {
   __v: number
   _id: string;
 }
+
+export type TBurgerDetails = {
+  createdAt: string;
+  ingredients: any;
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}

@@ -1,31 +1,46 @@
 import styles from './burger-details.module.css';
+import { ReactNode } from 'react'
 import { useParams, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FeedIngredientRow } from '../feed-ingredient-row/feed-ingredient-row';
-import { useSelector } from 'react-redux';
 import { calcBurgerPriceFeedPage } from '../../utils/utils';
-import { burgerStatusObj } from '../../utils/constants';
+import { appUseSelector } from '../../utils/hooks';
+import { TBurgerDetails } from '../../utils/type';
+
+const burgerStatusObj: { [name: string]: string } = {
+  done: 'Выполнен',
+  pending: 'Готовится',
+  created: 'Создан',
+}
 
 export const BurgerDetails = () => {
 
-  const { data: ingredientsData } = useSelector(store => store.appStore)
-  const { ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
+  const { data: ingredientsData } = appUseSelector(store => store.appStore)
+  const { ingredientsData: ingredientsDetail } : {
+    ingredientsData: {
+      [name: string]: {
+        price: number,
+        image_mobile: string,
+        name: string,
+      }
+    }
+  } = appUseSelector(store => store.feedPage)
 
-  const { id } = useParams();
+  const { id }: { id: string } = useParams();
 
   const location = useLocation();
   const pageName = location.pathname.split('/')[1]
 
-  const page = { feed : [], profile: []};
+  const page: { [name: string]: Array<TBurgerDetails> } = { feed: [], profile: [] };
 
-  page.feed = useSelector(store => store.websocket?.data?.orders)?.filter(el => el._id === id)
-  page.profile = useSelector(store => store.websocket?.data?.orders)?.filter(el => el._id === id)
+  page.feed = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id)
+  page.profile = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id)
 
-  let order = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0]
+  let order: TBurgerDetails = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0]
 
-  const ingredients = { }
+  const ingredients: { [name: string]: ReactNode } = {}
 
-  order?.ingredients.forEach((el, _, arr) => {
+  order?.ingredients.forEach((el: string, _: number, arr: []) => {
     ingredients[`${el}`] =
       <FeedIngredientRow
         key={el}
@@ -36,14 +51,14 @@ export const BurgerDetails = () => {
       />
   })
 
-  const ingredientsList = [];
+  const ingredientsList: Array<ReactNode> = [];
 
   for (let key in ingredients) ingredientsList.push(ingredients[`${key}`])
 
   return (
     order &&
     <section className={styles.container}>
-       <h1 className={styles.title + ` text text_type_digits-default mb-10`}>
+      <h1 className={styles.title + ` text text_type_digits-default mb-10`}>
         {`#${order.number}`}
       </h1>
 
@@ -66,14 +81,14 @@ export const BurgerDetails = () => {
 
       <div className={styles.timeAndFullPrice + ` mt-10`}>
         <p className={styles.time + ` text text_type_main-default`}>
-        {`${new Date(order.createdAt).toLocaleString(
-                'ru', {
-                month: 'long',
-                day: 'numeric',
-                hour: '2-digit',
-                minute: '2-digit'
-              })} i-GMT+3`
-              }
+          {`${new Date(order.createdAt).toLocaleString(
+            'ru', {
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit'
+          })} i-GMT+3`
+          }
         </p>
 
         <div className={styles.priceRow}>
