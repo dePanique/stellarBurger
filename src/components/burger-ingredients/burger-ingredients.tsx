@@ -1,44 +1,44 @@
-import { useState } from "react";
+import { useState, BaseSyntheticEvent } from "react";
 import styles from "./burger-ingredients.module.css";
-import IngredientsCollection from "./../ingredients-collection/ingredients-collection";
+import IngredientsCollection from "../ingredients-collection/ingredients-collection";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useEffect } from "react";
 
 const BurgerIngredients = () => {
 
-  const [modal, setModal] = useState(false);
   const [activeTab, setActiveTab] = useState("Булки");
   const [currentScrollPos, setCurrentScrollPos] = useState(0);
-  const [positionForActivation, setPositionForActivation] = useState([]);
+  const [positionForActivation, setPositionForActivation] = useState<(number | undefined)[]>();
 
   useEffect(() => {
-    let offsets = ["#bun", "#sauce", "#main"].map(
-      (el) => document.querySelector(el).offsetTop
-    );
+    let offsets: (number | undefined)[] = []
 
-    setPositionForActivation(
-      offsets.map((_, index) => {
-        if (index === 0) {
-          return 0;
-        } else if (index === 1) {
-          return offsets[1] - offsets[0] - 40;
-        } else {
-          return offsets[2] - offsets[0] - 40;
-        }
-      })
-    );
+    offsets = ["#bun", "#sauce", "#main"].map((el: string) =>
+      document.querySelector<HTMLElement>(el)?.offsetTop).map((_, index) => {
+      if (index === 0) {
+        return 0;
+      } else if (index === 1) {
+        return offsets[1]! - offsets[0]! - 40;
+      } else {
+        return offsets[2]! - offsets[0]! - 40;
+      }
+    });
+
+    setPositionForActivation(offsets);
   }, []);
 
-  const setCurrentTab = (e) => {
+  const setCurrentTab = (e: BaseSyntheticEvent<HTMLDivElement>) => {
+
     setCurrentScrollPos(e.target.scrollTop);
-    if (currentScrollPos < positionForActivation[1]) {
+
+    if (positionForActivation && currentScrollPos < positionForActivation[1]!) {
       setActiveTab("Булки");
     } else if (
-      currentScrollPos > positionForActivation[1] &&
-      currentScrollPos < positionForActivation[2]
+      positionForActivation && currentScrollPos > positionForActivation[1]! &&
+      positionForActivation && currentScrollPos < positionForActivation[2]!
     ) {
       setActiveTab("Соусы");
-    } else if (currentScrollPos > positionForActivation[2]) {
+    } else if (positionForActivation && currentScrollPos > positionForActivation[2]!) {
       setActiveTab("Начинки");
     }
   };
@@ -85,12 +85,12 @@ const BurgerIngredients = () => {
         </a>
       </div>
 
-      <div className={styles.collection} onScroll={(e) => setCurrentTab(e)}>
-        <IngredientsCollection type={"bun"} setModal={setModal} />
+      <div className={styles.collection} onScroll={(e : any) => setCurrentTab(e)}>
+        <IngredientsCollection type={"bun"} />
 
-        <IngredientsCollection type={"sauce"} setModal={setModal} />
+        <IngredientsCollection type={"sauce"} />
 
-        <IngredientsCollection type={"main"} setModal={setModal} />
+        <IngredientsCollection type={"main"} />
       </div>
     </section>
   );

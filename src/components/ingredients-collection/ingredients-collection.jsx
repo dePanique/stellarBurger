@@ -4,8 +4,8 @@ import Ingredient from "../ingredient/ingredient";
 import styles from "./ingredients-collection.module.css";
 import { useSelector } from "react-redux";
 
-const IngredientsCollection = ({ setModal, type }) => {
-  
+const IngredientsCollection = ({ type }) => {
+
   const ingredientType = {
     bun: "Булки",
     sauce: "Соусы",
@@ -25,7 +25,7 @@ const IngredientsCollection = ({ setModal, type }) => {
       {data.map(
         (element) =>
           element.type === type && (
-            <Ingredient key={element._id} element={element} handle={setModal} />
+            <Ingredient key={element._id} element={element} />
           )
       )}
     </React.Fragment>
@@ -33,7 +33,6 @@ const IngredientsCollection = ({ setModal, type }) => {
 };
 
 IngredientsCollection.propTypes = {
-  setModal: PropTypes.func.isRequired,
   type: PropTypes.string.isRequired,
 };
 
