@@ -1,46 +1,45 @@
 import styles from './burger-details.module.css';
-import { ReactNode } from 'react'
+import { ReactNode } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FeedIngredientRow } from '../feed-ingredient-row/feed-ingredient-row';
 import { calcBurgerPriceFeedPage } from '../../utils/utils';
 import { appUseSelector } from '../../utils/hooks';
-import { TBurgerDetails } from '../../utils/type';
+import { TBurgerDetails, TIngredient, TIngredientsData } from '../../utils/type';
 
 const burgerStatusObj: { [name: string]: string } = {
   done: 'Выполнен',
   pending: 'Готовится',
   created: 'Создан',
-}
+};
 
 export const BurgerDetails = () => {
 
-  const { data: ingredientsData } = appUseSelector(store => store.appStore)
-  const { ingredientsData: ingredientsDetail } : {
-    ingredientsData: {
-      [name: string]: {
-        price: number,
-        image_mobile: string,
-        name: string,
-      }
-    }
-  } = appUseSelector(store => store.feedPage)
+  const { data: ingredientsData }: {
+    data: TIngredient[];
+  } = appUseSelector(store => store.appStore);
+  const { ingredientsData: ingredientsDetail }: {
+    ingredientsData: TIngredientsData;
+  } = appUseSelector(store => store.feedPage);
 
   const { id }: { id: string } = useParams();
 
   const location = useLocation();
   const pageName = location.pathname.split('/')[1]
 
-  const page: { [name: string]: Array<TBurgerDetails> } = { feed: [], profile: [] };
+  const page: { [name: string]: Array<TBurgerDetails> } = {
+    feed: [],
+    profile: [],
+  };
 
-  page.feed = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id)
-  page.profile = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id)
+  page.feed = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id);
+  page.profile = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id);
 
-  let order: TBurgerDetails = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0]
+  let order: TBurgerDetails = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0];
 
-  const ingredients: { [name: string]: ReactNode } = {}
+  const ingredients: { [name: string]: ReactNode } = {};
 
-  order?.ingredients.forEach((el: string, _: number, arr: []) => {
+  order?.ingredients.forEach((el, _, arr) => {
     ingredients[`${el}`] =
       <FeedIngredientRow
         key={el}
@@ -49,11 +48,11 @@ export const BurgerDetails = () => {
         price={ingredientsDetail[el]['price']}
         quan={arr.filter(element => element === el).length}
       />
-  })
+  });
 
   const ingredientsList: Array<ReactNode> = [];
 
-  for (let key in ingredients) ingredientsList.push(ingredients[`${key}`])
+  for (let key in ingredients) ingredientsList.push(ingredients[`${key}`]);
 
   return (
     order &&

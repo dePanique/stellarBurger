@@ -23,35 +23,35 @@ import { OrderPageProfile } from '../../pages/order-page-profile';
 import { getCookie } from '../../utils/cookies';
 import { appUseDispatch, appUseSelector } from '../../utils/hooks';
 import { TLocation } from '../../utils/type';
-import { History } from 'history'
+import { History } from 'history';
 import OrderDetails from '../order-details/order-details';
 
 export default function App() {
 
-  const dispatch = appUseDispatch()
+  const dispatch = appUseDispatch();
   const history: History = useHistory();
 
-  const { failed: accessFail } = appUseSelector(store => store.logInStore.accessTokenStatus)
+  const { failed: accessFail } = appUseSelector(store => store.logInStore.accessTokenStatus);
 
   useEffect(() => {
-    getCookie('accessToken')
-    history.replace({ pathname: `${location.pathname}`, state: {} })
+    getCookie('accessToken');
+    history.replace({ pathname: `${location.pathname}`, state: {} });
     dispatch(getIngredients());
     dispatch(authenticationEnch());
   }, []);
 
   useEffect(() => {
-    if (accessFail) history.replace({ pathname: '/login' })
-  }, [accessFail])
+    if (accessFail) history.replace({ pathname: '/login' });
+  }, [accessFail]);
 
-  const location: TLocation<{background?: TLocation}> = useLocation();
+  const location: TLocation<{ background?: TLocation }> = useLocation();
 
   const background: TLocation | undefined = location?.state?.background;
 
   return (
     <React.Fragment>
       <AppHeader />
-      <Switch location={ background || location}>
+      <Switch location={background || location}>
         <Route path="/" exact={true}>
           <HomePage />
         </Route>
@@ -61,7 +61,7 @@ export default function App() {
         <Route path="/feed/:id" exact={true}>
           <OrderPage />
         </Route>
-        <ProtectedRoute path="/profile/orders/:id" exact={true}>
+        <ProtectedRoute path="/profile/orders/:id" exact={true} unAuthOnly>
           <OrderPageProfile />
         </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>
@@ -136,4 +136,4 @@ declare module 'react' {
   interface FunctionComponent<P = {}> {
     (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
   }
-}
+};

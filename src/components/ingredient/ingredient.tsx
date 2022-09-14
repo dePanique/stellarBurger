@@ -4,15 +4,11 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients'
+import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients';
 import { Link, useLocation } from 'react-router-dom';
-import { TIngredient } from "../../utils/type";
+import { IIngredient } from "../../utils/type";
 import { FC } from "react";
 import { appUseDispatch, appUseSelector } from "../../utils/hooks";
-
-interface IIngredient {
-  element: TIngredient
-}
 
 const Ingredient: FC<IIngredient> = ({ element }) => {
 
@@ -20,7 +16,7 @@ const Ingredient: FC<IIngredient> = ({ element }) => {
   const location = useLocation();
 
   const { ingredientsId : orderData } : {
-    ingredientsId: (undefined | string)[]
+    ingredientsId: (undefined | string)[];
   } = appUseSelector(
     (store) => store.burgerConstructor
   );

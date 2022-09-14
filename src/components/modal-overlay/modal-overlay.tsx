@@ -1,16 +1,12 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
+import { IModalOverLay } from "../../utils/type";
 import styles from "./modal-overlay.module.css";
-
-interface IModalOverLay {
-  handle: (arg: boolean) => void;
-  children: ReactNode;
-}
 
 const ModalOverlay: FC<IModalOverLay> = (props) => {
 
   const handleClick = (): void => {
-    props.handle(false)
-  }
+    props.handle(false);
+  };
 
   return (
     <React.Fragment>

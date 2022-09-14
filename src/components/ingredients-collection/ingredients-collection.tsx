@@ -2,11 +2,7 @@ import React, { FC } from "react";
 import Ingredient from "../ingredient/ingredient";
 import styles from "./ingredients-collection.module.css";
 import { appUseSelector } from "../../utils/hooks";
-import { TIngredient } from "../../utils/type";
-
-interface IIngredientsCollection {
-  type: string
-}
+import { IIngredientsCollection, TIngredient } from "../../utils/type";
 
 const IngredientsCollection: FC<IIngredientsCollection> = ({ type }) => {
 
@@ -17,7 +13,7 @@ const IngredientsCollection: FC<IIngredientsCollection> = ({ type }) => {
   };
 
   const { data }: {
-    data: TIngredient[]
+    data: TIngredient[];
   } = appUseSelector((store) => store.appStore);
 
   return (

@@ -4,7 +4,6 @@ import { FC } from "react";
 
 const AppHeader: FC = () => {
 
-
   return (
     <header className={styles.header}>
       <nav className={` pt-4 pb-4`}>

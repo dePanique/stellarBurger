@@ -1,3 +1,8 @@
+import { ReactNode } from "react"
+import { History } from 'history';
+import { RouteProps } from "react-router-dom";
+
+
 export type TLocation<T extends object = {}> =
 {
   pathname: string,
@@ -25,7 +30,7 @@ export type TIngredient = {
 
 export type TBurgerDetails = {
   createdAt: string;
-  ingredients: any;
+  ingredients: string[];
   name: string;
   number: number;
   status: string;
@@ -67,4 +72,52 @@ export interface IFeedPlate {
   order: IFeedPlateOrder;
   price: number;
   img: Array<string>;
+}
+
+export type TIngredientsData = {
+  [name: string]: {
+    price: number,
+    image_mobile: string,
+    name: string,
+  }
+}
+
+export interface IHeaderListItem {
+  spanText: "Конструктор" | "Лента заказов" | "Личный кабинет" | "Лого";
+  logo?: boolean;
+}
+
+export interface IIngredient {
+  element: TIngredient
+}
+
+export interface IIngredientsCollection {
+  type: string
+}
+
+export interface IMain {
+  children: ReactNode
+}
+
+export interface IModal {
+  history: History;
+  children: ReactNode;
+  closeOrderModal?: (arg: boolean) => void
+}
+
+export interface IModalOverLay {
+  handle: (arg: boolean) => void;
+  children: ReactNode;
+}
+
+export interface IOrderDetails {
+  number: string;
+  request: boolean;
+  failed: boolean;
+  name: string;
+}
+
+export interface IProtectedRoute extends RouteProps  {
+  readonly unAuthOnly: boolean,
+  readonly passReset?: boolean,
 }

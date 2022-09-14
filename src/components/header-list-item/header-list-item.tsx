@@ -7,11 +7,7 @@ import {
   ListIcon,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
-interface IHeaderListItem {
-  spanText: "Конструктор" | "Лента заказов" | "Личный кабинет" | "Лого";
-  logo?: boolean;
-}
+import { IHeaderListItem } from "../../utils/type";
 
 const HeaderListItem: FC<IHeaderListItem> = ({ spanText, logo  }) => {
 
@@ -34,7 +30,7 @@ const HeaderListItem: FC<IHeaderListItem> = ({ spanText, logo  }) => {
       primary: <Logo />,
       secondary: <Logo />
     }],
-  }
+  };
 
   const linkPath = links[spanText][0];
   const itemIcon = links[spanText][1];

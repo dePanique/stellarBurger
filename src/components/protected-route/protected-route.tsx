@@ -1,42 +1,44 @@
-import  { FC } from 'react';
-
-import { Route, Redirect, useLocation, RouteProps } from "react-router-dom";
+import { FC } from 'react';
+import { Route, Redirect, useLocation } from "react-router-dom";
 import { appUseSelector } from '../../utils/hooks';
-import { TLocation } from '../../utils/type';
-
-interface IProtectedRoute extends RouteProps  {
-  readonly unAuthOnly?: boolean,
-  readonly passReset?: boolean,
-}
+import { IProtectedRoute, TLocation } from '../../utils/type';
 
 export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly, passReset, ...rest }) => {
 
-  const location: TLocation<{from?: TLocation}> = useLocation();
+  let token: string | null = localStorage.getItem('refreshToken');
+  const location: TLocation<{ from?: TLocation }> = useLocation();
 
   const { success: isAuth } = appUseSelector(store => store.authStore);
   const { failed: isAccessUpdateFailed } = appUseSelector(store => store.logInStore.accessTokenStatus);
-  const { success: isPassReseted } = appUseSelector(store => store.forgotPasswordStore);
-
-  let token: string | null = localStorage.getItem('refreshToken');
+  const { success: isPassReseted }: {
+    success: boolean;
+  } = appUseSelector(store => store.forgotPasswordStore);
 
   if (token && !unAuthOnly) {
-
-    return <Route
-      children={children}
-      {...rest}
-    />
+    return (
+      <Route
+        children={children}
+        {...rest}
+      />
+    );
   }
 
   if (unAuthOnly && token) {
-
-    return <Redirect to={{ pathname: location?.state?.from?.pathname || '/', state: { from: location } }} />
+    return (
+      <Redirect
+        to={{
+          pathname: location?.state?.from?.pathname || '/',
+          state: { from: location },
+        }}
+      />
+    );
   }
 
   if (unAuthOnly && !isAuth) {
-
     if (passReset && !isPassReseted) {
-
-      return <Redirect to='/forgot-password' />
+      return (
+        <Redirect to='/forgot-password' />
+      );
     }
 
     return (
@@ -44,12 +46,18 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly
         children={children}
         {...rest}
       />
-    )
+    );
   }
 
   if (!token || !isAuth || isAccessUpdateFailed) {
-
-    return <Redirect to={{ pathname: '/login', state: { from: location } }} />
+    return (
+      <Redirect
+        to={{
+          pathname: '/login',
+          state: { from: location }
+        }}
+      />
+    );
   }
 
   return null

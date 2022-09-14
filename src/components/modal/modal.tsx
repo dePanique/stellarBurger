@@ -4,14 +4,7 @@ import ModalOverlay from "../modal-overlay/modal-overlay";
 import { portalContainer } from "../../utils/constants";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import { FC, useEffect } from "react";
-import { ReactNode } from "react";
-import { History } from 'history';
-
-interface IModal {
-  history: History;
-  children: ReactNode;
-  closeOrderModal?: (arg: boolean) => void
-}
+import { IModal } from "../../utils/type";
 
 const Modal: FC<IModal> = ({ history, children, closeOrderModal }) => {
 
@@ -21,7 +14,7 @@ const Modal: FC<IModal> = ({ history, children, closeOrderModal }) => {
     }
 
     history.goBack();
-  }
+  };
 
   useEffect(() => {
     const quitOnEscape = (e: { key: string }): void => {

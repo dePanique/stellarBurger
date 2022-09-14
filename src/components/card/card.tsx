@@ -5,9 +5,9 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
-import type { Identifier, XYCoord } from 'dnd-core'
+import type { Identifier, XYCoord } from 'dnd-core';
 import { FC, useRef } from "react";
-import { DELETE_ITEM } from '../../services/actions/burger-constructor'
+import { DELETE_ITEM } from '../../services/actions/burger-constructor';
 import { ICard, IDragItem} from "../../utils/type";
 
 const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
@@ -16,17 +16,20 @@ const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
 
   //решение от react-dnd
   const ref = useRef<HTMLDivElement>(null);
+
   const [{ handlerId }, drop] = useDrop<
     IDragItem,
     void,
     { handlerId: Identifier | null }
   >({
     accept: "card",
+
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       };
     },
+
     hover(item, monitor) {
       if (!ref.current) {
         return;
@@ -57,6 +60,7 @@ const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
+      
       // Time to actually perform the action
       moveCard(dragIndex, hoverIndex);
       // Note: we're mutating the monitor item here!
@@ -66,6 +70,7 @@ const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
       item.index = hoverIndex;
     },
   });
+
   const [{ isDragging }, drag] = useDrag({
     type: "card",
     item: () => {
@@ -75,6 +80,7 @@ const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
       isDragging: monitor.isDragging(),
     }),
   });
+
   const opacity = isDragging ? 0 : 1;
 
   drag(drop(ref));

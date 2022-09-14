@@ -1,6 +1,6 @@
-import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FC } from 'react';
-import styles from './feed-ingredient-row.module.css'
+import styles from './feed-ingredient-row.module.css';
 import { IFeedIngredientRow } from '../../utils/type';
 
 export const FeedIngredientRow: FC<IFeedIngredientRow> = ({img, name, price, quan}) => {

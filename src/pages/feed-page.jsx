@@ -2,7 +2,7 @@ import styles from './feed-page.module.css';
 import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
 import { useDispatch, useSelector } from 'react-redux';
-import {  useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { FEED_URL } from '../utils/constants';
 import { closeWebSocket, webSocketStart } from '../services/actions/websocket';
 
@@ -28,7 +28,6 @@ export const FeedPage = () => {
     setAwaitedBurgers([])
 
     if (orders) {
-      console.log(orders);
       return orders.map(el => {
         if (el.status === 'done') {
           setDoneBurgers(prevEl => [...prevEl, el.number])

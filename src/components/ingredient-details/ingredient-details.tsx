@@ -8,8 +8,8 @@ const IngredientDetails: FC = () => {
   const data: TIngredient = appUseSelector((store) => store.burgerIngredients.ingredient);
 
   const { success: isData }: {
-    success: boolean
-  } = appUseSelector(store => store.appStore)
+    success: boolean;
+  } = appUseSelector(store => store.appStore);
 
   return (
     isData ? (

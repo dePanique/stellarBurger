@@ -14,16 +14,16 @@ const burgerStatusObj: {[name: string]: string} = {
 }
 
 export const FeedPlate: FC<IFeedPlate> = ({ padding, order, price, img }) => {
+
   const [burgerStatus, setBurgerStatus] = useState<string>();
-
-  const location = useLocation()
-  const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
-
+  const location = useLocation();
+  const route = location?.pathname.split('/')[1] === 'profile' ?
+    `/profile/orders/${order?._id}` : `/feed/${order?._id}`;
   const isProfile = location?.pathname.split('/')[1];
 
   useEffect(() => {
     setBurgerStatus(burgerStatusObj[`${order.status}`]);
-  }, [order.status])
+  }, [order.status]);
 
   return (
     <Link

@@ -20,15 +20,13 @@ import { TIngredient } from "../../utils/type";
 
 const BurgerConstructor: FC = () => {
 
-  const location = useLocation()
-  const { data, bun, finalPrice, ingredientsId } : {
+  const location = useLocation();
+  const { data, bun, finalPrice, ingredientsId }: {
     data: [];
     bun: TIngredient;
     finalPrice: number;
-    ingredientsId: (undefined | string)[]
-  } = appUseSelector(
-    (store) => store.burgerConstructor
-  );
+    ingredientsId: (undefined | string)[];
+  } = appUseSelector((store) => store.burgerConstructor);
   const { success: isAuth } = appUseSelector(store => store.authStore);
   const [constructorData, setConstructorData] = useState<[]>([]);
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
@@ -36,8 +34,8 @@ const BurgerConstructor: FC = () => {
   const history = useHistory();
 
   useEffect(() => {
-    setIsButtonActive(!Boolean(bun.price))
-  }, [bun])
+    setIsButtonActive(!Boolean(bun.price));
+  }, [bun]);
 
   //Если изменить положение игредиентов и удалить один из них
   //то без этого хука игредиенты займут первоначальное расположение
@@ -52,7 +50,7 @@ const BurgerConstructor: FC = () => {
 
   useEffect(() => {
     setConstructorData(data);
-  }, [data])
+  }, [data]);
 
   useEffect(() => {
     dispatch({
@@ -60,7 +58,7 @@ const BurgerConstructor: FC = () => {
     });
   }, [data, bun]);
 
-  const handleOrderButton = ():void => {
+  const handleOrderButton = (): void => {
     if (isAuth) {
       dispatch(getOrderNumber(ingredientsId));
     } else {
@@ -80,7 +78,7 @@ const BurgerConstructor: FC = () => {
 
   const [, dropTargetMain] = useDrop({
     accept: "main",
-    drop(main:{ listId: string}) {
+    drop(main: { listId: string }) {
       dispatch({
         type: ON_MAIN_DROP,
         payload: {
@@ -157,7 +155,7 @@ const BurgerConstructor: FC = () => {
 
         <div className={styles.currencyBig + " mr-10"}></div>
 
-        {!isButtonActive&&isAuth ? (
+        {!isButtonActive && isAuth ? (
           <Link
             to={{
               pathname: `/order-details`,
@@ -169,8 +167,8 @@ const BurgerConstructor: FC = () => {
               size="large"
               disabled={isButtonActive}
               onClick={handleOrderButton}
-              >
-                Оформить заказ
+            >
+              Оформить заказ
             </Button>
           </Link>
         ) : (
@@ -179,8 +177,8 @@ const BurgerConstructor: FC = () => {
             size="large"
             disabled={isButtonActive}
             onClick={handleOrderButton}
-            >
-              Оформить заказ
+          >
+            Оформить заказ
           </Button>
         )}
       </div>

@@ -1,9 +1,6 @@
-import { FC, ReactNode } from "react";
+import { FC } from "react";
+import { IMain } from "../../utils/type";
 import styles from "./main.module.css";
-
-interface IMain {
-  children: ReactNode
-}
 
 const Main: FC<IMain> = (props) => {
 

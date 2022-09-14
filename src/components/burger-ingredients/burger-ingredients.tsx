@@ -11,24 +11,23 @@ const BurgerIngredients = () => {
   const [positionForActivation, setPositionForActivation] = useState<(number | undefined)[]>();
 
   useEffect(() => {
-    let offsets: (number | undefined)[] = []
+    let offsets: (number | undefined)[] = [];
 
     offsets = ["#bun", "#sauce", "#main"].map((el: string) =>
       document.querySelector<HTMLElement>(el)?.offsetTop).map((_, index) => {
-      if (index === 0) {
-        return 0;
-      } else if (index === 1) {
-        return offsets[1]! - offsets[0]! - 40;
-      } else {
-        return offsets[2]! - offsets[0]! - 40;
-      }
-    });
+        if (index === 0) {
+          return 0;
+        } else if (index === 1) {
+          return offsets[1]! - offsets[0]! - 40;
+        } else {
+          return offsets[2]! - offsets[0]! - 40;
+        }
+      });
 
     setPositionForActivation(offsets);
   }, []);
 
   const setCurrentTab = (e: BaseSyntheticEvent<HTMLDivElement>) => {
-
     setCurrentScrollPos(e.target.scrollTop);
 
     if (positionForActivation && currentScrollPos < positionForActivation[1]!) {
@@ -85,7 +84,7 @@ const BurgerIngredients = () => {
         </a>
       </div>
 
-      <div className={styles.collection} onScroll={(e : any) => setCurrentTab(e)}>
+      <div className={styles.collection} onScroll={(e: any) => setCurrentTab(e)}>
         <IngredientsCollection type={"bun"} />
 
         <IngredientsCollection type={"sauce"} />
