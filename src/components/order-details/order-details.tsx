@@ -1,14 +1,20 @@
 import styles from "./order-details.module.css";
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { FC } from "react";
+import { appUseSelector } from "../../utils/hooks";
 
-const OrderDetails = () => {
-  
+const OrderDetails: FC = () => {
+
   const {
-    number : orderNumber,
+    number: orderNumber,
     request,
     failed,
-  } = useSelector((store) => store.orderDetails);
+    name,
+  }: {
+    number: string;
+    request: boolean;
+    failed: boolean;
+    name: string;
+  } = appUseSelector((store) => store.orderDetails);
 
   return (
     <React.Fragment>
