@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import styles from "./header-list-item.module.css";
+import { FC, ReactNode } from "react";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import {
   Logo,
@@ -8,11 +8,16 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
-const HeaderListItem = ({ ...props }) => {
-  
+interface IHeaderListItem {
+  spanText: "Конструктор" | "Лента заказов" | "Личный кабинет" | "Лого";
+  logo?: boolean;
+}
+
+const HeaderListItem: FC<IHeaderListItem> = ({ spanText, logo  }) => {
+
   const { pathname } = useLocation();
 
-  const links = {
+  const links: {[name: string]: [string, {[name:string] : ReactNode}]} = {
     "Конструктор": ["/", {
       primary: <BurgerIcon type="primary" />,
       secondary: <BurgerIcon type="secondary" />
@@ -25,13 +30,16 @@ const HeaderListItem = ({ ...props }) => {
       primary: <ProfileIcon type="primary" />,
       secondary: <ProfileIcon type="secondary" />
     }],
-    "Лого": ["/", <Logo />],
+    "Лого": ["/", {
+      primary: <Logo />,
+      secondary: <Logo />
+    }],
   }
 
-  const linkPath = links[props.spanText][0];
-  const itemIcon = links[props.spanText][1];
+  const linkPath = links[spanText][0];
+  const itemIcon = links[spanText][1];
 
-  return props.logo ? (
+  return logo ? (
     <Link
       to={{ pathname: "/" }}
       className={styles.logo}
@@ -45,14 +53,9 @@ const HeaderListItem = ({ ...props }) => {
       activeClassName={'text_color_primary'}
     >
       {pathname === linkPath ? itemIcon.primary : itemIcon.secondary}
-      {props.spanText}
+      {spanText}
     </NavLink>
   );
-};
-
-HeaderListItem.propTypes = {
-  spanText: PropTypes.string.isRequired,
-  href: PropTypes.string,
 };
 
 export default HeaderListItem;
