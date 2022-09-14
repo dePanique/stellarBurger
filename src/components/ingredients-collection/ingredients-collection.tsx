@@ -1,18 +1,24 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import Ingredient from "../ingredient/ingredient";
 import styles from "./ingredients-collection.module.css";
-import { useSelector } from "react-redux";
+import { appUseSelector } from "../../utils/hooks";
+import { TIngredient } from "../../utils/type";
 
-const IngredientsCollection = ({ type }) => {
+interface IIngredientsCollection {
+  type: string
+}
 
-  const ingredientType = {
+const IngredientsCollection: FC<IIngredientsCollection> = ({ type }) => {
+
+  const ingredientType: { [name: string]: string } = {
     bun: "Булки",
     sauce: "Соусы",
     main: "Начинки",
   };
 
-  const { data } = useSelector((store) => store.appStore);
+  const { data }: {
+    data: TIngredient[]
+  } = appUseSelector((store) => store.appStore);
 
   return (
     <React.Fragment>
@@ -30,10 +36,6 @@ const IngredientsCollection = ({ type }) => {
       )}
     </React.Fragment>
   );
-};
-
-IngredientsCollection.propTypes = {
-  type: PropTypes.string.isRequired,
 };
 
 export default IngredientsCollection;
