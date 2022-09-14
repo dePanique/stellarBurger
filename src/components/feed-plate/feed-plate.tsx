@@ -1,17 +1,26 @@
 import styles from './feed-plate.module.css';
+import { FC } from 'react';
 import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import { burgerStatusObj } from '../../utils/constants';
+import { IFeedPlate } from '../../utils/type';
 
-export const FeedPlate = ({ padding, order, price, img }) => {
-  const [burgerStatus, setBurgerStatus] = useState('');
+const burgerStatusObj: {[name: string]: string} = {
+  done: 'Выполнен',
+  pending: 'Готовится',
+  created: 'Создан',
+}
+
+export const FeedPlate: FC<IFeedPlate> = ({ padding, order, price, img }) => {
+  const [burgerStatus, setBurgerStatus] = useState<string>();
+
   const location = useLocation()
   const route = location?.pathname.split('/')[1] === 'profile' ? `/profile/orders/${order?._id}` : `/feed/${order?._id}`
 
   const isProfile = location?.pathname.split('/')[1];
+
   useEffect(() => {
     setBurgerStatus(burgerStatusObj[`${order.status}`]);
   }, [order.status])

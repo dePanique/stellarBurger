@@ -44,3 +44,27 @@ export interface IDragItem {
 index: number
 id: string
 }
+
+export interface IFeedIngredientRow {
+  img: string;
+  name: string;
+  price: number;
+  quan: number;
+}
+
+interface IFeedPlateOrder {
+  createdAt: string;
+  ingredients: Array<string>;
+  name: string;
+  number: number;
+  status: string;
+  updatedAt: string;
+  _id: string;
+}
+
+export interface IFeedPlate {
+  padding: string;
+  order: IFeedPlateOrder;
+  price: number;
+  img: Array<string>;
+}

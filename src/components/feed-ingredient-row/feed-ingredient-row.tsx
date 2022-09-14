@@ -1,7 +1,9 @@
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components'
+import { FC } from 'react';
 import styles from './feed-ingredient-row.module.css'
+import { IFeedIngredientRow } from '../../utils/type';
 
-export const FeedIngredientRow = ({img, name, price, quan}) => {
+export const FeedIngredientRow: FC<IFeedIngredientRow> = ({img, name, price, quan}) => {
 
   return (
     <li className={styles.ingredientRow + ` mb-4 mr-6`}>

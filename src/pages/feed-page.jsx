@@ -28,6 +28,7 @@ export const FeedPage = () => {
     setAwaitedBurgers([])
 
     if (orders) {
+      console.log(orders);
       return orders.map(el => {
         if (el.status === 'done') {
           setDoneBurgers(prevEl => [...prevEl, el.number])

@@ -29,7 +29,7 @@ export const ProfileOrders = () => {
 
   const makeList = (orders) => {
     let newList = []
-    
+
     for (let i = orders.length - 1; i > 0; i--) {
 
       newList.push(<FeedPlate
