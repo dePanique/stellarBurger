@@ -25,7 +25,7 @@ const BurgerConstructor: FC = () => {
     data: [];
     bun: TIngredient;
     finalPrice: number;
-    ingredientsId: []
+    ingredientsId: (undefined | string)[]
   } = appUseSelector(
     (store) => store.burgerConstructor
   );

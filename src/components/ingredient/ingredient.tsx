@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import styles from "./ingredient.module.css";
 import {
   Counter,
@@ -8,16 +7,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients'
 import { Link, useLocation } from 'react-router-dom';
+import { TIngredient } from "../../utils/type";
+import { FC } from "react";
+import { appUseDispatch, appUseSelector } from "../../utils/hooks";
 
+interface IIngredient {
+  element: TIngredient
+}
 
-const Ingredient = ({ element }) => {
+const Ingredient: FC<IIngredient> = ({ element }) => {
 
-  const dispatch = useDispatch();
+  const dispatch = appUseDispatch();
   const location = useLocation();
 
-  const orderData = useSelector(
-    (store) => store.burgerConstructor.ingredientsId
+  const { ingredientsId : orderData } : {
+    ingredientsId: (undefined | string)[]
+  } = appUseSelector(
+    (store) => store.burgerConstructor
   );
+
   const quantity = orderData.filter((el) => el === element._id).length;
 
   const [, dragRef] = useDrag({
@@ -50,14 +58,6 @@ const Ingredient = ({ element }) => {
       </p>
     </Link>
   );
-};
-
-Ingredient.propTypes = {
-  element: PropTypes.shape({
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
 };
 
 export default Ingredient;
