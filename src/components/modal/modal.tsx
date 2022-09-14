@@ -10,12 +10,12 @@ import { History } from 'history';
 interface IModal {
   history: History;
   children: ReactNode;
-  closeOrderModal?: (arg: boolean)=> void
+  closeOrderModal?: (arg: boolean) => void
 }
 
 const Modal: FC<IModal> = ({ history, children, closeOrderModal }) => {
 
-  const closeModal = ():void => {
+  const closeModal = (): void => {
     if (closeOrderModal) {
       return closeOrderModal(false);
     }
@@ -24,7 +24,7 @@ const Modal: FC<IModal> = ({ history, children, closeOrderModal }) => {
   }
 
   useEffect(() => {
-    const quitOnEscape = (e: { key:string }):void => {
+    const quitOnEscape = (e: { key: string }): void => {
       if (e.key === "Escape") {
         closeModal();
       };
