@@ -1,22 +1,22 @@
-import { useCallback, useEffect, useState } from "react";
 import styles from './edit-profile.module.css';
+import { useCallback, useEffect, useState } from "react";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { editUserInfoEnch } from "../services/actions/profile-page";
-import { useDispatch, useSelector } from "react-redux";
+import { appUseDispatch, appUseSelector } from '../utils/hooks';
 
 export const EditProfile = () => {
 
-  const dispatch = useDispatch();
-  
-  const [emailValue, setEmailValue] = useState('');
-  const [nameValue, setNameValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
-  const [isEditing, setIsEditing] = useState(false);
+  const dispatch = appUseDispatch();
 
-  const { email, name } = useSelector(store => store.profilePageStore.userInfo);
-  const { success: editSuccess } = useSelector(store => store.profilePageStore.editUserInfo);
+  const [emailValue, setEmailValue] = useState<string>('');
+  const [nameValue, setNameValue] = useState<string>('');
+  const [passwordValue, setPasswordValue] = useState<string>('');
+  const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const onEmailChange = e => {
+  const { email, name } = appUseSelector(store => store.profilePageStore.userInfo);
+  const { success: editSuccess } = appUseSelector(store => store.profilePageStore.editUserInfo);
+
+  const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(e.target.value);
 
     if (e.target.value === email) {
@@ -26,7 +26,7 @@ export const EditProfile = () => {
     }
   };
 
-  const onNameChange = e => {
+  const onNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameValue(e.target.value);
 
     if (e.target.value === name) {
@@ -36,12 +36,12 @@ export const EditProfile = () => {
     }
   };
 
-  const onPasswordChange = e => {
+  const onPasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPasswordValue(e.target.value);
     setIsEditing(true);
   };
 
-    const cancelForm = (e) => {
+  const cancelForm = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     setNameValue(name);
@@ -50,7 +50,8 @@ export const EditProfile = () => {
   }
 
   const submitForm = useCallback(
-    (e) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
+
       e.preventDefault();
       dispatch(editUserInfoEnch(nameValue, emailValue, passwordValue));
     }, [nameValue, emailValue, passwordValue]
@@ -59,12 +60,12 @@ export const EditProfile = () => {
   useEffect(() => {
     setNameValue(name);
     setEmailValue(email);
-  }, [name, email])
+  }, [name, email]);
 
   useEffect(() => {
     setPasswordValue('');
     setIsEditing(false);
-  }, [editSuccess])
+  }, [editSuccess]);
 
   return (
     <form className={styles.inputsColumn + ` ml-15`} action="submit" onSubmit={submitForm}>
@@ -114,7 +115,6 @@ export const EditProfile = () => {
           <Button
             type="primary"
             size="medium"
-
           >
             Сохранить
           </Button>
