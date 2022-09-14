@@ -3,7 +3,11 @@ import {
   RESET_CURRENT_INGREDIENT,
 } from "../actions/burger-ingredients";
 
-export const burgerIngredients = (state = {}, action) => {
+const initialState = {
+  ingredient: {}
+}
+
+export const burgerIngredients = (state = initialState, action) => {
   switch (action.type) {
     case SET_CURRENT_INGREDIENT:
       return {
