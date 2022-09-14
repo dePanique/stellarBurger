@@ -1,43 +1,54 @@
 import styles from './feed-page.module.css';
 import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useMemo, useState } from 'react';
+import { FC, useEffect, useMemo, useState } from 'react';
 import { FEED_URL } from '../utils/constants';
 import { closeWebSocket, webSocketStart } from '../services/actions/websocket';
+import { appUseDispatch, appUseSelector } from '../utils/hooks';
+import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type';
 
-export const FeedPage = () => {
+export const FeedPage: FC = () => {
 
-  const { data: ingredientsData } = useSelector(store => store.appStore)
-  const { ingredientsData: ingredientsDetail } = useSelector(store => store.feedPage)
-  const { total, totalToday, orders } = useSelector(store => store.websocket.data)
+  const { data: ingredientsData }: {
+    data: TIngredient[];
+  } = appUseSelector(store => store.appStore);
 
-  const [doneBurgers, setDoneBurgers] = useState([]);
-  const [awaitedBurgers, setAwaitedBurgers] = useState([]);
+  const { ingredientsData: ingredientsDetail }: {
+    ingredientsData: TIngredientsData;
+  } = appUseSelector(store => store.feedPage);
+  
+  const { total, totalToday, orders }: {
+    total: number;
+    totalToday: number;
+    orders: IWSDataOrders[];
+  } = appUseSelector(store => store.websocket.data);
 
-  const dispatch = useDispatch();
+  const [doneBurgers, setDoneBurgers] = useState<number[]>([]);
+  const [awaitedBurgers, setAwaitedBurgers] = useState<number[]>([]);
+
+  const dispatch = appUseDispatch();
 
   useEffect(() => {
     dispatch(webSocketStart(FEED_URL));
 
     return () => dispatch(closeWebSocket());
-  }, [])
+  }, []);
 
- useMemo(() => {
-    setDoneBurgers([])
-    setAwaitedBurgers([])
+  useMemo(() => {
+    setDoneBurgers([]);
+    setAwaitedBurgers([]);
 
     if (orders) {
-      return orders.map(el => {
+      return orders.forEach(el => {
         if (el.status === 'done') {
-          setDoneBurgers(prevEl => [...prevEl, el.number])
+          setDoneBurgers((prevEl: number[]) => [...prevEl, el.number]);
         } else {
-          console.log((el.status));
-          setAwaitedBurgers(prevEl => [...prevEl, el.number])
+          setAwaitedBurgers((prevEl: number[]) => [...prevEl, el.number]);
         }
-      })
+      });
     }
-  }, [orders])
+
+  }, [orders]);
 
   return (
     <main className={styles.main}>
@@ -52,11 +63,9 @@ export const FeedPage = () => {
               order={el}
               padding={`smallPadding`}
               price={calcBurgerPriceFeedPage(el.ingredients, ingredientsData)}
-              img={el?.ingredients.map(ingredientID => ingredientsDetail[ingredientID]['image_mobile'])}
+              img={el?.ingredients.map((ingredientID: string) => ingredientsDetail[ingredientID]['image_mobile'])}
             />
-          )
-          )}
-
+          ))}
         </div>
       </section>
 
@@ -71,7 +80,6 @@ export const FeedPage = () => {
 
             <ul className={styles.completedOrdersList}>
               {makeColumnsList(doneBurgers, styles.completedColumnItem)}
-
             </ul>
           </article>
 

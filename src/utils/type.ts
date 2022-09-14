@@ -121,3 +121,13 @@ export interface IProtectedRoute extends RouteProps  {
   readonly unAuthOnly: boolean,
   readonly passReset?: boolean,
 }
+
+export interface IWSDataOrders {
+  _id: string;
+  ingredients: [];
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number;
+}
