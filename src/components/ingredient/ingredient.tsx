@@ -3,7 +3,6 @@ import {
   Counter,
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import { useDrag } from "react-dnd";
 import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients'
 import { Link, useLocation } from 'react-router-dom';
