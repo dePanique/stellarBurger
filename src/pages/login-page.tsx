@@ -1,32 +1,32 @@
-import { useState, useCallback, useEffect } from "react";
+import { FC, useState, useCallback, useEffect } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
 import styles from "./login-page.module.css";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import { logInEnch } from "../services/actions/login-page";
 import { authenticationEnch } from "../services/actions/auth";
 import { REQUEST_NEW_PASS_RESET } from "../services/actions/forgot-password";
+import { appUseDispatch } from "../utils/hooks";
 
-export const LoginPage = () => {
-  const [emailValue, setEmailValue] = useState('');
-  const [passValue, setPassValue] = useState('');
+export const LoginPage: FC = () => {
+  const [emailValue, setEmailValue] = useState<string>('');
+  const [passValue, setPassValue] = useState<string>('');
 
-  const dispatch = useDispatch();
+  const dispatch = appUseDispatch();
   const history = useHistory();
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(logInEnch(emailValue, passValue));
     }, [history, emailValue, passValue]
   );
 
-  const onEmailInputValueChange = e => {
+  const onEmailInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(e.target.value);
   };
 
-  const onPassInputValueChange = e => {
+  const onPassInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassValue(e.target.value);
   };
 
@@ -55,7 +55,6 @@ export const LoginPage = () => {
               onChange={onPassInputValueChange}
               value={passValue}
               name={'password'}
-              icon='ShowIcon'
             />
           </fieldset>
 
