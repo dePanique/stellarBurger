@@ -1,39 +1,38 @@
 import styles from "./reset-password.module.css";
-import { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, FC } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useDispatch, useSelector } from "react-redux";
 import { applyNewPassEnch } from "../services/actions/reset-password";
-import { REQUEST_NEW_PASS_RESET } from "../services/actions/forgot-password";
+import { appUseDispatch, appUseSelector } from "../utils/hooks";
 
-export const ResetPassword = () => {
-  const [newPassValue, setNewPassValue] = useState('');
-  const [confirmPassValue, setConfirmPassValue] = useState('');
+export const ResetPassword: FC = () => {
 
+  const [newPassValue, setNewPassValue] = useState<string>('');
+  const [confirmPassValue, setConfirmPassValue] = useState<string>('');
   const history = useHistory();
-  const dispatch = useDispatch();
-  const { success: isPassReseted, failed: isPassFailed } = useSelector(store => store.resetPassStore);
+  const dispatch = appUseDispatch();
+  const { success: isPassReseted, failed: isPassFailed }: {
+    success: boolean; failed: boolean;
+  } = appUseSelector(store => store.resetPassStore);
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(applyNewPassEnch(newPassValue, confirmPassValue));
-
     }, [history, newPassValue, confirmPassValue]
-  )
-  const onNewPassValueChange = e => {
+  );
+
+  const onNewPassValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewPassValue(e.target.value);
   };
 
-  const onConfirmPassValueChange = e => {
+  const onConfirmPassValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setConfirmPassValue(e.target.value);
   };
 
   useEffect(() => {
-    if (isPassReseted) {
-      history.replace({ pathname: '/login' })
-    }
+    if (isPassReseted) history.replace({ pathname: '/login' });
     if (isPassFailed) setConfirmPassValue('Повторите попытку');
   }, [isPassReseted])
 
@@ -48,8 +47,6 @@ export const ResetPassword = () => {
               onChange={onNewPassValueChange}
               value={newPassValue}
               name={'newPass'}
-              placeholder='Введите новый пароль'
-              icon='ShowIcon'
             />
 
             <Input
@@ -81,5 +78,5 @@ export const ResetPassword = () => {
         </p>
       </div>
     </Main>
-  )
+  );
 }
