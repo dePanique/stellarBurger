@@ -2,7 +2,7 @@ import { FC } from "react"
 import Main from "../components/main/main"
 import styles from "./page404.module.css"
 
-export const Page404: FC<{}> = () => {
+export const Page404: FC = () => {
 
   return (
     <Main >
