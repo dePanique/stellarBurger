@@ -4,11 +4,11 @@ import {
   CurrencyIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useDrag } from "react-dnd";
-import { SET_CURRENT_INGREDIENT } from '../../services/actions/burger-ingredients';
 import { Link, useLocation } from 'react-router-dom';
 import { IIngredient } from "../../utils/type";
 import { FC } from "react";
 import { appUseDispatch, appUseSelector } from "../../utils/hooks";
+import { setCurrentIngredient } from "../../services/actions/burger-ingredients";
 
 const Ingredient: FC<IIngredient> = ({ element }) => {
 
@@ -37,10 +37,7 @@ const Ingredient: FC<IIngredient> = ({ element }) => {
 
       className={styles.box + " ml-4 mr-2 mt-6 text text_type_main-default"}
       onClick={() => {
-        dispatch({
-          type: SET_CURRENT_INGREDIENT,
-          payload: element,
-        });
+        dispatch(setCurrentIngredient(element));
       }}
       ref={dragRef}
     >

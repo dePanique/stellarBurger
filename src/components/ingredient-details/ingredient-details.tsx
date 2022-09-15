@@ -1,15 +1,21 @@
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import styles from "./ingredient-details.module.css";
-import { appUseSelector } from "../../utils/hooks";
-import { TIngredient } from "../../utils/type";
+import { appUseDispatch, appUseSelector } from "../../utils/hooks";
+import { resetCurrentIngredient } from "../../services/actions/burger-ingredients";
 
 const IngredientDetails: FC = () => {
 
-  const data: TIngredient = appUseSelector((store) => store.burgerIngredients.ingredient);
+  const dispatch = appUseDispatch();
+  const data = appUseSelector((store) => store.burgerIngredients.ingredient);
 
   const { success: isData }: {
     success: boolean;
   } = appUseSelector(store => store.appStore);
+
+  useEffect(() => {
+
+    return () => dispatch(resetCurrentIngredient());
+  }, [])
 
   return (
     isData ? (
@@ -22,7 +28,7 @@ const IngredientDetails: FC = () => {
           Детали ингредиента
         </h3>
 
-        <img className={styles.image} src={data.image_large} alt="#" />
+        <img className={styles.image} src={data?.image_large} alt="#" />
 
         <p
           className={
