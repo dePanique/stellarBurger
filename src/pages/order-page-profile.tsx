@@ -1,14 +1,14 @@
 import styles from './order-page-profile.module.css';
 import { BurgerDetails } from '../components/burger-details/burger-details';
-import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { closeWebSocket, webSocketStart } from '../services/actions/websocket';
 import { getCookie } from '../utils/cookies';
 import { WS_URL } from '../utils/constants';
+import { appUseDispatch } from '../utils/hooks';
 
-export const OrderPageProfile = () => {
+export const OrderPageProfile: FC = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = appUseDispatch();
 
   useEffect(() => {
     dispatch(webSocketStart({
