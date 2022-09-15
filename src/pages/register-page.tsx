@@ -1,46 +1,44 @@
-import { useState, useCallback, useEffect } from "react";
+import styles from "./register.module.css"
+import { useState, useCallback, useEffect, FC } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main"
-import styles from "./register.module.css"
-import { useDispatch, useSelector } from "react-redux";
 import {
   PasswordInput,
   Button, Input
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { signIn } from "../services/actions/register-page";
+import { appUseDispatch, appUseSelector } from "../utils/hooks";
 
-export const RegisterPage = () => {
-  const [emailValue, setEmailValue] = useState('');
-  const [passValue, setPassValue] = useState('');
-  const [nameValue, setNameValue] = useState('');
+export const RegisterPage: FC = () => {
+  
+  const [emailValue, setEmailValue] = useState<string>('');
+  const [passValue, setPassValue] = useState<string>('');
+  const [nameValue, setNameValue] = useState<string>('');
 
-  const dispatch = useDispatch();
+  const dispatch = appUseDispatch();
   const history = useHistory();
-  const {success} = useSelector((store) => store.signInStore);
+  const {success}:{success:boolean} = appUseSelector((store) => store.signInStore);
 
   const onSubmit = useCallback(
-    (e) => {
-      e.preventDefault()
-      dispatch(signIn(emailValue, passValue, nameValue))
+    (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+      dispatch(signIn(emailValue, passValue, nameValue));
     }, [history, emailValue, passValue, nameValue]
   );
 
   useEffect(() => {
-    if (success) {
-      history.replace({ pathname: '/' });
-    } else {
-    }
+    if (success) history.replace({ pathname: '/' });
   }, [success]);
 
-  const onEmailInputValueChange = e => {
+  const onEmailInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(e.target.value);
   };
 
-  const onPassInputValueChange = e => {
+  const onPassInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassValue(e.target.value);
   };
 
-  const onNameInputValueChange = e => {
+  const onNameInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNameValue(e.target.value);
   };
 
