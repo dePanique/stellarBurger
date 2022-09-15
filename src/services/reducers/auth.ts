@@ -1,38 +1,40 @@
+import { TAuth } from "../actions/auth";
 import {
   AUTH_PROCESS,
   AUTH_SUCCESS,
   AUTH_FAILED,
   AUTH_RESET,
-} from "../actions/auth"
+} from "../constants/auth";
 
-const initialState ={
+export interface IAuthStoreState {
+  request: boolean;
+  success: boolean;
+  failed: boolean;
+}
+
+const initialState: IAuthStoreState ={
   request: false,
   success: false,
   failed: false,
 }
 
-export const authStore = ( state = initialState, action) => {
+export const authStore = ( state = initialState, action: TAuth): IAuthStoreState => {
   switch (action.type) {
     case AUTH_PROCESS:
       return {
-        ...state,
+        ...initialState,
         request: true,
-        failed: false,
       }
 
     case AUTH_SUCCESS:
       return {
-        ...state,
-        request: false,
+        ...initialState,
         success: true,
-        failed: false,
       }
 
     case AUTH_FAILED:
       return {
-        ...state,
-        request: false,
-        success: false,
+        ...initialState,
         failed: true,
       }
 

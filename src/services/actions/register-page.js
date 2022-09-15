@@ -1,7 +1,7 @@
 import { createAccount, checkResponse } from "../../utils/utils";
 import { LOG_IN_SUCCESS } from "./login-page";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
-import { AUTH_SUCCESS } from "./auth";
+import { AUTH_SUCCESS } from "../constants/auth";
 
 export const SIGN_IN = "SIGN_IN";
 export const SIGN_IN_SUCCESS = "SIGN_IN_SUCCESS";

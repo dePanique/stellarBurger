@@ -1,7 +1,7 @@
 import { logIn, checkResponse, updateAccessToken } from "../../utils/utils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
 import { LOG_OUT_RESET } from "./profile-page";
-import { AUTH_FAILED, AUTH_SUCCESS } from "./auth";
+import { AUTH_FAILED, AUTH_SUCCESS } from "../constants/auth";
 
 export const LOG_IN = "LOG_IN";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";

@@ -2,7 +2,7 @@ import { checkResponse, logOut, getUserInfo, editUserInfo } from "../../utils/ut
 import { SIGN_IN_RESET } from "./register-page";
 import { LOG_IN_RESET, updateAccessTokenEnch, UPDATE_ACCESS_TOKEN_FAILED } from "./login-page";
 import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
-import { AUTH_FAILED, AUTH_RESET } from "./auth";
+import { AUTH_FAILED, AUTH_RESET } from "../constants/auth";
 import { CLOSE_PROFILE_ORDERS_WS, WS_PROFILE_ORDERS_START } from "./profile-orders";
 import { WS_URL } from "../../utils/constants";
 
