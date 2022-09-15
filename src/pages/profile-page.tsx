@@ -1,20 +1,19 @@
-import { useEffect } from "react";
-import { NavLink } from "react-router-dom";
 import styles from "./profile-page.module.css";
-import { useDispatch } from "react-redux";
+import { FC, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { logOutEnch } from "../services/actions/profile-page";
 import { getUserInfoEnch } from "../services/actions/profile-page";
 import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { EditProfile } from "./edit-profile";
 import { ProfileOrders } from "./profile-orders";
 import ProtectedRoute from "../components/protected-route/protected-route";
+import { appUseDispatch } from "../utils/hooks";
 
-export const ProfilePage = () => {
+export const ProfilePage: FC = () => {
 
-  const dispatch = useDispatch();
+  const dispatch = appUseDispatch();
 
-  const handleLogOut = (e) => {
-    e.preventDefault();
+  const handleLogOut = () => {
     dispatch(logOutEnch(localStorage.getItem('refreshToken')));
   };
 
@@ -54,7 +53,7 @@ export const ProfilePage = () => {
                     exact to='/login'
                     className={styles.link + ' text text_type_main-medium text_color_inactive '}
                     activeClassName={styles.colorPrimary}
-                    onClick={(e) => handleLogOut(e)}
+                    onClick={handleLogOut}
                   >
                     {'Выход'}
                   </NavLink>
