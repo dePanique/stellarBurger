@@ -1,24 +1,24 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, FC } from "react";
 import { useHistory, Link } from "react-router-dom";
 import Main from "../components/main/main";
 import styles from "./forgot-password.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { requestEmailPassResetEnch } from "../services/actions/forgot-password";
-import { useDispatch, useSelector } from "react-redux";
 import { RESET_PASS_INITIAL } from "../services/actions/reset-password";
+import { appUseDispatch, appUseSelector } from "../utils/hooks";
 
-export const ForgotPassword = () => {
+export const ForgotPassword: FC = () => {
 
-  const [emailValue, setEmailValue] = useState('');
-  const [inputPlaceholder, setInputPlaceholder] = useState('Укажите e-mail');
+  const [emailValue, setEmailValue] = useState<string>('');
+  const [inputPlaceholder, setInputPlaceholder] = useState<string>('Укажите e-mail');
 
   const history = useHistory();
-  const dispatch = useDispatch();
-  
-  const { success: isPassReseted} = useSelector(store => store.forgotPasswordStore)
+  const dispatch = appUseDispatch();
+
+  const { success: isPassReseted }: { success: boolean } = appUseSelector(store => store.forgotPasswordStore)
 
   const onSubmit = useCallback(
-    (e) => {
+    (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
       dispatch(requestEmailPassResetEnch(emailValue));
 
@@ -29,7 +29,7 @@ export const ForgotPassword = () => {
     if (isPassReseted) history.replace({ pathname: '/reset-password' })
   }, [isPassReseted])
 
-  const onEmailInputValueChange = e => {
+  const onEmailInputValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(e.target.value);
   };
 
