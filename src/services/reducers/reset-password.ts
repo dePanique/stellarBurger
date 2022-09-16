@@ -1,17 +1,24 @@
+import { TResetPass } from "../actions/reset-password"
 import {
   RESET_PASS,
   RESET_PASS_SUCCESS,
   RESET_PASS_FAILED,
   RESET_PASS_INITIAL,
-} from "../actions/reset-password"
+} from "../constants/reset-password"
 
-const initialState = {
+export type TResetPassStoreState = {
+  request: boolean,
+  success: boolean,
+  failed: boolean,
+}
+
+const initialState: TResetPassStoreState = {
   request: false,
   success: false,
   failed: false,
 }
 
-export const resetPassStore = (state = initialState, action) => {
+export const resetPassStore = (state = initialState, action: TResetPass): TResetPassStoreState => {
   switch (action.type) {
     case RESET_PASS:
       return {
@@ -36,9 +43,7 @@ export const resetPassStore = (state = initialState, action) => {
     }
 
     case RESET_PASS_INITIAL: {
-      return {
-        initialState,
-      }
+      return initialState
     }
 
     default:

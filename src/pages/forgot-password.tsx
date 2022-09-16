@@ -4,8 +4,8 @@ import Main from "../components/main/main";
 import styles from "./forgot-password.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { requestEmailPassResetEnch } from "../services/actions/forgot-password";
-import { RESET_PASS_INITIAL } from "../services/actions/reset-password";
 import { appUseDispatch, appUseSelector } from "../utils/hooks";
+import { resetPassInitial } from "../services/actions/reset-password";
 
 export const ForgotPassword: FC = () => {
 
@@ -34,9 +34,7 @@ export const ForgotPassword: FC = () => {
   };
 
   useEffect(() => {
-    dispatch({
-      type: RESET_PASS_INITIAL,
-    })
+    dispatch(resetPassInitial())
   }, [])
 
   return (
