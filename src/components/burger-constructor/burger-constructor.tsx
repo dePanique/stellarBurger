@@ -51,16 +51,16 @@ const BurgerConstructor: FC = () => {
     }
   };
 
-  const [, dropTargetBun] = useDrop<TIngredient>({
+  const [, dropTargetBun] = useDrop<TIngredient, void>({
     accept: "bun",
     drop(bun) {
       dispatch(onBunDrop(bun));
     },
   });
 
-  const [, dropTargetMain] = useDrop({
+  const [, dropTargetMain] = useDrop<TIngredient, void>({
     accept: "main",
-    drop(main: TIngredient) {
+    drop(main) {
       dispatch(onMainDrop({
         ...main,
         listID: main.listID || Math.random().toString(36).slice(2),
