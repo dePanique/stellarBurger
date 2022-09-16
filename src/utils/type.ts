@@ -19,7 +19,7 @@ export type TIngredient = {
   image: string;
   image_large: string;
   image_mobile: string;
-  listId: string;
+  listID: string;
   name: string;
   price: number;
   proteins: number;

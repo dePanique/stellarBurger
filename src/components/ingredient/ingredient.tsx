@@ -15,9 +15,7 @@ const Ingredient: FC<IIngredient> = ({ element }) => {
   const dispatch = appUseDispatch();
   const location = useLocation();
 
-  const { ingredientsId : orderData } : {
-    ingredientsId: (undefined | string)[];
-  } = appUseSelector(
+  const { ingredientsID : orderData }= appUseSelector(
     (store) => store.burgerConstructor
   );
 

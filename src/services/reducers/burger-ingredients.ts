@@ -4,27 +4,14 @@ import {
 } from "../constants/burger-ingredients";
 import { TCurrentIngredient } from "../actions/burger-ingredients";
 import { TIngredient } from "../../utils/type";
+import { hcIngredient } from "../../utils/constants";
 
 export type TBurgerIngredientsState = {
   ingredient: TIngredient
 }
 
 const initialState: TBurgerIngredientsState = {
-  ingredient: {
-    calories: 0,
-    carbohydrates: 0,
-    fat: 0,
-    image: '#',
-    image_large: '#',
-    image_mobile: '#',
-    listId: '#',
-    name: '#',
-    price: 0,
-    proteins: 0,
-    type: '#',
-    __v: 0,
-    _id: '#',
-  }
+  ingredient: hcIngredient,
 }
 
 export const burgerIngredients = (state = initialState, action: TCurrentIngredient): TBurgerIngredientsState => {

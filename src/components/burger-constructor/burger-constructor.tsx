@@ -8,27 +8,17 @@ import {
 import Card from "../card/card";
 import { useHistory, Link, useLocation } from 'react-router-dom';
 import { getOrderNumber } from '../../services/actions/order-details';
-import {
-  CALC_FULLPRICE,
-  REFILL_CONSTRUCTOR,
-  ON_BUN_DROP,
-  ON_MAIN_DROP,
-} from "../../services/actions/burger-constructor";
 import update from "immutability-helper";
 import { appUseDispatch, appUseSelector } from "../../utils/hooks";
 import { TIngredient } from "../../utils/type";
+import { calcFullPrice, onBunDrop, onMainDrop, refillConstructor } from "../../services/actions/burger-constructor";
 
 const BurgerConstructor: FC = () => {
 
   const location = useLocation();
-  const { data, bun, finalPrice, ingredientsId }: {
-    data: [];
-    bun: TIngredient;
-    finalPrice: number;
-    ingredientsId: (undefined | string)[];
-  } = appUseSelector((store) => store.burgerConstructor);
+  const { data, bun, finalPrice, ingredientsID } = appUseSelector((store) => store.burgerConstructor);
   const { success: isAuth } = appUseSelector(store => store.authStore);
-  const [constructorData, setConstructorData] = useState<[]>([]);
+  const [constructorData, setConstructorData] = useState<TIngredient[]>([]);
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
   const dispatch = appUseDispatch();
   const history = useHistory();
@@ -41,10 +31,7 @@ const BurgerConstructor: FC = () => {
   //то без этого хука игредиенты займут первоначальное расположение
   useEffect(() => {
     if (constructorData.length !== 0) {
-      dispatch({
-        type: REFILL_CONSTRUCTOR,
-        payload: constructorData,
-      });
+      dispatch(refillConstructor(constructorData));
     }
   }, [constructorData]);
 
@@ -53,39 +40,31 @@ const BurgerConstructor: FC = () => {
   }, [data]);
 
   useEffect(() => {
-    dispatch({
-      type: CALC_FULLPRICE,
-    });
+    dispatch(calcFullPrice());
   }, [data, bun]);
 
   const handleOrderButton = (): void => {
     if (isAuth) {
-      dispatch(getOrderNumber(ingredientsId));
+      dispatch(getOrderNumber(ingredientsID));
     } else {
       history.replace({ pathname: '/login' });
     }
   };
 
-  const [, dropTargetBun] = useDrop({
+  const [, dropTargetBun] = useDrop<TIngredient>({
     accept: "bun",
     drop(bun) {
-      dispatch({
-        type: ON_BUN_DROP,
-        payload: bun,
-      });
+      dispatch(onBunDrop(bun));
     },
   });
 
   const [, dropTargetMain] = useDrop({
     accept: "main",
-    drop(main: { listId: string }) {
-      dispatch({
-        type: ON_MAIN_DROP,
-        payload: {
-          ...main,
-          listId: main.listId || Math.random().toString(36).slice(2),
-        },
-      });
+    drop(main: TIngredient) {
+      dispatch(onMainDrop({
+        ...main,
+        listID: main.listID || Math.random().toString(36).slice(2),
+      }));
     },
   });
 
@@ -106,7 +85,7 @@ const BurgerConstructor: FC = () => {
       ref={dropTargetBun}
     >
       <div className="topElement ml-8 mb-4" ref={dropTargetBun}>
-        {bun.type ? (
+        {bun.type === 'bun' ? (
           <ConstructorElement
             type="top"
             isLocked={true}
@@ -125,9 +104,9 @@ const BurgerConstructor: FC = () => {
         {constructorData &&
           constructorData.map((element: TIngredient, index) => (
             <Card
-              key={element.listId}
+              key={element.listID}
               index={index}
-              id={element.listId}
+              id={element.listID}
               element={element}
               moveCard={moveCard}
             />
@@ -135,7 +114,7 @@ const BurgerConstructor: FC = () => {
       </ul>
 
       <div className=" ml-8 mt-4" ref={dropTargetBun}>
-        {bun.type ? (
+        {bun.type === 'bun' ? (
           <ConstructorElement
             type="bottom"
             isLocked={true}

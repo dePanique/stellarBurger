@@ -16,6 +16,22 @@ import {
  } from "../services/actions/websocket";
 import { getCookie } from "./cookies";
 
+export const hcIngredient = {
+  calories: 0,
+  carbohydrates: 0,
+  fat: 0,
+  image: '#',
+  image_large: '#',
+  image_mobile: '#',
+  listID: '#',
+  name: '#',
+  price: 0,
+  proteins: 0,
+  type: '#',
+  __v: 0,
+  _id: '#',
+}
+
 const wsActions = {
   socketInit: WS_START,
   onOpen: WS_SUCCESS,

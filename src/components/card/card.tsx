@@ -7,8 +7,8 @@ import { useDispatch } from "react-redux";
 import { useDrag, useDrop } from "react-dnd";
 import type { Identifier, XYCoord } from 'dnd-core';
 import { FC, useRef } from "react";
-import { DELETE_ITEM } from '../../services/actions/burger-constructor';
 import { ICard, IDragItem} from "../../utils/type";
+import { deleteItem } from "../../services/actions/burger-constructor";
 
 const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
 
@@ -60,7 +60,7 @@ const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
       if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
         return;
       }
-      
+
       // Time to actually perform the action
       moveCard(dragIndex, hoverIndex);
       // Note: we're mutating the monitor item here!
@@ -98,10 +98,7 @@ const Card: FC<ICard> = ({ element, id, moveCard, index }) => {
         price={element.price}
         thumbnail={element.image}
         handleClose={() => {
-          dispatch({
-            type: DELETE_ITEM,
-            payload: element.listId,
-          });
+          dispatch(deleteItem(element.listID));
         }}
       />
     </div>
