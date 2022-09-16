@@ -6,6 +6,10 @@ import { TGetFeedIngredients } from "./feed-page";
 import { TForgotPassword } from "./forgot-password";
 import { TLogIn } from "./login-page";
 import { TGetOrder } from "./order-details";
+import { TProfileOrders } from "./profile-orders";
+import { TProfilePage } from "./profile-page";
+import { TRegisterPage } from "./register-page";
+import { TResetPass } from './reset-password'
 
 export type TApplicationActions =
   | TAuth
@@ -16,3 +20,7 @@ export type TApplicationActions =
   | TForgotPassword
   | TLogIn
   | TGetOrder
+  | TProfileOrders
+  | TProfilePage
+  | TRegisterPage
+  | TResetPass

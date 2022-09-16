@@ -7,11 +7,6 @@
    WS_PROFILE_ORDERS_FAILED,
    CLOSE_PROFILE_ORDERS_WS,
 } from '../constants/profile-orders'
-import { IWSDataOrders } from '../../utils/type'
-
-type TWSMessagePayload = {
-  orders: IWSDataOrders[]
-}
 
 export interface IWSProfileOrdersStart {
   readonly type: typeof WS_PROFILE_ORDERS_START
