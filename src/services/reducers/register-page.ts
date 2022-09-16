@@ -1,9 +1,16 @@
+import { TRegisterPage } from "../actions/register-page";
 import {
   SIGN_IN,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILED,
   SIGN_IN_RESET,
-} from "../actions/register-page";
+} from "../constants/register-page";
+
+export type TSignInStoreState = {
+  success: boolean,
+  request: boolean,
+  failed: boolean,
+}
 
 const initialState = {
   success: false,
@@ -11,10 +18,8 @@ const initialState = {
   failed: false,
 }
 
-export const signInStore = (state = initialState, action) => {
-
+export const signInStore = (state = initialState, action: TRegisterPage): TSignInStoreState => {
   switch (action.type) {
-
     case SIGN_IN:
       return {
         ...state,

@@ -1,5 +1,4 @@
 import { checkResponse, logOut, getUserInfo, editUserInfo } from "../../utils/utils";
-import { SIGN_IN_RESET } from "./register-page";
 import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
 import { deleteCookie, isCookieExpired } from "../../utils/cookies";
 import {
@@ -18,6 +17,7 @@ import {
 import { AppThunk, TAppDispatch } from "../..";
 import { authFailed, authReset } from "./auth";
 import { closeProfileOrdersWS } from "./profile-orders";
+import { signInReset } from "./register-page";
 
 export interface ILogOutRequest {
   readonly type: typeof LOG_OUT
@@ -213,9 +213,7 @@ export const logOutEnch: AppThunk = (refreshToken: string) => {
       .then(() => {
         dispatch(logOutRequest())
 
-        dispatch({
-          type: SIGN_IN_RESET,
-        })
+        dispatch(signInReset())
 
         dispatch(logInReset())
 
