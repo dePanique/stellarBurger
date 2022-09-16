@@ -5,6 +5,7 @@ import { TCurrentIngredient } from "./burger-ingredients";
 import { TGetFeedIngredients } from "./feed-page";
 import { TForgotPassword } from "./forgot-password";
 import { TLogIn } from "./login-page";
+import { TGetOrder } from "./order-details";
 
 export type TApplicationActions =
   | TAuth
@@ -14,3 +15,4 @@ export type TApplicationActions =
   | TGetFeedIngredients
   | TForgotPassword
   | TLogIn
+  | TGetOrder

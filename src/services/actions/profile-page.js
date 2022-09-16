@@ -3,7 +3,7 @@ import { SIGN_IN_RESET } from "./register-page";
 import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
 import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
 import { AUTH_FAILED, AUTH_RESET } from "../constants/auth";
-import { CLOSE_PROFILE_ORDERS_WS, WS_PROFILE_ORDERS_START } from "./profile-orders";
+import { CLOSE_PROFILE_ORDERS_WS, WS_PROFILE_ORDERS_START } from "../constants/profile-orders";
 import { WS_URL } from "../../utils/constants";
 
 export const LOG_OUT = "LOG_OUT";

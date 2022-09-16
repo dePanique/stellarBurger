@@ -7,16 +7,23 @@ import {
   WS_PROFILE_ORDERS_FAILED,
 
   CLOSE_PROFILE_ORDERS_WS,
-} from "../actions/profile-orders";
+} from "../constants/profile-orders";
+import { IWSDataOrders } from '../../utils/type'
+import { TProfileOrders } from "../actions/profile-orders";
 
-const initialState = {
+type TProfileOrdersState = {
+  request: boolean;
+  online: boolean;
+  failed: boolean;
+}
+
+const initialState: TProfileOrdersState = {
   request: false,
   online: false,
   failed: false,
-  data: {},
 }
 
-export const profileOrders = (state = initialState, action) => {
+export const profileOrders = (state = initialState, action: TProfileOrders): TProfileOrdersState => {
   switch (action.type) {
     case WS_PROFILE_ORDERS_START:
       return {
@@ -37,10 +44,6 @@ export const profileOrders = (state = initialState, action) => {
     case WS_PROFILE_ORDERS_MESSAGE:
       return {
         ...state,
-        data: {
-          ...action.payload,
-          orders: action.payload.orders.reverse()
-        },
       }
 
     case WS_PROFILE_ORDERS_SEND:
