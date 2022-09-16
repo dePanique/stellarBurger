@@ -1,17 +1,24 @@
+import { TForgotPassword } from "../actions/forgot-password";
 import {
   REQUEST_NEW_PASS,
   REQUEST_NEW_PASS_SUCCESS,
   REQUEST_NEW_PASS_FAILED,
   REQUEST_NEW_PASS_RESET,
-} from "../actions/forgot-password";
+} from "../constants/forgot-password";
 
-const initialState = {
+export type TForgotPasswordStoreState = {
+  request: boolean;
+  success: boolean;
+  failed: boolean;
+}
+
+const initialState: TForgotPasswordStoreState = {
   request: false,
   success: false,
   failed: false,
 }
 
-export const forgotPasswordStore = (state = initialState, action) => {
+export const forgotPasswordStore = (state = initialState, action: TForgotPassword): TForgotPasswordStoreState => {
   switch (action.type) {
     case REQUEST_NEW_PASS:
       return {
@@ -22,9 +29,7 @@ export const forgotPasswordStore = (state = initialState, action) => {
     case REQUEST_NEW_PASS_SUCCESS:
       return {
         ...initialState,
-        request: false,
         success: true,
-        failed: false,
       }
 
     case REQUEST_NEW_PASS_FAILED:
@@ -35,7 +40,7 @@ export const forgotPasswordStore = (state = initialState, action) => {
 
     case REQUEST_NEW_PASS_RESET:
       return {
-        initialState,
+        ...initialState,
       }
 
     default:

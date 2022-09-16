@@ -5,8 +5,8 @@ import styles from "./login-page.module.css";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { logInEnch } from "../services/actions/login-page";
 import { authenticationEnch } from "../services/actions/auth";
-import { REQUEST_NEW_PASS_RESET } from "../services/actions/forgot-password";
 import { appUseDispatch } from "../utils/hooks";
+import { requestNewPassReset } from "../services/actions/forgot-password";
 
 export const LoginPage: FC = () => {
   const [emailValue, setEmailValue] = useState<string>('');
@@ -31,9 +31,7 @@ export const LoginPage: FC = () => {
   };
 
   useEffect(() => {
-    dispatch({
-      type: REQUEST_NEW_PASS_RESET,
-    })
+    dispatch(requestNewPassReset())
     dispatch(authenticationEnch());
   }, [])
 
