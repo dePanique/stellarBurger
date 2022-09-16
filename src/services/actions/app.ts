@@ -1,5 +1,5 @@
 import { getData, checkResponse } from '../../utils/utils';
-import { GET_FEED_INGREDIENTS } from './feed-page';
+import { GET_FEED_INGREDIENTS } from '../constants/feed-page';
 import {
   GET_INGREDIENTS,
   GET_INGREDIENTS_SUCCESS,
