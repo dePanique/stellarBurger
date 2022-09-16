@@ -1,3 +1,4 @@
+import { TProfilePage } from "../actions/profile-page";
 import {
   LOG_OUT,
   LOG_OUT_SUCCESS,
@@ -10,9 +11,29 @@ import {
   EDIT_USER_INFO,
   EDIT_USER_INFO_SUCCESS,
   EDIT_USER_INFO_FAILED,
-} from "../actions/profile-page";
+} from "../constants/profile-page";
 
-const initialState ={
+type TProfilePageState = {
+  logout: {
+    success: boolean,
+    request: boolean,
+    failed: boolean,
+  },
+  userInfo: {
+    name: string,
+    email: string,
+    request: boolean,
+    success: boolean,
+    failed: boolean,
+  },
+  editUserInfo: {
+    success: boolean,
+    request: boolean,
+    failed: boolean,
+  }
+}
+
+const initialState: TProfilePageState = {
   logout: {
     success: false,
     request: false,
@@ -21,7 +42,6 @@ const initialState ={
   userInfo: {
     name: '',
     email: '',
-    pass: '',
     request: false,
     success: false,
     failed: false,
@@ -33,7 +53,7 @@ const initialState ={
   }
 }
 
-export const profilePageStore = (state = initialState, action) => {
+export const profilePageStore = (state = initialState, action: TProfilePage): TProfilePageState => {
   switch (action.type) {
     case LOG_OUT:
       return {
@@ -103,7 +123,7 @@ export const profilePageStore = (state = initialState, action) => {
         userInfo: {
           ...state.userInfo,
           request: false,
-          failed: action.payload,
+          failed: false,
         }
       }
 

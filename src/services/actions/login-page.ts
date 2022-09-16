@@ -1,6 +1,6 @@
 import { logIn, checkResponse, updateAccessToken } from "../../utils/utils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies";
-import { LOG_OUT_RESET } from "./profile-page";
+import { LOG_OUT_RESET } from "../constants/profile-page";
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
