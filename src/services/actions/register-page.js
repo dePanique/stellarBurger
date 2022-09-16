@@ -1,5 +1,5 @@
 import { createAccount, checkResponse } from "../../utils/utils";
-import { LOG_IN_SUCCESS } from "./login-page";
+import { LOG_IN_SUCCESS } from "../constants/login-page";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
 import { AUTH_SUCCESS } from "../constants/auth";
 

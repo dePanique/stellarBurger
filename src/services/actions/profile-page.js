@@ -1,6 +1,6 @@
 import { checkResponse, logOut, getUserInfo, editUserInfo } from "../../utils/utils";
 import { SIGN_IN_RESET } from "./register-page";
-import { LOG_IN_RESET, updateAccessTokenEnch, UPDATE_ACCESS_TOKEN_FAILED } from "./login-page";
+import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
 import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
 import { AUTH_FAILED, AUTH_RESET } from "../constants/auth";
 import { CLOSE_PROFILE_ORDERS_WS, WS_PROFILE_ORDERS_START } from "./profile-orders";
@@ -53,9 +53,7 @@ export const getUserInfoEnch = () => {
           type: AUTH_FAILED,
         })
 
-        dispatch({
-          type: UPDATE_ACCESS_TOKEN_FAILED
-        })
+        dispatch(updateAccessTokenFailed())
 
         dispatch({
           type: CLOSE_PROFILE_ORDERS_WS,
@@ -142,9 +140,7 @@ export function logOutEnch(refreshToken) {
           type: SIGN_IN_RESET,
         })
 
-        dispatch({
-          type: LOG_IN_RESET,
-        })
+        dispatch(logInReset())
 
         localStorage.clear('refreshToken');
         deleteCookie('accessToken');

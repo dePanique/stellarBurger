@@ -1,14 +1,30 @@
+import { TLogIn } from '../actions/login-page';
 import {
-  LOG_IN,
+  LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
   LOG_IN_FAILED,
   LOG_IN_RESET,
-  UPDATE_ACCESS_TOKEN,
+  UPDATE_ACCESS_TOKEN_REQUEST,
   UPDATE_ACCESS_TOKEN_SUCCESS,
-  UPDATE_ACCESS_TOKEN_FAILED,
-} from "../actions/login-page";
+  UPDATE_ACCESS_TOKEN_FAILED
+} from '../constants/login-page'
 
-const initialState = {
+type TLoginStore = {
+  success: boolean;
+  user: {
+    email: string;
+    name: string;
+  },
+  request: boolean;
+  failed: boolean;
+  accessTokenStatus: {
+    success: boolean;
+    request: boolean;
+    failed: boolean;
+  }
+}
+
+const initialState: TLoginStore = {
   success: false,
   user: {
     email: '',
@@ -23,10 +39,9 @@ const initialState = {
   }
 }
 
-export const logInStore = (state = initialState, action) => {
+export const logInStore = (state:TLoginStore = initialState, action: TLogIn): TLoginStore => {
   switch (action.type) {
-
-    case LOG_IN:
+    case LOG_IN_REQUEST:
       return {
         ...state,
         request: true,
@@ -55,7 +70,7 @@ export const logInStore = (state = initialState, action) => {
         failed: true,
       };
 
-    case UPDATE_ACCESS_TOKEN:
+    case UPDATE_ACCESS_TOKEN_REQUEST:
       return {
         ...state,
         accessTokenStatus: {

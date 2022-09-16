@@ -4,6 +4,7 @@ import { TBurgerConstructor } from "./burger-constructor";
 import { TCurrentIngredient } from "./burger-ingredients";
 import { TGetFeedIngredients } from "./feed-page";
 import { TForgotPassword } from "./forgot-password";
+import { TLogIn } from "./login-page";
 
 export type TApplicationActions =
   | TAuth
@@ -12,3 +13,4 @@ export type TApplicationActions =
   | TBurgerConstructor
   | TGetFeedIngredients
   | TForgotPassword
+  | TLogIn
