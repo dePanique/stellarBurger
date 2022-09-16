@@ -109,14 +109,6 @@ export interface IModalOverLay {
   handle: (arg: boolean) => void;
   children: ReactNode;
 }
-
-export interface IOrderDetails {
-  number: string;
-  request: boolean;
-  failed: boolean;
-  name: string;
-}
-
 export interface IProtectedRoute extends RouteProps  {
   readonly unAuthOnly: boolean,
   readonly passReset?: boolean,

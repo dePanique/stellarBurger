@@ -1,7 +1,6 @@
 import styles from "./order-details.module.css";
 import React, { FC } from "react";
 import { appUseSelector } from "../../utils/hooks";
-import { IOrderDetails } from "../../utils/type";
 
 const OrderDetails: FC = () => {
 
@@ -9,7 +8,7 @@ const OrderDetails: FC = () => {
     number: orderNumber,
     request,
     failed,
-  }: IOrderDetails = appUseSelector((store) => store.orderDetails);
+  } = appUseSelector((store) => store.orderDetails);
 
   return (
     <React.Fragment>
