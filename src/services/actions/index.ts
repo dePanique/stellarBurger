@@ -1,3 +1,4 @@
+import { TWSconstant } from "../constants/websocket";
 import { TAppStore } from "./app";
 import { TAuth } from "./auth";
 import { TBurgerConstructor } from "./burger-constructor";
@@ -10,6 +11,7 @@ import { TProfileOrders } from "./profile-orders";
 import { TProfilePage } from "./profile-page";
 import { TRegisterPage } from "./register-page";
 import { TResetPass } from './reset-password'
+import { TWebSocket } from "./websocket";
 
 export type TApplicationActions =
   | TAuth
@@ -24,3 +26,5 @@ export type TApplicationActions =
   | TProfilePage
   | TRegisterPage
   | TResetPass
+  | TWebSocket
+  | TWSconstant

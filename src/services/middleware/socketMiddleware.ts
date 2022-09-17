@@ -1,10 +1,15 @@
-export const socketMiddleware = (wsActions) => {
-  let socket = null
+import { ThunkMiddleware } from "redux-thunk";
+import { TSocketMiddleware } from "../../utils/type";
+import { TWSconstant } from "../constants/websocket";
+
+
+export const socketMiddleware: TSocketMiddleware = (wsActions) => {
+  let socket: WebSocket | null = null
 
   return (store) => {
 
     return (next) => (action) => {
-      const { dispatch } = store;
+      const { dispatch, } = store;
       const { type, payload } = action;
 
       const {
@@ -17,13 +22,10 @@ export const socketMiddleware = (wsActions) => {
       } = wsActions;
 
       if (type === socketInit) {
-
-        const { wsUrl, query } = payload;
-        const url = wsUrl + query;
-
-        if (socket?.url === url) return next(action);
-
-        socket = new WebSocket(url);
+        if (typeof payload === 'string') {
+          if (socket?.url === payload) next(action);
+          socket = new WebSocket(payload);
+        }
       }
 
       if (socket) {
@@ -46,7 +48,6 @@ export const socketMiddleware = (wsActions) => {
             type: onClose,
             payload: event.code
           })
-
           socket = null
         };
 
@@ -55,7 +56,6 @@ export const socketMiddleware = (wsActions) => {
             type: onError,
             payload: event.type
           });
-
           socket = null
         };
 

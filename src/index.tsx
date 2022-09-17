@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom/client'
 import App from './components/app/app'
-import { Action, ActionCreator, configureStore, ThunkAction } from '@reduxjs/toolkit';
+import { Action, ActionCreator, configureStore, Middleware, ThunkAction } from '@reduxjs/toolkit';
 import { Provider } from 'react-redux';
 import { rootReducer } from './services/reducers/index';
 import { BrowserRouter } from 'react-router-dom';
@@ -14,7 +14,7 @@ const store = configureStore({
 export type TRootState = ReturnType<typeof rootReducer>
 export type TAppDispatch = typeof store.dispatch | ActionCreator<void>
 export type AppThunk<TReturn = void> = ActionCreator<
-  ThunkAction<TReturn, Action, TRootState, Action>
+  ThunkAction<TReturn, TRootState, TRootState, Action>
 >;
 
 const root = ReactDOM.createRoot(

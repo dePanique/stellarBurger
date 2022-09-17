@@ -3,11 +3,11 @@ import { FC, useMemo, useState, ReactNode } from 'react';
 import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage } from '../utils/utils';
 import { useEffect } from 'react';
-import { closeWebSocket, webSocketStart } from '../services/actions/websocket';
 import { WS_URL } from '../utils/constants';
 import { getCookie } from '../utils/cookies';
 import { appUseDispatch, appUseSelector } from '../utils/hooks';
 import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type'
+import { wsCloseWS, wsStart } from '../services/actions/websocket';
 
 export const ProfileOrders: FC = () => {
 
@@ -28,12 +28,9 @@ export const ProfileOrders: FC = () => {
   } = appUseSelector(store => store.feedPage);
 
   useEffect(() => {
-    dispatch(webSocketStart({
-      wsUrl: WS_URL,
-      query: `?token=${getCookie('accessToken')?.split(' ')[1]}`
-    }));
+    dispatch(wsStart(WS_URL + `?token=${getCookie('accessToken')?.split(' ')[1]}`));
 
-    return () => dispatch(closeWebSocket());
+    return () => dispatch(wsCloseWS());
   }, []);
 
   const makeList = (orders: IWSDataOrders[]): ReactNode[] => {

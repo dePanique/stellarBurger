@@ -2,10 +2,10 @@ import styles from './feed-page.module.css';
 import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { FEED_URL } from '../utils/constants';
-import { closeWebSocket, webSocketStart } from '../services/actions/websocket';
+import { FEED_URL, WS_QUERY, WS_URL } from '../utils/constants';
 import { appUseDispatch, appUseSelector } from '../utils/hooks';
 import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type';
+import { wsCloseWS, wsStart } from '../services/actions/websocket';
 
 export const FeedPage: FC = () => {
 
@@ -16,7 +16,7 @@ export const FeedPage: FC = () => {
   const { ingredientsData: ingredientsDetail }: {
     ingredientsData: TIngredientsData;
   } = appUseSelector(store => store.feedPage);
-  
+
   const { total, totalToday, orders }: {
     total: number;
     totalToday: number;
@@ -29,9 +29,9 @@ export const FeedPage: FC = () => {
   const dispatch = appUseDispatch();
 
   useEffect(() => {
-    dispatch(webSocketStart(FEED_URL));
+    dispatch(wsStart(WS_URL + WS_QUERY));
 
-    return () => dispatch(closeWebSocket());
+    return () => dispatch(wsCloseWS());
   }, []);
 
   useMemo(() => {

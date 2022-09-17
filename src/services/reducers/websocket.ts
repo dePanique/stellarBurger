@@ -5,23 +5,40 @@ import {
   WS_SEND,
   WS_CLOSED,
   WS_FAILED,
-} from "../actions/websocket";
+} from "../constants/websocket";
+import { TWSData } from '../../utils/type'
+import { TWebSocket } from "../actions/websocket";
 
+export type TWebSocketState = {
+  request: boolean;
+  failed: boolean;
+  online: boolean;
+  closeReason: string;
+  data: TWSData;
+  url: string;
+}
 
-const initialState = {
+const initialState: TWebSocketState = {
   request: false,
   failed: false,
   online: false,
   closeReason: '',
-  data: [],
+  data: {
+    success: false,
+    orders: [],
+    total: 0,
+    totalToday: 0,
+  },
+  url: '',
 }
 
-export const websocket = (state = initialState, action) => {
+export const websocket = (state = initialState, action: TWebSocket) => {
   switch (action.type) {
     case WS_START:
       return {
         ...initialState,
         request: true,
+        url: action.payload
       }
 
     case WS_SUCCESS:
@@ -55,7 +72,7 @@ export const websocket = (state = initialState, action) => {
         ...state,
         request: false,
         online: false,
-        failed: action.payload,
+        failed: true,
       }
 
     default:

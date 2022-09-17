@@ -12,9 +12,7 @@ import {
   WS_CLOSED,
   WS_FAILED,
   CLOSE_WS,
-  webSocketStart,
- } from "../services/actions/websocket";
-import { getCookie } from "./cookies";
+ } from "../services/constants/websocket";
 
 export const hcIngredient = {
   calories: 0,
@@ -43,6 +41,7 @@ const wsActions = {
 };
 
 export const WS_URL = 'wss://norma.nomoreparties.space/orders';
+export const WS_QUERY = '/all'
 export const FEED_URL = {
   wsUrl: WS_URL,
   query: '/all'
