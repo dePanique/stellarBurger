@@ -137,3 +137,6 @@ export type TWSData = {
 }
 
 export type TSocketMiddleware = (wsAction: {[name: string]: TWSconstant}) => ThunkMiddleware
+
+export type TSetCookieProps= {[name: string]: string | Date | boolean | number}
+export type TSetCookie = (name: string, value: string, props: TSetCookieProps ) => void

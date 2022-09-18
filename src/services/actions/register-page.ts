@@ -63,7 +63,7 @@ export const signIn: AppThunk = (email:string, pass:string, name:string) => {
       })
       .then((res) => {
         deleteCookie('accessToken');
-        setCookie('accessToken', res.accessToken);
+        setCookie('accessToken', res.accessToken, {expires: 1140});
         deleteCookie('expire');
         setCookieTime();
         localStorage.clear()

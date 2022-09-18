@@ -114,7 +114,7 @@ export const updateAccessTokenEnch: AppThunk = () => {
       })
       .then((res) => {
         deleteCookie('accessToken');
-        setCookie('accessToken', res.accessToken);
+        setCookie('accessToken', res.accessToken, {expires: 1140});
         deleteCookie('expire');
         setCookieTime();
         localStorage.clear();
@@ -150,7 +150,7 @@ export const logInEnch: AppThunk = (email: string, pass: string) => {
       .then((res) => {
         localStorage.setItem('refreshToken', res.refreshToken);
 
-        setCookie('accessToken', res.accessToken);
+        setCookie('accessToken', res.accessToken, {expires: 1140});
         setCookieTime();
 
         dispatch(logInSuccess(res));
