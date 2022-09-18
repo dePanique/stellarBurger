@@ -1,5 +1,6 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { checkResponse, requestEmailPassReset } from "../../utils/utils";
+import { checkResponses, requestEmailPassReset } from "../../utils/apiUtils";
+import { TResponseRequestEmailPassReset } from "../../utils/type";
 import {
   REQUEST_NEW_PASS,
   REQUEST_NEW_PASS_SUCCESS,
@@ -29,38 +30,29 @@ export type TForgotPassword =
 export const requestNewPass = (): IRequestNewPass => ({
   type: REQUEST_NEW_PASS
 })
+
 export const requestNewPassSuccess = (): IRequestNewPassSuccess => ({
   type: REQUEST_NEW_PASS_SUCCESS
 })
+
 export const requestNewPassFailed = (): IRequestNewPassFailed => ({
   type: REQUEST_NEW_PASS_FAILED
 })
+
 export const requestNewPassReset = (): IRequestNewPassReset => ({
   type: REQUEST_NEW_PASS_RESET
 })
 
 export const requestEmailPassResetEnch: AppThunk = (email: string) => {
-  return function (dispatch: TAppDispatch) {
+  return async function (dispatch: TAppDispatch) {
     dispatch(requestNewPass());
 
-    requestEmailPassReset(email)
-      .then((res) => {
-        return checkResponse(res)
-      })
-      .catch((err) => {
-        console.log(`err in requestEmailPassResetEnch ${err}`);
-
-        dispatch(requestNewPassFailed())
-      })
-      .then((res) => {
-        if (res.success) {
-          dispatch(requestNewPassSuccess());
-        }
-      })
-      .catch((err) => {
-        console.log(`err in requestEmailPassResetEnch ${err}`);
-
-        dispatch(requestNewPassFailed());
-      })
+    try {
+      const res: TResponseRequestEmailPassReset = await requestEmailPassReset(email).then(res => checkResponses(res));
+      dispatch(requestNewPassSuccess());
+    } catch (err) {
+      console.log(`err in requestEmailPassResetEnch ${err}`);
+      dispatch(requestNewPassFailed());
+    }
   }
 }

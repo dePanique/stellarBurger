@@ -1,5 +1,7 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { postOrderId, checkResponse } from "../../utils/utils";
+import { postOrderId, checkResponses } from "../../utils/apiUtils";
+import { getCookie } from "../../utils/cookies";
+import { TResponseOrder } from "../../utils/type";
 import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
@@ -41,7 +43,7 @@ export const getOrderSuccess = (payload: TPayloadSuccess): IGetOrderSuccess => (
   payload
 })
 
-export const getOrder = (): IGetOrderFailed => ({
+export const getOrderFailed = (): IGetOrderFailed => ({
   type: GET_ORDER_FAILED
 })
 
@@ -49,24 +51,13 @@ export const getOrderNumber: AppThunk = (ingredientsId: string) => {
   return async function (dispatch: TAppDispatch) {
     dispatch(getOrderRequest());
 
-    await postOrderId(ingredientsId)
-      .then((res) => {
-        return checkResponse(res);
-      })
-      .catch((err) => {
-        console.log(`ошибка в ответе сервера в getOrderNumber ${err}`);
-      })
-      .then((res) => {
-        dispatch({
-          type: GET_ORDER_SUCCESS,
-          payload: res,
-        });
-      })
-      .catch((err) => {
-        dispatch({
-          type: GET_ORDER_FAILED,
-        });
-        console.log(`ошибка после GET_ORDER_FAILED в getOrderNumber ${err}`);
-      });
+    try {
+      const token = getCookie('accessToken')
+      if (!token) throw new Error('badToken');
+      const res: TResponseOrder = await postOrderId(ingredientsId, token).then((res) => checkResponses(res))
+      dispatch(getOrderSuccess(res));
+    } catch (err) {
+      dispatch(getOrderFailed());
+    }
   };
 }

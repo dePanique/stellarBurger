@@ -1,6 +1,6 @@
-import { checkResponse, logOut, getUserInfo, editUserInfo } from "../../utils/utils";
+import { checkResponses, logOut, editUserInfo, getUserInfo } from "../../utils/apiUtils";
 import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
-import { deleteCookie, isCookieExpired } from "../../utils/cookies";
+import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
 import {
   LOG_OUT,
   LOG_OUT_SUCCESS,
@@ -18,6 +18,7 @@ import { AppThunk, TAppDispatch } from "../..";
 import { authFailed, authReset } from "./auth";
 import { closeProfileOrdersWS } from "./profile-orders";
 import { signInReset } from "./register-page";
+import { TEditUserInfoEnch, TGetUserInfo, TResponseProfilePage } from "../../utils/type";
 
 export interface ILogOutRequest {
   readonly type: typeof LOG_OUT
@@ -133,98 +134,60 @@ export const getUserInfoEnch: AppThunk = () => {
       dispatch(updateAccessTokenEnch())
     }
 
-    getUserInfo()
-      .then((res) => {
-        if (res.ok) {
-          return checkResponse(res)
-        } else {
-          dispatch(updateAccessTokenEnch())
-          return getUserInfo().then((res) => {
-            console.log('getuser');
-            return checkResponse(res)
-          })
-        }
-      })
-      .catch((err) => {
-        console.log(`err in getUserInfoEnch ${err}`);
+    try {
+      const token = getCookie('accessToken');
+      if (!token) throw new Error("badAccessToken");
 
-        dispatch(getUserInfoFailed())
-
-        dispatch(authFailed())
-
-        dispatch(updateAccessTokenFailed())
-
-        dispatch(closeProfileOrdersWS())
-      })
-      .then((res) => {
-        dispatch(getUserInfoSuccess(res.user))
-      })
-      .catch((err) => {
-        console.log(`err in getUserInfoEnch ${err}`);
-      })
+      const res: TGetUserInfo = await getUserInfo(token).then(res => checkResponses(res));
+      dispatch(getUserInfoSuccess(res.user));
+    } catch (err) {
+      console.log(`err in getUserInfoEnch ${err}`);
+      dispatch(getUserInfoFailed());
+      dispatch(authFailed());
+      dispatch(updateAccessTokenFailed());
+      dispatch(closeProfileOrdersWS());
+    }
   }
 }
-
 
 export const editUserInfoEnch: AppThunk = (nameValue: string, emailValue: string, passwordValue: string) => {
   return async function (dispatch: TAppDispatch) {
     dispatch(editUserInfoRequest())
 
     if (isCookieExpired()) {
-      dispatch(updateAccessTokenEnch())
+      await dispatch(updateAccessTokenEnch())
     }
 
-    editUserInfo(nameValue, emailValue, passwordValue)
-      .then((res) => {
-        if (res.ok) {
-          return checkResponse(res)
-        } else {
-          dispatch(updateAccessTokenEnch())
-          return editUserInfo(nameValue, emailValue, passwordValue).then((res) => {
-            return checkResponse(res)
-          })
-        }
-      })
-      .catch((err) => {
-        dispatch(editUserInfoFailed())
-
-        console.log(`err in editUserInfoEnch ${err}`);
-      })
-      .then(() => {
-        dispatch(editUserInfoSuccess({ name: nameValue, email: emailValue }))
-      })
-      .catch((err) => {
-        console.log(`err in editUserInfoEncg ${err}`);
-      })
+    try {
+      const token = getCookie('accessToken');
+      if (!token) return new Error('badAccessToken');
+      const res: TEditUserInfoEnch = await editUserInfo(nameValue, emailValue, passwordValue, token).then(res => checkResponses(res));
+      dispatch(editUserInfoSuccess({ name: nameValue, email: emailValue }));
+    } catch (err) {
+      dispatch(editUserInfoFailed());
+      console.log(`err in editUserInfoEnch ${err}`);
+    }
   }
 }
 
 export const logOutEnch: AppThunk = (refreshToken: string) => {
-  return function (dispatch: TAppDispatch) {
-    dispatch(logOutRequest())
+  return async function (dispatch: TAppDispatch) {
+    dispatch(logOutRequest());
 
-    logOut(refreshToken)
-      .then((res) => {
-        return checkResponse(res);
-      })
-      .catch((err) => {
-        console.log(`err in logOutEnch ${err}`);
-      })
-      .then(() => {
-        dispatch(logOutRequest())
+    try {
+      const res: TResponseProfilePage = await logOut(refreshToken).then(res => checkResponses(res));
 
-        dispatch(signInReset())
+      localStorage.clear();
+      deleteCookie('accessToken');
+      deleteCookie('expire');
 
-        dispatch(logInReset())
-
-        localStorage.clear();
-        deleteCookie('accessToken');
-        deleteCookie('expire');
-
-        dispatch(authReset())
-      })
-      .catch((err) => {
-        console.log(`err in logOutEnch ${err}`);
-      })
+      dispatch(logOutSuccess());
+      dispatch(signInReset());
+      dispatch(logInReset());
+      dispatch(authReset());
+    } catch (err) {
+      console.log(`err in logOutEnch ${err}`);
+      dispatch(logOutFailed());
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { logIn, checkResponse, updateAccessToken } from "../../utils/utils";
+import { logIn, checkResponses, updateAccessToken } from "../../utils/apiUtils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies";
 import { LOG_OUT_RESET } from "../constants/profile-page";
 import {
@@ -12,8 +12,10 @@ import {
 } from '../constants/login-page';
 import { AppThunk, TAppDispatch } from "../..";
 import { authFailed, authSuccess } from "./auth";
+import { TUserInfo } from "../../utils/type";
+import { logOutReset } from "./profile-page";
 
-type TSuccessLogin = {
+export type TSuccessLogin = {
   success: boolean;
   user: {
     email: string,
@@ -87,82 +89,46 @@ export const updateAccessTokenEnch: AppThunk = () => {
   return async function (dispatch: TAppDispatch) {
     dispatch(updateAccessToken());
 
-    if (!localStorage.getItem('refreshToken')) {
+    try {
+      const res: TUserInfo = await updateAccessToken().then(res => checkResponses(res));
+      console.log(res);
 
-      console.log("empty refreshToken");
-      dispatch(updateAccessTokenFailed());
+      deleteCookie('accessToken');
+      setCookie('accessToken', res.accessToken, { expires: 1140 });
+      deleteCookie('expire');
+      setCookieTime();
 
+      localStorage.clear();
+      localStorage.setItem('refreshToken', res.refreshToken);
+
+      dispatch(updateAccessTokenSuccess());
+      dispatch(authSuccess());
+    } catch (err) {
+      console.log(`err in updateAccessTokenEnch ${err}`);
       dispatch(authFailed());
-
-      return 0
+      dispatch(updateAccessTokenFailed());
     }
 
-
-    await updateAccessToken()
-      .then((res) => {
-
-        return checkResponse(res);
-      })
-      .catch((err) => {
-        if (err === 'Ошибка: 401') {
-          localStorage.clear();
-        }
-
-        dispatch(authFailed());
-
-        dispatch(updateAccessTokenFailed());
-      })
-      .then((res) => {
-        deleteCookie('accessToken');
-        setCookie('accessToken', res.accessToken, {expires: 1140});
-        deleteCookie('expire');
-        setCookieTime();
-        localStorage.clear();
-        localStorage.setItem('refreshToken', res.refreshToken);
-
-        dispatch(updateAccessTokenSuccess());
-
-        dispatch(authSuccess());
-      })
-      .catch((err) => {
-        console.log(`err in updateAccessTokenEnch ${err}`);
-
-        dispatch(updateAccessTokenFailed());
-      })
   }
 }
 
 export const logInEnch: AppThunk = (email: string, pass: string) => {
-
-  return function (dispatch: TAppDispatch) {
+  return async function (dispatch: TAppDispatch) {
     dispatch(logInRequest());
 
-    logIn(email, pass)
-      .then((res) => {
+    try {
+      const res: TUserInfo = await logIn(email, pass).then(res => checkResponses(res))
 
-        return checkResponse(res);
-      })
-      .catch((err) => {
-        dispatch(logInFailed());
+      localStorage.setItem('refreshToken', res.refreshToken);
+      setCookie('accessToken', res.accessToken, { expires: 1140 });
+      setCookieTime();
 
-        console.log(`err in logInEnch ${err}`);
-      })
-      .then((res) => {
-        localStorage.setItem('refreshToken', res.refreshToken);
-
-        setCookie('accessToken', res.accessToken, {expires: 1140});
-        setCookieTime();
-
-        dispatch(logInSuccess(res));
-
-        dispatch(authSuccess());
-
-        dispatch({
-          type: LOG_OUT_RESET,
-        });
-      })
-      .catch((err) => {
-        console.log(`err in logInEnch ${err}`);
-      })
+      dispatch(logInSuccess(res));
+      dispatch(authSuccess());
+      dispatch(logOutReset());
+    } catch (err) {
+      console.log(`err in logInEnch ${err}`);
+      dispatch(logInFailed());
+    }
   }
 }

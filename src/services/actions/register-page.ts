@@ -1,4 +1,4 @@
-import { createAccount, checkResponse } from "../../utils/utils";
+import { checkResponses, createAccount } from "../../utils/apiUtils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
 import {
   SIGN_IN,
@@ -9,6 +9,7 @@ import {
 import { AppThunk, TAppDispatch } from "../..";
 import { logInSuccess } from "./login-page";
 import { authSuccess } from "./auth";
+import { TUserInfo } from "../../utils/type";
 
 export interface ISignInRequest {
   readonly type: typeof SIGN_IN
@@ -48,33 +49,27 @@ export const signInReset = (): ISignInReset => ({
   type: SIGN_IN_RESET
 })
 
-export const signIn: AppThunk = (email:string, pass:string, name:string) => {
-  return function (dispatch: TAppDispatch) {
+export const signIn: AppThunk = (email: string, pass: string, name: string) => {
+  return async function (dispatch: TAppDispatch) {
     dispatch(signInRequest())
 
-    createAccount(email, pass, name)
-      .then((res) => {
-        return checkResponse(res)
-      })
-      .catch((err) => {
-        dispatch(signInFailed())
+    try {
+      const res: TUserInfo = await createAccount(email, pass, name).then(res => checkResponses(res))
+      deleteCookie('accessToken');
+      setCookie('accessToken', res.accessToken, { expires: 1140 });
 
-        console.log(`err in createAccount ${err}`);
-      })
-      .then((res) => {
-        deleteCookie('accessToken');
-        setCookie('accessToken', res.accessToken, {expires: 1140});
-        deleteCookie('expire');
-        setCookieTime();
-        localStorage.clear()
-        localStorage.setItem('refreshToken', res.refreshToken)
+      deleteCookie('expire');
+      setCookieTime();
 
-        dispatch(signInSuccess())
-        dispatch(logInSuccess(res))
-        dispatch(authSuccess())
-      })
-      .catch((err) => {
-        console.log(`err in createAccount ${err}`);
-      })
+      localStorage.clear()
+      localStorage.setItem('refreshToken', res.refreshToken)
+
+      dispatch(signInSuccess())
+      dispatch(logInSuccess(res))
+      dispatch(authSuccess())
+    } catch (err) {
+      console.log(`err in createAccount ${err}`);
+      dispatch(signInFailed())
+    }
   }
 }

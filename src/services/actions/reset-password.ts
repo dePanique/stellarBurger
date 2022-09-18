@@ -1,5 +1,6 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { applyNewPass, checkResponse } from "../../utils/utils";
+import { checkResponses, applyNewPass } from "../../utils/apiUtils";
+import { TResponseApplyNewPass } from "../../utils/type";
 import {
   RESET_PASS,
   RESET_PASS_SUCCESS,
@@ -46,25 +47,15 @@ export const resetPassInitial = (): IResetPassInitial => ({
 })
 
 export const applyNewPassEnch: AppThunk = (pass: string, token: string) => {
-  return function (dispatch: TAppDispatch) {
+  return async function (dispatch: TAppDispatch) {
     dispatch(resetPass())
 
-    applyNewPass(pass, token)
-      .then((res) => {
-        return checkResponse(res)
-      })
-      .catch((err) => {
-        console.log(`err in applyNewPassEnch ${err}`);
-
-        dispatch(resetPassFailed())
-      })
-      .then(() => {
-        dispatch(resetPassSuccess())
-      })
-      .catch((err) => {
-        console.log(`err in applyNewPassEnch ${err}`);
-
-        dispatch(resetPassFailed())
-      })
+    try {
+      const res: TResponseApplyNewPass = await applyNewPass(pass, token).then(res => checkResponses(res))
+      dispatch(resetPassSuccess())
+    } catch (err) {
+      console.log(`err in applyNewPassEnch ${err}`);
+      dispatch(resetPassFailed())
+    }
   }
 }

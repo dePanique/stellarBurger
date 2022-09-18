@@ -1,6 +1,6 @@
 import styles from './feed-page.module.css';
 import { FeedPlate } from '../components/feed-plate/feed-plate';
-import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
+import { calcBurgerPriceFeedPage } from '../utils/utils';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { WS_QUERY, WS_URL } from '../utils/constants';
 import { appUseDispatch, appUseSelector } from '../utils/hooks';
@@ -79,7 +79,17 @@ export const FeedPage: FC = () => {
             </h3>
 
             <ul className={styles.completedOrdersList}>
-              {makeColumnsList(doneBurgers, styles.completedColumnItem)}
+              {doneBurgers.map(((el, index) =>
+                (index === doneBurgers.length - 1 || !((index + 1) % 10)) ? (
+                  <li key={Math.random().toString(36).slice(2)} className={styles.completedColumnItem + ' text text_type_digits-default'}>
+                    {el}
+                  </li>
+                ) : (
+                  <li key={Math.random().toString(36).slice(2)} className={styles.completedColumnItem + ' text text_type_digits-default mb-2'}>
+                    {el}
+                  </li>
+                )))
+              }
             </ul>
           </article>
 
@@ -89,7 +99,17 @@ export const FeedPage: FC = () => {
             </h3>
 
             <ul className={styles.ordersInWorkList}>
-              {makeColumnsList(awaitedBurgers, styles.ordersInWorkItem)}
+              {awaitedBurgers.map(((el, index) =>
+                (index === doneBurgers.length - 1 || !((index + 1) % 10)) ? (
+                  <li key={Math.random().toString(36).slice(2)} className={styles.ordersInWorkItem + ' text text_type_digits-default'}>
+                    {el}
+                  </li>
+                ) : (
+                  <li key={Math.random().toString(36).slice(2)} className={styles.ordersInWorkItem + ' text text_type_digits-default mb-2'}>
+                    {el}
+                  </li>
+                )))
+              }
             </ul>
           </article>
         </article>
