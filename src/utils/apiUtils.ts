@@ -1,10 +1,8 @@
-import { getCookie } from "./cookies";
-
 const dataUrl = "https://norma.nomoreparties.space/api";
 
 type TCheckRespone = <T>(response: Response) => Promise<T>
 
-export const checkResponses: TCheckRespone = (res) => {
+export const checkResponse: TCheckRespone = (res) => {
   if (res.ok) return res.json();
 
   throw new Error(res.statusText)

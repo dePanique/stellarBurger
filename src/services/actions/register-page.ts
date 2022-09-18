@@ -1,4 +1,4 @@
-import { checkResponses, createAccount } from "../../utils/apiUtils";
+import { checkResponse, createAccount } from "../../utils/apiUtils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
 import {
   SIGN_IN,
@@ -54,7 +54,7 @@ export const signIn: AppThunk = (email: string, pass: string, name: string) => {
     dispatch(signInRequest())
 
     try {
-      const res: TUserInfo = await createAccount(email, pass, name).then(res => checkResponses(res))
+      const res: TUserInfo = await createAccount(email, pass, name).then(res => checkResponse(res))
       deleteCookie('accessToken');
       setCookie('accessToken', res.accessToken, { expires: 1140 });
 

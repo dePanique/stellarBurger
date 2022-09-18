@@ -1,5 +1,5 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { postOrderId, checkResponses } from "../../utils/apiUtils";
+import { postOrderId, checkResponse } from "../../utils/apiUtils";
 import { getCookie } from "../../utils/cookies";
 import { TResponseOrder } from "../../utils/type";
 import {
@@ -54,7 +54,7 @@ export const getOrderNumber: AppThunk = (ingredientsId: string) => {
     try {
       const token = getCookie('accessToken')
       if (!token) throw new Error('badToken');
-      const res: TResponseOrder = await postOrderId(ingredientsId, token).then((res) => checkResponses(res))
+      const res: TResponseOrder = await postOrderId(ingredientsId, token).then((res) => checkResponse(res))
       dispatch(getOrderSuccess(res));
     } catch (err) {
       dispatch(getOrderFailed());

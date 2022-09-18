@@ -1,6 +1,5 @@
-import { logIn, checkResponses, updateAccessToken } from "../../utils/apiUtils";
+import { logIn, checkResponse, updateAccessToken } from "../../utils/apiUtils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies";
-import { LOG_OUT_RESET } from "../constants/profile-page";
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -90,7 +89,7 @@ export const updateAccessTokenEnch: AppThunk = () => {
     dispatch(updateAccessToken());
 
     try {
-      const res: TUserInfo = await updateAccessToken().then(res => checkResponses(res));
+      const res: TUserInfo = await updateAccessToken().then(res => checkResponse(res));
       console.log(res);
 
       deleteCookie('accessToken');
@@ -117,7 +116,7 @@ export const logInEnch: AppThunk = (email: string, pass: string) => {
     dispatch(logInRequest());
 
     try {
-      const res: TUserInfo = await logIn(email, pass).then(res => checkResponses(res))
+      const res: TUserInfo = await logIn(email, pass).then(res => checkResponse(res))
 
       localStorage.setItem('refreshToken', res.refreshToken);
       setCookie('accessToken', res.accessToken, { expires: 1140 });

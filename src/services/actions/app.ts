@@ -5,7 +5,7 @@ import {
 } from '../constants/app';
 import { AppThunk } from '../..';
 import { TIngredient, TResponseIngredients } from '../../utils/type';
-import { checkResponses, getDatas } from '../../utils/apiUtils';
+import { checkResponse, getDatas } from '../../utils/apiUtils';
 import { getFeedIngredient } from './feed-page';
 
 export interface IGetIngredients {
@@ -45,7 +45,7 @@ export const getIngredients: AppThunk = () => {
     dispatch(appStoreGetIngredients());
 
     try {
-      const res: TResponseIngredients = await getDatas().then((res) => checkResponses(res));
+      const res: TResponseIngredients = await getDatas().then((res) => checkResponse(res));
 
       dispatch(appStoreGetIngredientsSuccess(res.data));
 

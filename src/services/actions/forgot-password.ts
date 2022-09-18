@@ -1,5 +1,5 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { checkResponses, requestEmailPassReset } from "../../utils/apiUtils";
+import { checkResponse, requestEmailPassReset } from "../../utils/apiUtils";
 import { TResponseRequestEmailPassReset } from "../../utils/type";
 import {
   REQUEST_NEW_PASS,
@@ -48,7 +48,7 @@ export const requestEmailPassResetEnch: AppThunk = (email: string) => {
     dispatch(requestNewPass());
 
     try {
-      const res: TResponseRequestEmailPassReset = await requestEmailPassReset(email).then(res => checkResponses(res));
+      const res: TResponseRequestEmailPassReset = await requestEmailPassReset(email).then(res => checkResponse(res));
       dispatch(requestNewPassSuccess());
     } catch (err) {
       console.log(`err in requestEmailPassResetEnch ${err}`);

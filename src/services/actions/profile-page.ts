@@ -1,4 +1,4 @@
-import { checkResponses, logOut, editUserInfo, getUserInfo } from "../../utils/apiUtils";
+import { checkResponse, logOut, editUserInfo, getUserInfo } from "../../utils/apiUtils";
 import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
 import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
 import {
@@ -138,7 +138,7 @@ export const getUserInfoEnch: AppThunk = () => {
       const token = getCookie('accessToken');
       if (!token) throw new Error("badAccessToken");
 
-      const res: TGetUserInfo = await getUserInfo(token).then(res => checkResponses(res));
+      const res: TGetUserInfo = await getUserInfo(token).then(res => checkResponse(res));
       dispatch(getUserInfoSuccess(res.user));
     } catch (err) {
       console.log(`err in getUserInfoEnch ${err}`);
@@ -161,7 +161,7 @@ export const editUserInfoEnch: AppThunk = (nameValue: string, emailValue: string
     try {
       const token = getCookie('accessToken');
       if (!token) return new Error('badAccessToken');
-      const res: TEditUserInfoEnch = await editUserInfo(nameValue, emailValue, passwordValue, token).then(res => checkResponses(res));
+      const res: TEditUserInfoEnch = await editUserInfo(nameValue, emailValue, passwordValue, token).then(res => checkResponse(res));
       dispatch(editUserInfoSuccess({ name: nameValue, email: emailValue }));
     } catch (err) {
       dispatch(editUserInfoFailed());
@@ -175,7 +175,7 @@ export const logOutEnch: AppThunk = (refreshToken: string) => {
     dispatch(logOutRequest());
 
     try {
-      const res: TResponseProfilePage = await logOut(refreshToken).then(res => checkResponses(res));
+      const res: TResponseProfilePage = await logOut(refreshToken).then(res => checkResponse(res));
 
       localStorage.clear();
       deleteCookie('accessToken');
