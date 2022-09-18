@@ -10,13 +10,15 @@ export type TOrderDetailsState = {
   failed: boolean;
   name: string;
   number: number;
+  success: boolean;
 }
 
-const initialState = {
+const initialState: TOrderDetailsState = {
   request: false,
   failed: false,
   name: "",
   number: 0,
+  success: false,
 };
 
 export const orderDetails = (state = initialState, action: TGetOrder): TOrderDetailsState => {
@@ -32,6 +34,7 @@ export const orderDetails = (state = initialState, action: TGetOrder): TOrderDet
         ...state,
         request: false,
         failed: false,
+        success: true,
         name: action.payload.name,
         number: action.payload.order.number,
       };
@@ -39,6 +42,7 @@ export const orderDetails = (state = initialState, action: TGetOrder): TOrderDet
     case GET_ORDER_FAILED:
       return {
         ...state,
+        success: false,
         request: false,
         failed: true,
       };

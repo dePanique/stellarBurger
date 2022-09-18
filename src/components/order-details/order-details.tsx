@@ -8,22 +8,23 @@ const OrderDetails: FC = () => {
     number: orderNumber,
     request,
     failed,
+    success,
   } = appUseSelector((store) => store.orderDetails);
 
   return (
     <React.Fragment>
       <p className={styles.orderId + " text text_type_digits-large mt-30 mb-8"}>
-        {orderNumber ? orderNumber : '.....'}
+        {success ? orderNumber : '.....'}
       </p>
       <p className={styles.notation + " text text_type_main-medium mb-15"}>
-        {orderNumber && 'идентификатора заказа'}
+        {success && 'идентификатора заказа'}
         {request && 'ожидайте идентификатор заказа'}
         {failed && 'не удалось сформировать заказ'}
 
       </p>
       <div className={styles.statusImage + " mb-15"}></div>
       <p className={styles.orderStatus + " text text_type_main-default mb-2"}>
-        {orderNumber && 'Ваш заказ начали готовить'}
+        {success && 'Ваш заказ начали готовить'}
         {request && 'Ожидайте идентификатор заказа'}
         {failed && 'Ошибка. Повторите заказ'}
       </p>
@@ -33,7 +34,7 @@ const OrderDetails: FC = () => {
           " text text_type_main-default text_color_inactive mb-30"
         }
       >
-        {orderNumber && 'Дождитесь готовности на орбитальной станции'}
+        {success && 'Дождитесь готовности на орбитальной станции'}
         {failed && 'Попробуйте повторить заказ на главной странице'}
       </p>
     </React.Fragment>
