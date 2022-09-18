@@ -10,9 +10,7 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly
 
   const { success: isAuth } = appUseSelector(store => store.authStore);
   const { failed: isAccessUpdateFailed } = appUseSelector(store => store.logInStore.accessTokenStatus);
-  const { success: isPassReseted }: {
-    success: boolean;
-  } = appUseSelector(store => store.forgotPasswordStore);
+  const { success: isPassReseted } = appUseSelector(store => store.forgotPasswordStore);
 
   if (token && !unAuthOnly) {
     return (

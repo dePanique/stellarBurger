@@ -32,7 +32,7 @@ const initialState: TWebSocketState = {
   url: '',
 }
 
-export const websocket = (state = initialState, action: TWebSocket) => {
+export const websocket = (state = initialState, action: TWebSocket): TWebSocketState => {
   switch (action.type) {
     case WS_START:
       return {

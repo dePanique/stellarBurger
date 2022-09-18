@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Ingredient from "../ingredient/ingredient";
 import styles from "./ingredients-collection.module.css";
 import { appUseSelector } from "../../utils/hooks";
-import { IIngredientsCollection, TIngredient } from "../../utils/type";
+import { IIngredientsCollection } from "../../utils/type";
 
 const IngredientsCollection: FC<IIngredientsCollection> = ({ type }) => {
 
@@ -12,9 +12,7 @@ const IngredientsCollection: FC<IIngredientsCollection> = ({ type }) => {
     main: "Начинки",
   };
 
-  const { data }: {
-    data: TIngredient[];
-  } = appUseSelector((store) => store.appStore);
+  const { data } = appUseSelector((store) => store.appStore);
 
   return (
     <React.Fragment>

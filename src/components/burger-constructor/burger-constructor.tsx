@@ -102,7 +102,7 @@ const BurgerConstructor: FC = () => {
 
       <ul className={styles.components} ref={dropTargetMain}>
         {constructorData &&
-          constructorData.map((element: TIngredient, index) => (
+          constructorData.map((element, index) => (
             <Card
               key={element.listID}
               index={index}

@@ -39,7 +39,7 @@ const initialState: TLoginStore = {
   }
 }
 
-export const logInStore = (state:TLoginStore = initialState, action: TLogIn): TLoginStore => {
+export const logInStore = (state = initialState, action: TLogIn): TLoginStore => {
   switch (action.type) {
     case LOG_IN_REQUEST:
       return {

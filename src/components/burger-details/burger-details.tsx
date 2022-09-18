@@ -32,10 +32,10 @@ export const BurgerDetails = () => {
     profile: [],
   };
 
-  page.feed = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id);
-  page.profile = appUseSelector(store => store.websocket?.data?.orders)?.filter((el: { _id: string }) => el._id === id);
+  page.feed = appUseSelector(store => store.websocket?.data?.orders)?.filter((el) => el._id === id);
+  page.profile = appUseSelector(store => store.websocket?.data?.orders)?.filter((el) => el._id === id);
 
-  let order: TBurgerDetails = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0];
+  let order = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0];
 
   const ingredients: { [name: string]: ReactNode } = {};
 

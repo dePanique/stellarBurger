@@ -12,7 +12,7 @@ export type TSignInStoreState = {
   failed: boolean,
 }
 
-const initialState = {
+const initialState: TSignInStoreState = {
   success: false,
   request: false,
   failed: false,

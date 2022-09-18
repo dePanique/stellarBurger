@@ -8,7 +8,6 @@ import {
 
   CLOSE_PROFILE_ORDERS_WS,
 } from "../constants/profile-orders";
-import { IWSDataOrders } from '../../utils/type'
 import { TProfileOrders } from "../actions/profile-orders";
 
 type TProfileOrdersState = {

@@ -13,7 +13,7 @@ const BurgerIngredients = () => {
   useEffect(() => {
     let offsets: (number | undefined)[] = [];
 
-    offsets = ["#bun", "#sauce", "#main"].map((el: string) =>
+    offsets = ["#bun", "#sauce", "#main"].map((el) =>
       document.querySelector<HTMLElement>(el)?.offsetTop).map((_, index) => {
         if (index === 0) {
           return 0;
