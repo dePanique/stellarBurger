@@ -1,5 +1,3 @@
-import PropTypes from "prop-types";
-
 import {
   socketMiddleware
 } from "../services/middleware/socketMiddleware";
@@ -12,9 +10,11 @@ import {
   WS_CLOSED,
   WS_FAILED,
   CLOSE_WS,
+  TWSconstant,
  } from "../services/constants/websocket";
+import { TIngredient } from "./type";
 
-export const hcIngredient = {
+export const hcIngredient: TIngredient = {
   calories: 0,
   carbohydrates: 0,
   fat: 0,
@@ -30,7 +30,7 @@ export const hcIngredient = {
   _id: '#',
 }
 
-const wsActions = {
+const wsActions: {[name: string]: TWSconstant} = {
   socketInit: WS_START,
   onOpen: WS_SUCCESS,
   onMessage: WS_MESSAGE,
@@ -40,12 +40,8 @@ const wsActions = {
   closeWS: CLOSE_WS,
 };
 
-export const WS_URL = 'wss://norma.nomoreparties.space/orders';
-export const WS_QUERY = '/all'
-export const FEED_URL = {
-  wsUrl: WS_URL,
-  query: '/all'
-}
+export const WS_URL: string = 'wss://norma.nomoreparties.space/orders';
+export const WS_QUERY: string = '/all'
 
 const myMiddleWare = socketMiddleware(wsActions)
 
@@ -57,27 +53,8 @@ const burgerStatusObj = {
 
 const portalContainer = document.querySelector("#modals");
 
-const dataTemplateObject = {
-  calories: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  image_large: PropTypes.string.isRequired,
-  image_mobile: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired,
-  __v: PropTypes.number.isRequired,
-  _id: PropTypes.string.isRequired,
-};
-
-const dataTemplate = PropTypes.shape(dataTemplateObject.isRequired);
-
 export {
-  dataTemplate,
   portalContainer,
-  dataTemplateObject,
   wsActions,
   myMiddleWare,
   burgerStatusObj,

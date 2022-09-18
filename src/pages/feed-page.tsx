@@ -2,7 +2,7 @@ import styles from './feed-page.module.css';
 import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage, makeColumnsList } from '../utils/utils';
 import { FC, useEffect, useMemo, useState } from 'react';
-import { FEED_URL, WS_QUERY, WS_URL } from '../utils/constants';
+import { WS_QUERY, WS_URL } from '../utils/constants';
 import { appUseDispatch, appUseSelector } from '../utils/hooks';
 import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type';
 import { wsCloseWS, wsStart } from '../services/actions/websocket';
