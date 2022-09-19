@@ -49,8 +49,6 @@ export const FeedPage: FC = () => {
     }
 
   }, [orders]);
-  console.log(doneBurgers, awaitedBurgers);
-
 
   return (
     <main className={styles.main}>
