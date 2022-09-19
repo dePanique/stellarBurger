@@ -17,7 +17,7 @@ const Modal: FC<IModal> = ({ history, children, closeOrderModal }) => {
   };
 
   useEffect(() => {
-    const quitOnEscape = (e: { key: string }): void => {
+    const quitOnEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeModal();
       };
