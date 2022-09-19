@@ -27,8 +27,8 @@ const BurgerIngredients = () => {
     setPositionForActivation(offsets);
   }, []);
 
-  const setCurrentTab = (e: BaseSyntheticEvent<HTMLDivElement>) => {
-    setCurrentScrollPos(e.target.scrollTop);
+  const setCurrentTab: React.UIEventHandler<HTMLDivElement> = (e) => {
+    setCurrentScrollPos(e.currentTarget.scrollTop);
 
     if (positionForActivation && currentScrollPos < positionForActivation[1]!) {
       setActiveTab("Булки");
@@ -84,7 +84,7 @@ const BurgerIngredients = () => {
         </a>
       </div>
 
-      <div className={styles.collection} onScroll={(e: any) => setCurrentTab(e)}>
+      <div className={styles.collection} onScroll={setCurrentTab}>
         <IngredientsCollection type={"bun"} />
 
         <IngredientsCollection type={"sauce"} />
