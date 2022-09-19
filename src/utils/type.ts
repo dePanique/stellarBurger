@@ -1,10 +1,7 @@
-import { Dispatch, ReactNode } from "react"
+import { ReactNode } from "react"
 import { History } from 'history';
 import { RouteProps } from "react-router-dom";
 import { TWSconstant } from "../services/constants/websocket";
-import { TRootState } from "..";
-import { TWebSocket } from "../services/actions/websocket";
-import { Store } from "redux";
 import { ThunkMiddleware } from "redux-thunk";
 
 
