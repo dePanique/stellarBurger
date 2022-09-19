@@ -1,7 +1,4 @@
-import { ThunkMiddleware } from "redux-thunk";
 import { TSocketMiddleware } from "../../utils/type";
-import { TWSconstant } from "../constants/websocket";
-
 
 export const socketMiddleware: TSocketMiddleware = (wsActions) => {
   let socket: WebSocket | null = null

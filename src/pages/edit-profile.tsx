@@ -2,19 +2,19 @@ import styles from './edit-profile.module.css';
 import { useCallback, useEffect, useState } from "react";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { editUserInfoEnch } from "../services/actions/profile-page";
-import { appUseDispatch, appUseSelector } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks';
 
 export const EditProfile = () => {
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
 
   const [emailValue, setEmailValue] = useState<string>('');
   const [nameValue, setNameValue] = useState<string>('');
   const [passwordValue, setPasswordValue] = useState<string>('');
   const [isEditing, setIsEditing] = useState<boolean>(false);
 
-  const { email, name } = appUseSelector(store => store.profilePageStore.userInfo);
-  const { success: editSuccess } = appUseSelector(store => store.profilePageStore.editUserInfo);
+  const { email, name } = useAppSelector(store => store.profilePageStore.userInfo);
+  const { success: editSuccess } = useAppSelector(store => store.profilePageStore.editUserInfo);
 
   const onEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmailValue(e.target.value);

@@ -7,17 +7,17 @@ import {
   Button, Input
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { signIn } from "../services/actions/register-page";
-import { appUseDispatch, appUseSelector } from "../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../utils/hooks";
 
 export const RegisterPage: FC = () => {
-  
+
   const [emailValue, setEmailValue] = useState<string>('');
   const [passValue, setPassValue] = useState<string>('');
   const [nameValue, setNameValue] = useState<string>('');
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
-  const {success}:{success:boolean} = appUseSelector((store) => store.signInStore);
+  const {success}:{success:boolean} = useAppSelector((store) => store.signInStore);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {

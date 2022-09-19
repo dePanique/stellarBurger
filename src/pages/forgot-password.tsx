@@ -4,7 +4,7 @@ import Main from "../components/main/main";
 import styles from "./forgot-password.module.css";
 import { Input, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { requestEmailPassResetEnch } from "../services/actions/forgot-password";
-import { appUseDispatch, appUseSelector } from "../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../utils/hooks";
 import { resetPassInitial } from "../services/actions/reset-password";
 
 export const ForgotPassword: FC = () => {
@@ -13,9 +13,9 @@ export const ForgotPassword: FC = () => {
   const [inputPlaceholder, setInputPlaceholder] = useState<string>('Укажите e-mail');
 
   const history = useHistory();
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
 
-  const { success: isPassReseted }: { success: boolean } = appUseSelector(store => store.forgotPasswordStore)
+  const { success: isPassReseted }: { success: boolean } = useAppSelector(store => store.forgotPasswordStore)
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {

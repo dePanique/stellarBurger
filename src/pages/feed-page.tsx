@@ -3,7 +3,7 @@ import { FeedPlate } from '../components/feed-plate/feed-plate';
 import { calcBurgerPriceFeedPage } from '../utils/utils';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { WS_QUERY, WS_URL } from '../utils/constants';
-import { appUseDispatch, appUseSelector } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks';
 import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type';
 import { wsCloseWS, wsStart } from '../services/actions/websocket';
 
@@ -11,28 +11,28 @@ export const FeedPage: FC = () => {
 
   const { data: ingredientsData }: {
     data: TIngredient[];
-  } = appUseSelector(store => store.appStore);
+  } = useAppSelector(store => store.appStore);
 
   const { ingredientsData: ingredientsDetail }: {
     ingredientsData: TIngredientsData;
-  } = appUseSelector(store => store.feedPage);
+  } = useAppSelector(store => store.feedPage);
 
   const { total, totalToday, orders }: {
     total: number;
     totalToday: number;
     orders: IWSDataOrders[];
-  } = appUseSelector(store => store.websocket.data);
+  } = useAppSelector(store => store.websocket.data);
 
   const [doneBurgers, setDoneBurgers] = useState<number[]>([]);
   const [awaitedBurgers, setAwaitedBurgers] = useState<number[]>([]);
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(wsStart(WS_URL + WS_QUERY));
 
     return () => dispatch(wsCloseWS());
-  }, []);
+  }, [dispatch]);
 
   useMemo(() => {
     setDoneBurgers([]);

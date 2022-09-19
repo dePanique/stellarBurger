@@ -21,17 +21,17 @@ import { BurgerDetails } from '../burger-details/burger-details';
 import { OrderPage } from '../../pages/order-page';
 import { OrderPageProfile } from '../../pages/order-page-profile';
 import { getCookie } from '../../utils/cookies';
-import { appUseDispatch, appUseSelector } from '../../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../../utils/hooks';
 import { TLocation } from '../../utils/type';
 import { History } from 'history';
 import OrderDetails from '../order-details/order-details';
 
 export default function App() {
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
   const history: History = useHistory();
 
-  const { failed: accessFail } = appUseSelector(store => store.logInStore.accessTokenStatus);
+  const { failed: accessFail } = useAppSelector(store => store.logInStore.accessTokenStatus);
 
   useEffect(() => {
     getCookie('accessToken');

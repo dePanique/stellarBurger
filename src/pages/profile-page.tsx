@@ -7,11 +7,11 @@ import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import { EditProfile } from "./edit-profile";
 import { ProfileOrders } from "./profile-orders";
 import ProtectedRoute from "../components/protected-route/protected-route";
-import { appUseDispatch } from "../utils/hooks";
+import { useAppDispatch } from "../utils/hooks";
 
 export const ProfilePage: FC = () => {
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
 
   const handleLogOut = () => {
     dispatch(logOutEnch(localStorage.getItem('refreshToken')));

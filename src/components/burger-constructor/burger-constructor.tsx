@@ -9,18 +9,18 @@ import Card from "../card/card";
 import { useHistory, Link, useLocation } from 'react-router-dom';
 import { getOrderNumber } from '../../services/actions/order-details';
 import update from "immutability-helper";
-import { appUseDispatch, appUseSelector } from "../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { TIngredient } from "../../utils/type";
 import { calcFullPrice, onBunDrop, onMainDrop, refillConstructor } from "../../services/actions/burger-constructor";
 
 const BurgerConstructor: FC = () => {
 
   const location = useLocation();
-  const { data, bun, finalPrice, ingredientsID } = appUseSelector((store) => store.burgerConstructor);
-  const { success: isAuth } = appUseSelector(store => store.authStore);
+  const { data, bun, finalPrice, ingredientsID } = useAppSelector((store) => store.burgerConstructor);
+  const { success: isAuth } = useAppSelector(store => store.authStore);
   const [constructorData, setConstructorData] = useState<TIngredient[]>([]);
   const [isButtonActive, setIsButtonActive] = useState<boolean>(false);
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   useEffect(() => {

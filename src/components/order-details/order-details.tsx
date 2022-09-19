@@ -1,6 +1,6 @@
 import styles from "./order-details.module.css";
 import React, { FC } from "react";
-import { appUseSelector } from "../../utils/hooks";
+import { useAppSelector } from "../../utils/hooks";
 
 const OrderDetails: FC = () => {
 
@@ -9,7 +9,7 @@ const OrderDetails: FC = () => {
     request,
     failed,
     success,
-  } = appUseSelector((store) => store.orderDetails);
+  } = useAppSelector((store) => store.orderDetails);
 
   return (
     <React.Fragment>

@@ -5,14 +5,14 @@ import styles from "./login-page.module.css";
 import { Input, PasswordInput, Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import { logInEnch } from "../services/actions/login-page";
 import { authenticationEnch } from "../services/actions/auth";
-import { appUseDispatch } from "../utils/hooks";
+import { useAppDispatch } from "../utils/hooks";
 import { requestNewPassReset } from "../services/actions/forgot-password";
 
 export const LoginPage: FC = () => {
   const [emailValue, setEmailValue] = useState<string>('');
   const [passValue, setPassValue] = useState<string>('');
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
   const history = useHistory();
 
   const onSubmit = useCallback(

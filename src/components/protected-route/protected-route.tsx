@@ -1,6 +1,6 @@
 import { FC } from 'react';
 import { Route, Redirect, useLocation } from "react-router-dom";
-import { appUseSelector } from '../../utils/hooks';
+import { useAppSelector } from '../../utils/hooks';
 import { IProtectedRoute, TLocation } from '../../utils/type';
 
 export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly, passReset, ...rest }) => {
@@ -8,9 +8,9 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly
   let token: string | null = localStorage.getItem('refreshToken');
   const location: TLocation<{ from?: TLocation }> = useLocation();
 
-  const { success: isAuth } = appUseSelector(store => store.authStore);
-  const { failed: isAccessUpdateFailed } = appUseSelector(store => store.logInStore.accessTokenStatus);
-  const { success: isPassReseted } = appUseSelector(store => store.forgotPasswordStore);
+  const { success: isAuth } = useAppSelector(store => store.authStore);
+  const { failed: isAccessUpdateFailed } = useAppSelector(store => store.logInStore.accessTokenStatus);
+  const { success: isPassReseted } = useAppSelector(store => store.forgotPasswordStore);
 
   if (token && !unAuthOnly) {
     return (

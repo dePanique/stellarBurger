@@ -7,15 +7,15 @@ import { useDrag } from "react-dnd";
 import { Link, useLocation } from 'react-router-dom';
 import { IIngredient } from "../../utils/type";
 import { FC } from "react";
-import { appUseDispatch, appUseSelector } from "../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { setCurrentIngredient } from "../../services/actions/burger-ingredients";
 
 const Ingredient: FC<IIngredient> = ({ element }) => {
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
-  const { ingredientsID : orderData }= appUseSelector(
+  const { ingredientsID : orderData }= useAppSelector(
     (store) => store.burgerConstructor
   );
 

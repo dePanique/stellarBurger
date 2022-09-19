@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import Ingredient from "../ingredient/ingredient";
 import styles from "./ingredients-collection.module.css";
-import { appUseSelector } from "../../utils/hooks";
+import { useAppSelector } from "../../utils/hooks";
 import { IIngredientsCollection } from "../../utils/type";
 
 const IngredientsCollection: FC<IIngredientsCollection> = ({ type }) => {
@@ -12,7 +12,7 @@ const IngredientsCollection: FC<IIngredientsCollection> = ({ type }) => {
     main: "Начинки",
   };
 
-  const { data } = appUseSelector((store) => store.appStore);
+  const { data } = useAppSelector((store) => store.appStore);
 
   return (
     <React.Fragment>

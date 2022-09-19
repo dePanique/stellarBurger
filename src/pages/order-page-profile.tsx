@@ -3,12 +3,12 @@ import { BurgerDetails } from '../components/burger-details/burger-details';
 import { FC, useEffect } from 'react';
 import { getCookie } from '../utils/cookies';
 import { WS_URL } from '../utils/constants';
-import { appUseDispatch } from '../utils/hooks';
+import { useAppDispatch } from '../utils/hooks';
 import { wsCloseWS, wsStart } from '../services/actions/websocket';
 
 export const OrderPageProfile: FC = () => {
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(wsStart(WS_URL + `?token=${getCookie('accessToken')?.split(' ')[1]}`));

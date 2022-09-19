@@ -4,7 +4,7 @@ import { useParams, useLocation } from 'react-router-dom';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { FeedIngredientRow } from '../feed-ingredient-row/feed-ingredient-row';
 import { calcBurgerPriceFeedPage } from '../../utils/utils';
-import { appUseSelector } from '../../utils/hooks';
+import { useAppSelector } from '../../utils/hooks';
 import { TBurgerDetails, TIngredient, TIngredientsData } from '../../utils/type';
 
 const burgerStatusObj: { [name: string]: string } = {
@@ -17,10 +17,10 @@ export const BurgerDetails = () => {
 
   const { data: ingredientsData }: {
     data: TIngredient[];
-  } = appUseSelector(store => store.appStore);
+  } = useAppSelector(store => store.appStore);
   const { ingredientsData: ingredientsDetail }: {
     ingredientsData: TIngredientsData;
-  } = appUseSelector(store => store.feedPage);
+  } = useAppSelector(store => store.feedPage);
 
   const { id }: { id: string } = useParams();
 
@@ -32,8 +32,8 @@ export const BurgerDetails = () => {
     profile: [],
   };
 
-  page.feed = appUseSelector(store => store.websocket?.data?.orders)?.filter((el) => el._id === id);
-  page.profile = appUseSelector(store => store.websocket?.data?.orders)?.filter((el) => el._id === id);
+  page.feed = useAppSelector(store => store.websocket?.data?.orders)?.filter((el) => el._id === id);
+  page.profile = useAppSelector(store => store.websocket?.data?.orders)?.filter((el) => el._id === id);
 
   let order = pageName === 'profile' ? page?.profile?.[0] : page?.feed?.[0];
 

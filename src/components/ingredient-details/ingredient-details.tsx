@@ -1,16 +1,16 @@
 import React, { FC, useEffect } from "react";
 import styles from "./ingredient-details.module.css";
-import { appUseDispatch, appUseSelector } from "../../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks";
 import { resetCurrentIngredient } from "../../services/actions/burger-ingredients";
 
 const IngredientDetails: FC = () => {
 
-  const dispatch = appUseDispatch();
-  const data = appUseSelector((store) => store.burgerIngredients.ingredient);
+  const dispatch = useAppDispatch();
+  const data = useAppSelector((store) => store.burgerIngredients.ingredient);
 
   const { success: isData }: {
     success: boolean;
-  } = appUseSelector(store => store.appStore);
+  } = useAppSelector(store => store.appStore);
 
   useEffect(() => {
 

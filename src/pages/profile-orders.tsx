@@ -5,27 +5,27 @@ import { calcBurgerPriceFeedPage } from '../utils/utils';
 import { useEffect } from 'react';
 import { WS_URL } from '../utils/constants';
 import { getCookie } from '../utils/cookies';
-import { appUseDispatch, appUseSelector } from '../utils/hooks';
+import { useAppDispatch, useAppSelector } from '../utils/hooks';
 import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type'
 import { wsCloseWS, wsStart } from '../services/actions/websocket';
 
 export const ProfileOrders: FC = () => {
 
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
 
   const [list, setList] = useState<ReactNode[]>();
 
   const { orders }: {
     orders: IWSDataOrders[];
-  } = appUseSelector(store => store.websocket.data);
+  } = useAppSelector(store => store.websocket.data);
 
   const { data: ingredientsData }: {
     data: TIngredient[];
-  } = appUseSelector(store => store.appStore);
+  } = useAppSelector(store => store.appStore);
 
   const { ingredientsData: ingredientsDetail }: {
     ingredientsData: TIngredientsData;
-  } = appUseSelector(store => store.feedPage);
+  } = useAppSelector(store => store.feedPage);
 
   useEffect(() => {
     dispatch(wsStart(WS_URL + `?token=${getCookie('accessToken')?.split(' ')[1]}`));

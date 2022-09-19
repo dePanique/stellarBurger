@@ -4,17 +4,17 @@ import { Link, useHistory } from 'react-router-dom';
 import Main from "../components/main/main";
 import { Input, Button, PasswordInput } from "@ya.praktikum/react-developer-burger-ui-components";
 import { applyNewPassEnch } from "../services/actions/reset-password";
-import { appUseDispatch, appUseSelector } from "../utils/hooks";
+import { useAppDispatch, useAppSelector } from "../utils/hooks";
 
 export const ResetPassword: FC = () => {
 
   const [newPassValue, setNewPassValue] = useState<string>('');
   const [confirmPassValue, setConfirmPassValue] = useState<string>('');
   const history = useHistory();
-  const dispatch = appUseDispatch();
+  const dispatch = useAppDispatch();
   const { success: isPassReseted, failed: isPassFailed }: {
     success: boolean; failed: boolean;
-  } = appUseSelector(store => store.resetPassStore);
+  } = useAppSelector(store => store.resetPassStore);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {
