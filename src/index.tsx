@@ -14,7 +14,7 @@ const store = configureStore({
 export type TRootState = ReturnType<typeof rootReducer>;
 export type TAppDispatch = typeof store.dispatch | ActionCreator<void>;
 export type AppThunk<TReturn = void> = ActionCreator<
-  ThunkAction<TReturn, TRootState, TRootState, Action>
+  ThunkAction<TReturn, TRootState, never, Action>
 >;
 
 const root = ReactDOM.createRoot(
