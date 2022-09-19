@@ -17,7 +17,7 @@ export const RegisterPage: FC = () => {
 
   const dispatch = useAppDispatch();
   const history = useHistory();
-  const {success} = useAppSelector((store) => store.signInStore);
+  const { success } = useAppSelector((store) => store.signInStore);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {

@@ -89,7 +89,7 @@ export const FeedPlate: FC<IFeedPlate> = ({ padding, order, price, img }) => {
               img.length < 7 ? (
                 <li
                   className={styles.ingredientIcon + ` ` + styles[`left_${index + 1}`]}
-                  key={Math.random().toString(36).slice(2)}
+                  key={index}
                 >
                   <div className={styles.iconFrame}>
                     <img
@@ -103,7 +103,7 @@ export const FeedPlate: FC<IFeedPlate> = ({ padding, order, price, img }) => {
                 index < 5 ? (
                   <li
                     className={styles.ingredientIcon + ` ` + styles[`left_${index + 1}`]}
-                    key={Math.random().toString(36).slice(2)}
+                    key={index}
                   >
                     <div className={styles.iconFrame}>
                       <img
@@ -118,7 +118,7 @@ export const FeedPlate: FC<IFeedPlate> = ({ padding, order, price, img }) => {
                     (
                       <li
                         className={styles.ingredientIcon + ` ` + styles.left_6}
-                        key={Math.random().toString(36).slice(2)}
+                        key={index}
                       >
                         <p className={styles.ingredientsAmount + ` text text_type_digits-default`}>
                           {`+${img.length - 6}`}

@@ -15,7 +15,7 @@ export const ForgotPassword: FC = () => {
   const history = useHistory();
   const dispatch = useAppDispatch();
 
-  const { success: isPassReseted }: { success: boolean } = useAppSelector(store => store.forgotPasswordStore)
+  const { success: isPassReseted } = useAppSelector(store => store.forgotPasswordStore)
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {

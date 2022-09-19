@@ -5,7 +5,6 @@ import IngredientDetails from "../components/ingredient-details/ingredient-detai
 import Main from "../components/main/main";
 import { useParams } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from "../utils/hooks";
-import { TIngredient } from "../utils/type";
 import { setCurrentIngredient } from '../services/actions/burger-ingredients';
 
 export const IngredientPage: FC = () => {
@@ -14,7 +13,7 @@ export const IngredientPage: FC = () => {
 
   const { id }: { id: string } = useParams();
 
-  const { data }: { data: TIngredient[] } = useAppSelector((store) => store.appStore);
+  const { data } = useAppSelector((store) => store.appStore);
   const ingredient = data.find(element => element._id === id);
 
   //Не трогай т.к. без него react cannot update a component

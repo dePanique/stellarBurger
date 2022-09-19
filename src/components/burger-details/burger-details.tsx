@@ -5,7 +5,7 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import { FeedIngredientRow } from '../feed-ingredient-row/feed-ingredient-row';
 import { calcBurgerPriceFeedPage } from '../../utils/utils';
 import { useAppSelector } from '../../utils/hooks';
-import { TBurgerDetails, TIngredient, TIngredientsData } from '../../utils/type';
+import { TBurgerDetails } from '../../utils/type';
 
 const burgerStatusObj: { [name: string]: string } = {
   done: 'Выполнен',
@@ -15,12 +15,9 @@ const burgerStatusObj: { [name: string]: string } = {
 
 export const BurgerDetails = () => {
 
-  const { data: ingredientsData }: {
-    data: TIngredient[];
-  } = useAppSelector(store => store.appStore);
-  const { ingredientsData: ingredientsDetail }: {
-    ingredientsData: TIngredientsData;
-  } = useAppSelector(store => store.feedPage);
+  const { data: ingredientsData } = useAppSelector(store => store.appStore);
+
+  const { ingredientsData: ingredientsDetail }= useAppSelector(store => store.feedPage);
 
   const { id }: { id: string } = useParams();
 

@@ -4,24 +4,13 @@ import { calcBurgerPriceFeedPage } from '../utils/utils';
 import { FC, useEffect, useMemo, useState } from 'react';
 import { WS_QUERY, WS_URL } from '../utils/constants';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
-import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type';
 import { wsCloseWS, wsStart } from '../services/actions/websocket';
 
 export const FeedPage: FC = () => {
 
-  const { data: ingredientsData }: {
-    data: TIngredient[];
-  } = useAppSelector(store => store.appStore);
-
-  const { ingredientsData: ingredientsDetail }: {
-    ingredientsData: TIngredientsData;
-  } = useAppSelector(store => store.feedPage);
-
-  const { total, totalToday, orders }: {
-    total: number;
-    totalToday: number;
-    orders: IWSDataOrders[];
-  } = useAppSelector(store => store.websocket.data);
+  const { data: ingredientsData } = useAppSelector(store => store.appStore);
+  const { ingredientsData: ingredientsDetail } = useAppSelector(store => store.feedPage);
+  const { total, totalToday, orders } = useAppSelector(store => store.websocket.data);
 
   const [doneBurgers, setDoneBurgers] = useState<number[]>([]);
   const [awaitedBurgers, setAwaitedBurgers] = useState<number[]>([]);
@@ -81,11 +70,11 @@ export const FeedPage: FC = () => {
             <ul className={styles.completedOrdersList}>
               {doneBurgers.map(((el, index) =>
                 (index === doneBurgers.length - 1 || !((index + 1) % 10)) ? (
-                  <li key={doneBurgers[index]} className={styles.completedColumnItem + ' text text_type_digits-default'}>
+                  <li key={index} className={styles.completedColumnItem + ' text text_type_digits-default'}>
                     {el}
                   </li>
                 ) : (
-                  <li key={doneBurgers[index]} className={styles.completedColumnItem + ' text text_type_digits-default mb-2'}>
+                  <li key={index} className={styles.completedColumnItem + ' text text_type_digits-default mb-2'}>
                     {el}
                   </li>
                 )))
@@ -101,11 +90,11 @@ export const FeedPage: FC = () => {
             <ul className={styles.ordersInWorkList}>
               {awaitedBurgers.map(((el, index) =>
                 (index === doneBurgers.length - 1 || !((index + 1) % 10)) ? (
-                  <li key={awaitedBurgers[index]} className={styles.ordersInWorkItem + ' text text_type_digits-default'}>
+                  <li key={index} className={styles.ordersInWorkItem + ' text text_type_digits-default'}>
                     {el}
                   </li>
                 ) : (
-                  <li key={awaitedBurgers[index]} className={styles.ordersInWorkItem + ' text text_type_digits-default mb-2'}>
+                  <li key={index} className={styles.ordersInWorkItem + ' text text_type_digits-default mb-2'}>
                     {el}
                   </li>
                 )))

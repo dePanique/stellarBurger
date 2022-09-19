@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { WS_URL } from '../utils/constants';
 import { getCookie } from '../utils/cookies';
 import { useAppDispatch, useAppSelector } from '../utils/hooks';
-import { IWSDataOrders, TIngredient, TIngredientsData } from '../utils/type'
+import { IWSDataOrders } from '../utils/type'
 import { wsCloseWS, wsStart } from '../services/actions/websocket';
 
 export const ProfileOrders: FC = () => {
@@ -15,17 +15,9 @@ export const ProfileOrders: FC = () => {
 
   const [list, setList] = useState<ReactNode[]>();
 
-  const { orders }: {
-    orders: IWSDataOrders[];
-  } = useAppSelector(store => store.websocket.data);
-
-  const { data: ingredientsData }: {
-    data: TIngredient[];
-  } = useAppSelector(store => store.appStore);
-
-  const { ingredientsData: ingredientsDetail }: {
-    ingredientsData: TIngredientsData;
-  } = useAppSelector(store => store.feedPage);
+  const { orders } = useAppSelector(store => store.websocket.data);
+  const { data: ingredientsData } = useAppSelector(store => store.appStore);
+  const { ingredientsData: ingredientsDetail } = useAppSelector(store => store.feedPage);
 
   useEffect(() => {
     dispatch(wsStart(WS_URL + `?token=${getCookie('accessToken')?.split(' ')[1]}`));
