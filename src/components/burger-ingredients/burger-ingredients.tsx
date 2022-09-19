@@ -11,20 +11,23 @@ const BurgerIngredients = () => {
   const [positionForActivation, setPositionForActivation] = useState<(number | undefined)[]>();
 
   useEffect(() => {
-    let offsets: (number | undefined)[] = [];
+    let offsets: (number)[] = [0, 0, 0];
 
-    offsets = ["#bun", "#sauce", "#main"].map((el) =>
-      document.querySelector<HTMLElement>(el)?.offsetTop).map((_, index) => {
+    ["#bun", "#sauce", "#main"].map((el) =>
+      document.querySelector<HTMLElement>(el)?.offsetTop).forEach((element, index, array) => {
+        setPositionForActivation(array);
+
+        if (element === NaN) return 0
         if (index === 0) {
-          return 0;
+          offsets[0] = 0;
         } else if (index === 1) {
-          return offsets[1]! - offsets[0]! - 40;
+          offsets[1] = offsets[1]! - offsets[0]! - 40;
         } else {
-          return offsets[2]! - offsets[0]! - 40;
+          offsets[2] = offsets[2]! - offsets[0]! - 40;
         }
       });
 
-    setPositionForActivation(offsets);
+
   }, []);
 
   const setCurrentTab: React.UIEventHandler<HTMLDivElement> = (e) => {
