@@ -49,6 +49,8 @@ export const FeedPage: FC = () => {
     }
 
   }, [orders]);
+  console.log(doneBurgers, awaitedBurgers);
+
 
   return (
     <main className={styles.main}>
@@ -81,11 +83,11 @@ export const FeedPage: FC = () => {
             <ul className={styles.completedOrdersList}>
               {doneBurgers.map(((el, index) =>
                 (index === doneBurgers.length - 1 || !((index + 1) % 10)) ? (
-                  <li key={Math.random().toString(36).slice(2)} className={styles.completedColumnItem + ' text text_type_digits-default'}>
+                  <li key={doneBurgers[index]} className={styles.completedColumnItem + ' text text_type_digits-default'}>
                     {el}
                   </li>
                 ) : (
-                  <li key={Math.random().toString(36).slice(2)} className={styles.completedColumnItem + ' text text_type_digits-default mb-2'}>
+                  <li key={doneBurgers[index]} className={styles.completedColumnItem + ' text text_type_digits-default mb-2'}>
                     {el}
                   </li>
                 )))
@@ -101,11 +103,11 @@ export const FeedPage: FC = () => {
             <ul className={styles.ordersInWorkList}>
               {awaitedBurgers.map(((el, index) =>
                 (index === doneBurgers.length - 1 || !((index + 1) % 10)) ? (
-                  <li key={Math.random().toString(36).slice(2)} className={styles.ordersInWorkItem + ' text text_type_digits-default'}>
+                  <li key={awaitedBurgers[index]} className={styles.ordersInWorkItem + ' text text_type_digits-default'}>
                     {el}
                   </li>
                 ) : (
-                  <li key={Math.random().toString(36).slice(2)} className={styles.ordersInWorkItem + ' text text_type_digits-default mb-2'}>
+                  <li key={awaitedBurgers[index]} className={styles.ordersInWorkItem + ' text text_type_digits-default mb-2'}>
                     {el}
                   </li>
                 )))
