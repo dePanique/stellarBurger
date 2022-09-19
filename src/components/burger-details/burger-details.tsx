@@ -17,7 +17,7 @@ export const BurgerDetails = () => {
 
   const { data: ingredientsData } = useAppSelector(store => store.appStore);
 
-  const { ingredientsData: ingredientsDetail }= useAppSelector(store => store.feedPage);
+  const { ingredientsData: ingredientsDetail } = useAppSelector(store => store.feedPage);
 
   const { id }: { id: string } = useParams();
 

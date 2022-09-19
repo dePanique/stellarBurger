@@ -12,7 +12,7 @@ export const ResetPassword: FC = () => {
   const [confirmPassValue, setConfirmPassValue] = useState<string>('');
   const history = useHistory();
   const dispatch = useAppDispatch();
-  const { success: isPassReseted, failed: isPassFailed }= useAppSelector(store => store.resetPassStore);
+  const { success: isPassReseted, failed: isPassFailed } = useAppSelector(store => store.resetPassStore);
 
   const onSubmit = useCallback(
     (e: React.FormEvent<HTMLFormElement>) => {

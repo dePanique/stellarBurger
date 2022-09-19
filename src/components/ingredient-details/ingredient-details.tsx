@@ -8,7 +8,7 @@ const IngredientDetails: FC = () => {
   const dispatch = useAppDispatch();
   const data = useAppSelector((store) => store.burgerIngredients.ingredient);
 
-  const { success: isData }= useAppSelector(store => store.appStore);
+  const { success: isData } = useAppSelector(store => store.appStore);
 
   useEffect(() => {
 
