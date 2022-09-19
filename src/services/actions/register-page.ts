@@ -1,11 +1,11 @@
 import { checkResponse, createAccount } from "../../utils/apiUtils";
-import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies"
+import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies";
 import {
   SIGN_IN,
   SIGN_IN_SUCCESS,
   SIGN_IN_FAILED,
   SIGN_IN_RESET
-} from '../constants/register-page'
+} from '../constants/register-page';
 import { AppThunk, TAppDispatch } from "../..";
 import { logInSuccess } from "./login-page";
 import { authSuccess } from "./auth";

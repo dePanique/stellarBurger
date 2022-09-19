@@ -9,11 +9,6 @@ WS_FAILED,
 CLOSE_WS,
 } from '../constants/websocket';
 
-type TWSstart = {
-  wsUrl: string;
-  query: string;
-}
-
 export interface IWSStart {
   readonly type: typeof WS_START;
   readonly payload: string;

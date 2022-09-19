@@ -6,7 +6,7 @@ import {
   RESET_PASS_SUCCESS,
   RESET_PASS_FAILED,
   RESET_PASS_INITIAL,
-} from '../constants/reset-password'
+} from '../constants/reset-password';
 
 export interface IResetPass {
   readonly type: typeof RESET_PASS
