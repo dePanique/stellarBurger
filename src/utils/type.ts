@@ -204,3 +204,5 @@ export type TGetUserInfo = {
     name: string;
   }
 }
+
+export type TCheckResponse = <T>(response: Response) => Promise<T>;

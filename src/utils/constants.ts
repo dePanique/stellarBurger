@@ -40,6 +40,7 @@ const wsActions: {[name: string]: TWSconstant} = {
   closeWS: CLOSE_WS,
 };
 
+export const dataUrl = "https://norma.nomoreparties.space/api";
 export const WS_URL: string = 'wss://norma.nomoreparties.space/orders';
 export const WS_QUERY: string = '/all'
 

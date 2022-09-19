@@ -1,8 +1,7 @@
-const dataUrl = "https://norma.nomoreparties.space/api";
+import { dataUrl } from "./constants";
+import { TCheckResponse } from "./type";
 
-type TCheckRespone = <T>(response: Response) => Promise<T>
-
-export const checkResponse: TCheckRespone = (res) => {
+export const checkResponse: TCheckResponse = (res) => {
   if (res.ok) return res.json();
 
   throw new Error(res.statusText)
@@ -114,7 +113,6 @@ export function logOut(refreshToken: string) {
 }
 
 export function editUserInfo(name: string, email: string, pass: string, token: string) {
-
   return fetch(`${dataUrl}/auth/user`, {
     method: 'PATCH',
     headers: {
@@ -131,7 +129,6 @@ export function editUserInfo(name: string, email: string, pass: string, token: s
 }
 
 export async function getUserInfo(token: string) {
-
   return await fetch(`${dataUrl}/auth/user`, {
     method: 'GET',
     headers: {
