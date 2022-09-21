@@ -13,7 +13,7 @@ import { AppThunk } from "../..";
 import { authFailed, authSuccess } from "./auth";
 import { TUserInfo } from "../../utils/type";
 import { logOutReset } from "./profile-page";
-import { axiosApi } from "../../utils/axios";
+import { axiosApi, urlsObject } from "../../utils/axios";
 
 export type TSuccessLogin = {
   success: boolean;
@@ -116,7 +116,7 @@ export const logInEnch: AppThunk = (email: string, password: string) => {
     dispatch(logInRequest());
 
     try {
-      const res: TUserInfo = await axiosApi.post('/auth/login', {email, password});
+      const res: TUserInfo = await axiosApi.post(urlsObject.logIn, {email, password});
 
       dispatch(logInSuccess(res));
       dispatch(authSuccess());

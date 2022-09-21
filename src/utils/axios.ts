@@ -9,6 +9,13 @@ const axiosConfig: AxiosRequestConfig = {
   }
 }
 
+export const urlsObject = {
+  ingredients: '/ingredients',
+  registration:'/auth/register',
+  logIn: '/auth/login',
+  logOut: '/auth/logout',
+}
+
 export const axiosCheckResponse = (res: AxiosResponse<any>) => {
   if (res.status === 200) return res.data.json()
 

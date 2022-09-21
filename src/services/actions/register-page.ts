@@ -8,7 +8,7 @@ import { AppThunk } from "../..";
 import { logInSuccess } from "./login-page";
 import { authSuccess } from "./auth";
 import { TUserInfo } from "../../utils/type";
-import { axiosApi } from "../../utils/axios";
+import { axiosApi, urlsObject } from "../../utils/axios";
 
 export interface ISignInRequest {
   readonly type: typeof SIGN_IN
@@ -53,7 +53,7 @@ export const signIn: AppThunk = (email: string, pass: string, name: string) => {
     dispatch(signInRequest())
 
     try {
-      const res: TUserInfo = await axiosApi.post('/auth/register', {
+      const res: TUserInfo = await axiosApi.post(urlsObject.registration, {
           "email": email,
           "password": pass,
           "name": name,
