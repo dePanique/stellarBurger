@@ -1,4 +1,4 @@
-import { logIn, checkResponse, updateAccessToken } from "../../utils/apiUtils";
+import { checkResponse, updateAccessToken } from "../../utils/apiUtils";
 import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies";
 import {
   LOG_IN_REQUEST,
@@ -9,10 +9,11 @@ import {
   UPDATE_ACCESS_TOKEN_SUCCESS,
   UPDATE_ACCESS_TOKEN_FAILED
 } from '../constants/login-page';
-import { AppThunk, TAppDispatch } from "../..";
+import { AppThunk } from "../..";
 import { authFailed, authSuccess } from "./auth";
 import { TUserInfo } from "../../utils/type";
 import { logOutReset } from "./profile-page";
+import { axiosApi } from "../../utils/axios";
 
 export type TSuccessLogin = {
   success: boolean;
@@ -85,8 +86,8 @@ export const updateAccessTokenFailed = (): IUpdateAccessTokenFailed => ({
 
 export const updateAccessTokenEnch: AppThunk = () => {
 
-  return async function (dispatch: TAppDispatch) {
-    dispatch(updateAccessToken());
+  return async function (dispatch) {
+    dispatch(updateAccessTokenRequest());
 
     try {
       const res: TUserInfo = await updateAccessToken().then(res => checkResponse(res));
@@ -107,20 +108,15 @@ export const updateAccessTokenEnch: AppThunk = () => {
       dispatch(authFailed());
       dispatch(updateAccessTokenFailed());
     }
-
   }
 }
 
-export const logInEnch: AppThunk = (email: string, pass: string) => {
-  return async function (dispatch: TAppDispatch) {
+export const logInEnch: AppThunk = (email: string, password: string) => {
+  return async function (dispatch) {
     dispatch(logInRequest());
 
     try {
-      const res: TUserInfo = await logIn(email, pass).then(res => checkResponse(res))
-
-      localStorage.setItem('refreshToken', res.refreshToken);
-      setCookie('accessToken', res.accessToken, { expires: 1140 });
-      setCookieTime();
+      const res: TUserInfo = await axiosApi.post('/auth/login', {email, password});
 
       dispatch(logInSuccess(res));
       dispatch(authSuccess());

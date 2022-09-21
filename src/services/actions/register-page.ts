@@ -4,7 +4,7 @@ import {
   SIGN_IN_FAILED,
   SIGN_IN_RESET
 } from '../constants/register-page';
-import { AppThunk, TAppDispatch } from "../..";
+import { AppThunk } from "../..";
 import { logInSuccess } from "./login-page";
 import { authSuccess } from "./auth";
 import { TUserInfo } from "../../utils/type";
@@ -49,7 +49,7 @@ export const signInReset = (): ISignInReset => ({
 })
 
 export const signIn: AppThunk = (email: string, pass: string, name: string) => {
-  return async function (dispatch: TAppDispatch) {
+  return async function (dispatch) {
     dispatch(signInRequest())
 
     try {
@@ -57,8 +57,7 @@ export const signIn: AppThunk = (email: string, pass: string, name: string) => {
           "email": email,
           "password": pass,
           "name": name,
-      })
-      console.log(res);
+      });
 
       dispatch(signInSuccess())
       dispatch(logInSuccess(res))

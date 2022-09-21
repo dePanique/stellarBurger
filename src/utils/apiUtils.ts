@@ -7,15 +7,6 @@ export const checkResponse: TCheckResponse = (res) => {
   throw new Error(res.statusText)
 }
 
-// export function getDatas() {
-//   return fetch(`${dataUrl}/ingredients`, {
-//     headers: {
-//       baseURL: dataUrl,
-//       "Content-Type": "application/json",
-//     },
-//   })
-// }
-
 export function postOrderId(array: string, token: string) {
   return fetch(`${dataUrl}/orders?token=${token}`, {
     method: 'POST',
@@ -53,35 +44,6 @@ export function applyNewPass(pass: string, token: string) {
     body: JSON.stringify(  {
       "password": pass,
       "token": token
-    })
-  })
-}
-
-export function createAccount(email: string, pass: string, name: string) {
-  return fetch(`${dataUrl}/auth/register`, {
-    method: 'POST',
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      "email": email,
-      "password": pass,
-      "name": name,
-    })
-  })
-}
-
-export function logIn(email: string, pass: string) {
-  return fetch(`${dataUrl}/auth/login`, {
-    method: 'POST',
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      "email": email,
-      "password": pass,
     })
   })
 }
