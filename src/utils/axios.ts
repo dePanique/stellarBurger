@@ -18,6 +18,7 @@ export const urlsObject = {
   emailPassResetRequest: '/password-reset',
   applyNewPass: '/password-reset/reset',
   postOrder: '/orders?token=',
+  updateToken: '/auth/token',
 }
 
 // export const axiosCheckResponse = (res: AxiosResponse<any>) => {

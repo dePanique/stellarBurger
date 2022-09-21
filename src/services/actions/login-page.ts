@@ -1,5 +1,3 @@
-import { checkResponse, updateAccessToken } from "../../utils/apiUtils";
-import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies";
 import {
   LOG_IN_REQUEST,
   LOG_IN_SUCCESS,
@@ -90,16 +88,10 @@ export const updateAccessTokenEnch: AppThunk = () => {
     dispatch(updateAccessTokenRequest());
 
     try {
-      const res: TUserInfo = await updateAccessToken().then(res => checkResponse(res));
-      console.log(res);
+      const token = localStorage.getItem('refreshToken');
+      if (!token) throw new Error('badToken');
 
-      deleteCookie('accessToken');
-      setCookie('accessToken', res.accessToken, { expires: 1140 });
-      deleteCookie('expire');
-      setCookieTime();
-
-      localStorage.clear();
-      localStorage.setItem('refreshToken', res.refreshToken);
+      const res: TUserInfo = await axiosApi.post(urlsObject.updateToken, { token });
 
       dispatch(updateAccessTokenSuccess());
       dispatch(authSuccess());
