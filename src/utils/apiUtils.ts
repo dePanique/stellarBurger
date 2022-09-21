@@ -21,19 +21,6 @@ export function postOrderId(array: string, token: string) {
   })
 }
 
-export function requestEmailPassReset(email: string) {
-  return fetch(`${dataUrl}/password-reset`, {
-    method: 'POST',
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      "email": `${email}`
-    })
-  })
-}
-
 export function applyNewPass(pass: string, token: string) {
   return fetch(`${dataUrl}/password-reset/reset`, {
     method: 'POST',

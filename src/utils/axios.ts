@@ -9,19 +9,21 @@ const axiosConfig: AxiosRequestConfig = {
   }
 }
 
-export const urlsObject = {
+export const urlsObject: {[name: string]: string} = {
   ingredients: '/ingredients',
   registration:'/auth/register',
   logIn: '/auth/login',
   logOut: '/auth/logout',
   getUserInfo: '/auth/user',
+  emailPassResetRequest: '/password-reset',
+  applyNewPass: '/password-reset/reset',
 }
 
-export const axiosCheckResponse = (res: AxiosResponse<any>) => {
-  if (res.status === 200) return res.data.json()
+// export const axiosCheckResponse = (res: AxiosResponse<any>) => {
+//   if (res.status === 200) return res.data.json()
 
-  throw new Error(res.statusText);
-}
+//   throw new Error(res.statusText);
+// }
 
 export const axiosApi: AxiosInstance = axios.create(axiosConfig);
 

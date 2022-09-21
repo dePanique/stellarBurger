@@ -1,5 +1,5 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { checkResponse, applyNewPass } from "../../utils/apiUtils";
+import { axiosApi, urlsObject } from "../../utils/axios";
 import { TResponseApplyNewPass } from "../../utils/type";
 import {
   RESET_PASS,
@@ -46,12 +46,13 @@ export const resetPassInitial = (): IResetPassInitial => ({
   type: RESET_PASS_INITIAL
 })
 
-export const applyNewPassEnch: AppThunk = (pass: string, token: string) => {
+export const applyNewPassEnch: AppThunk = (password: string, token: string) => {
   return async function (dispatch: TAppDispatch) {
     dispatch(resetPass())
 
     try {
-      const res: TResponseApplyNewPass = await applyNewPass(pass, token).then(res => checkResponse(res))
+      const res: TResponseApplyNewPass = await axiosApi.post(urlsObject.applyNewPass, {password, token});
+
       dispatch(resetPassSuccess())
     } catch (err) {
       console.log(`err in applyNewPassEnch ${err}`);

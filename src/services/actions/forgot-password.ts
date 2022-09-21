@@ -1,5 +1,5 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { checkResponse, requestEmailPassReset } from "../../utils/apiUtils";
+import { axiosApi, urlsObject } from "../../utils/axios";
 import { TResponseRequestEmailPassReset } from "../../utils/type";
 import {
   REQUEST_NEW_PASS,
@@ -48,7 +48,10 @@ export const requestEmailPassResetEnch: AppThunk = (email: string) => {
     dispatch(requestNewPass());
 
     try {
-      const res: TResponseRequestEmailPassReset = await requestEmailPassReset(email).then(res => checkResponse(res));
+      const res: TResponseRequestEmailPassReset = await axiosApi.post(urlsObject.emailPassResetRequest, {email});
+      console.log(res);
+
+
       dispatch(requestNewPassSuccess());
     } catch (err) {
       console.log(`err in requestEmailPassResetEnch ${err}`);
