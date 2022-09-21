@@ -1,6 +1,5 @@
-import { checkResponse, editUserInfo } from "../../utils/apiUtils";
-import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
-import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
+import { logInReset, updateAccessTokenFailed } from "./login-page";
+import { deleteCookie, getCookie } from "../../utils/cookies";
 import {
   LOG_OUT,
   LOG_OUT_SUCCESS,
@@ -135,7 +134,7 @@ export const getUserInfoEnch: AppThunk = () => {
       const token = getCookie('accessToken');
       if (!token) throw new Error("badAccessToken");
 
-      const res: TGetUserInfo = await axiosApi.get(urlsObject.getUserInfo, { headers: {authorization: token} });
+      const res: TGetUserInfo = await axiosApi.get(urlsObject.userInfo, { headers: { authorization: token } });
 
       dispatch(getUserInfoSuccess(res.user));
     } catch (err) {
@@ -148,19 +147,20 @@ export const getUserInfoEnch: AppThunk = () => {
   }
 }
 
-export const editUserInfoEnch: AppThunk = (nameValue: string, emailValue: string, passwordValue: string) => {
+export const editUserInfoEnch: AppThunk = (name: string, email: string, password: string) => {
   return async function (dispatch: TAppDispatch) {
     dispatch(editUserInfoRequest())
-
-    if (isCookieExpired()) {
-      await dispatch(updateAccessTokenEnch())
-    }
 
     try {
       const token = getCookie('accessToken');
       if (!token) return new Error('badAccessToken');
-      const res: TEditUserInfoEnch = await editUserInfo(nameValue, emailValue, passwordValue, token).then(res => checkResponse(res));
-      dispatch(editUserInfoSuccess({ name: nameValue, email: emailValue }));
+      const res: TEditUserInfoEnch = await axiosApi
+        .patch(urlsObject.userInfo,
+          { name, email, password },
+          { headers: { 'authorization': token } }
+        );
+
+      dispatch(editUserInfoSuccess({ name: name, email: email }));
     } catch (err) {
       dispatch(editUserInfoFailed());
       console.log(`err in editUserInfoEnch ${err}`);

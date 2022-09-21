@@ -21,20 +21,6 @@ export function postOrderId(array: string, token: string) {
   })
 }
 
-export function applyNewPass(pass: string, token: string) {
-  return fetch(`${dataUrl}/password-reset/reset`, {
-    method: 'POST',
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(  {
-      "password": pass,
-      "token": token
-    })
-  })
-}
-
 export function updateAccessToken() {
   return fetch(`${dataUrl}/auth/token`, {
     method: 'POST',
@@ -44,22 +30,6 @@ export function updateAccessToken() {
     },
     body: JSON.stringify({
       "token": localStorage.getItem('refreshToken'),
-    })
-  })
-}
-
-export function editUserInfo(name: string, email: string, pass: string, token: string) {
-  return fetch(`${dataUrl}/auth/user`, {
-    method: 'PATCH',
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-      authorization: `${token}`,
-    },
-    body: JSON.stringify({
-      "name": name,
-      "email": email,
-      "password": pass,
     })
   })
 }
