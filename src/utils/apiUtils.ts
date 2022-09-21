@@ -76,13 +76,3 @@ export function editUserInfo(name: string, email: string, pass: string, token: s
     })
   })
 }
-
-export async function getUserInfo(token: string) {
-  return await fetch(`${dataUrl}/auth/user`, {
-    method: 'GET',
-    headers: {
-      "Content-Type": "application/json",
-      authorization: token,
-    },
-  })
-}

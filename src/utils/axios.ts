@@ -14,6 +14,7 @@ export const urlsObject = {
   registration:'/auth/register',
   logIn: '/auth/login',
   logOut: '/auth/logout',
+  getUserInfo: '/auth/user',
 }
 
 export const axiosCheckResponse = (res: AxiosResponse<any>) => {

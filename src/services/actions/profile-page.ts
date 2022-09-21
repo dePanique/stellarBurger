@@ -1,4 +1,4 @@
-import { checkResponse, editUserInfo, getUserInfo } from "../../utils/apiUtils";
+import { checkResponse, editUserInfo } from "../../utils/apiUtils";
 import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
 import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
 import {
@@ -128,18 +128,15 @@ export const editUserInfoFailed = (): IEditUserInfoFailed => ({
 
 
 export const getUserInfoEnch: AppThunk = () => {
-  return async function (dispatch: TAppDispatch) {
+  return async function (dispatch) {
     dispatch(getUserInfoRequest)
-
-    if (isCookieExpired()) {
-      dispatch(updateAccessTokenEnch())
-    }
 
     try {
       const token = getCookie('accessToken');
       if (!token) throw new Error("badAccessToken");
 
-      const res: TGetUserInfo = await getUserInfo(token).then(res => checkResponse(res));
+      const res: TGetUserInfo = await axiosApi.get(urlsObject.getUserInfo, { headers: {authorization: token} });
+
       dispatch(getUserInfoSuccess(res.user));
     } catch (err) {
       console.log(`err in getUserInfoEnch ${err}`);
