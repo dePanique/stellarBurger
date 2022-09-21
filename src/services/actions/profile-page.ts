@@ -1,4 +1,4 @@
-import { checkResponse, logOut, editUserInfo, getUserInfo } from "../../utils/apiUtils";
+import { checkResponse, editUserInfo, getUserInfo } from "../../utils/apiUtils";
 import { logInReset, updateAccessTokenEnch, updateAccessTokenFailed } from "./login-page";
 import { deleteCookie, getCookie, isCookieExpired } from "../../utils/cookies";
 import {
@@ -19,6 +19,7 @@ import { authFailed, authReset } from "./auth";
 import { closeProfileOrdersWS } from "./profile-orders";
 import { signInReset } from "./register-page";
 import { TEditUserInfoEnch, TGetUserInfo, TResponseProfilePage } from "../../utils/type";
+import { axiosApi } from "../../utils/axios";
 
 export interface ILogOutRequest {
   readonly type: typeof LOG_OUT
@@ -175,7 +176,7 @@ export const logOutEnch: AppThunk = (refreshToken: string) => {
     dispatch(logOutRequest());
 
     try {
-      const res: TResponseProfilePage = await logOut(refreshToken).then(res => checkResponse(res));
+      const res: TResponseProfilePage = await axiosApi.post('/auth/logout', { token: refreshToken });
 
       localStorage.clear();
       deleteCookie('accessToken');

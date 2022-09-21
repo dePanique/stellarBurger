@@ -61,19 +61,6 @@ export function updateAccessToken() {
   })
 }
 
-export function logOut(refreshToken: string) {
-  return fetch(`${dataUrl}/auth/logout`, {
-    method: 'POST',
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      "token": refreshToken,
-    })
-  })
-}
-
 export function editUserInfo(name: string, email: string, pass: string, token: string) {
   return fetch(`${dataUrl}/auth/user`, {
     method: 'PATCH',
