@@ -7,20 +7,6 @@ export const checkResponse: TCheckResponse = (res) => {
   throw new Error(res.statusText)
 }
 
-export function postOrderId(array: string, token: string) {
-  return fetch(`${dataUrl}/orders?token=${token}`, {
-    method: 'POST',
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-      authorization: token,
-    },
-    body: JSON.stringify({
-      "ingredients": array,
-    })
-  })
-}
-
 export function updateAccessToken() {
   return fetch(`${dataUrl}/auth/token`, {
     method: 'POST',

@@ -1,5 +1,5 @@
 import { AppThunk, TAppDispatch } from "../..";
-import { postOrderId, checkResponse } from "../../utils/apiUtils";
+import { axiosApi, urlsObject } from "../../utils/axios";
 import { getCookie } from "../../utils/cookies";
 import { TResponseOrder } from "../../utils/type";
 import {
@@ -47,14 +47,23 @@ export const getOrderFailed = (): IGetOrderFailed => ({
   type: GET_ORDER_FAILED
 })
 
-export const getOrderNumber: AppThunk = (ingredientsId: string) => {
+export const getOrderNumber: AppThunk = (ingredients: string) => {
   return async function (dispatch: TAppDispatch) {
     dispatch(getOrderRequest());
 
     try {
       const token = getCookie('accessToken')
       if (!token) throw new Error('badToken');
-      const res: TResponseOrder = await postOrderId(ingredientsId, token).then((res) => checkResponse(res))
+
+      const res: TResponseOrder = await axiosApi
+        .post(urlsObject.postOrder,
+          { ingredients },
+          {
+            headers: { authorization: token },
+            params: token
+          },
+        );
+
       dispatch(getOrderSuccess(res));
     } catch (err) {
       dispatch(getOrderFailed());

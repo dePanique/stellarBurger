@@ -17,6 +17,7 @@ export const urlsObject = {
   userInfo: '/auth/user',
   emailPassResetRequest: '/password-reset',
   applyNewPass: '/password-reset/reset',
+  postOrder: '/orders?token=',
 }
 
 // export const axiosCheckResponse = (res: AxiosResponse<any>) => {
