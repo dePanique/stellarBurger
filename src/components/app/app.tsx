@@ -38,6 +38,7 @@ export default function App() {
     history.replace({ pathname: `${location.pathname}`, state: {} });
     dispatch(getIngredients());
     dispatch(authenticationEnch());
+    dispatch(getIngredients());
   }, []);
 
   useEffect(() => {

@@ -5,8 +5,9 @@ import {
 } from '../constants/app';
 import { AppThunk } from '../..';
 import { TIngredient, TResponseIngredients } from '../../utils/type';
-import { checkResponse, getDatas } from '../../utils/apiUtils';
+import { checkResponse } from '../../utils/apiUtils';
 import { getFeedIngredient } from './feed-page';
+import { axiosApi, axiosCheckResponse } from '../../utils/axios';
 
 export interface IGetIngredients {
   readonly type: typeof GET_INGREDIENTS;
@@ -45,16 +46,16 @@ export const getIngredients: AppThunk = () => {
     dispatch(appStoreGetIngredients());
 
     try {
-      const res: TResponseIngredients = await getDatas().then((res) => checkResponse(res));
+      const { data }: TResponseIngredients = await axiosApi.get('/ingredients')
 
-      dispatch(appStoreGetIngredientsSuccess(res.data));
+      dispatch(appStoreGetIngredientsSuccess(data));
 
-      res.data.forEach((_, index) => {
+      data.forEach((_, index) => {
         dispatch(getFeedIngredient({
-          _id: res.data[index]._id,
-          price: res.data[index].price,
-          image_mobile: res.data[index].image_mobile,
-          name: res.data[index].name,
+          _id: data[index]._id,
+          price: data[index].price,
+          image_mobile: data[index].image_mobile,
+          name: data[index].name,
         }));
       });
 

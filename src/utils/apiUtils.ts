@@ -7,14 +7,14 @@ export const checkResponse: TCheckResponse = (res) => {
   throw new Error(res.statusText)
 }
 
-export function getDatas() {
-  return fetch(`${dataUrl}/ingredients`, {
-    headers: {
-      baseURL: dataUrl,
-      "Content-Type": "application/json",
-    },
-  })
-}
+// export function getDatas() {
+//   return fetch(`${dataUrl}/ingredients`, {
+//     headers: {
+//       baseURL: dataUrl,
+//       "Content-Type": "application/json",
+//     },
+//   })
+// }
 
 export function postOrderId(array: string, token: string) {
   return fetch(`${dataUrl}/orders?token=${token}`, {

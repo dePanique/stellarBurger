@@ -1,5 +1,3 @@
-import { checkResponse, createAccount } from "../../utils/apiUtils";
-import { deleteCookie, setCookie, setCookieTime } from "../../utils/cookies";
 import {
   SIGN_IN,
   SIGN_IN_SUCCESS,
@@ -10,6 +8,7 @@ import { AppThunk, TAppDispatch } from "../..";
 import { logInSuccess } from "./login-page";
 import { authSuccess } from "./auth";
 import { TUserInfo } from "../../utils/type";
+import { axiosApi } from "../../utils/axios";
 
 export interface ISignInRequest {
   readonly type: typeof SIGN_IN
@@ -54,15 +53,12 @@ export const signIn: AppThunk = (email: string, pass: string, name: string) => {
     dispatch(signInRequest())
 
     try {
-      const res: TUserInfo = await createAccount(email, pass, name).then(res => checkResponse(res))
-      deleteCookie('accessToken');
-      setCookie('accessToken', res.accessToken, { expires: 1140 });
-
-      deleteCookie('expire');
-      setCookieTime();
-
-      localStorage.clear()
-      localStorage.setItem('refreshToken', res.refreshToken)
+      const res: TUserInfo = await axiosApi.post('/auth/register', {
+          "email": email,
+          "password": pass,
+          "name": name,
+      })
+      console.log(res);
 
       dispatch(signInSuccess())
       dispatch(logInSuccess(res))
