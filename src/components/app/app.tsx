@@ -38,12 +38,7 @@ export default function App() {
     history.replace({ pathname: `${location.pathname}`, state: {} });
     dispatch(getIngredients());
     dispatch(authenticationEnch());
-    dispatch(getIngredients());
   }, []);
-
-  useEffect(() => {
-    if (accessFail) history.replace({ pathname: '/login' });
-  }, [accessFail]);
 
   const location: TLocation<{ background?: TLocation }> = useLocation();
 
@@ -62,7 +57,7 @@ export default function App() {
         <Route path="/feed/:id" exact={true}>
           <OrderPage />
         </Route>
-        <ProtectedRoute path="/profile/orders/:id" exact={true} unAuthOnly>
+        <ProtectedRoute path="/profile/orders/:id" exact={true} unAuthOnly={false}>
           <OrderPageProfile />
         </ ProtectedRoute>
         <ProtectedRoute path="/login" exact={true} unAuthOnly>

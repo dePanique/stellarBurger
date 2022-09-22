@@ -12,7 +12,7 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly
   const { failed: isAccessUpdateFailed } = useAppSelector(store => store.logInStore.accessTokenStatus);
   const { success: isPassReseted } = useAppSelector(store => store.forgotPasswordStore);
 
-  if (token && !unAuthOnly) {
+  if (isAuth && !unAuthOnly) {
     return (
       <Route
         children={children}
@@ -21,7 +21,7 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly
     );
   }
 
-  if (unAuthOnly && token) {
+  if (unAuthOnly && isAuth) {
     return (
       <Redirect
         to={{
@@ -47,7 +47,7 @@ export const ProtectedRoute: FC<IProtectedRoute> = ({ path, children, unAuthOnly
     );
   }
 
-  if (!token || !isAuth || isAccessUpdateFailed) {
+  if ( !isAuth || isAccessUpdateFailed) {
     return (
       <Redirect
         to={{

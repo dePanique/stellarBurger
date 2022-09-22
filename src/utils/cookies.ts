@@ -10,7 +10,7 @@ const setCookie: TSetCookie = (name, value, props) => {
   let exp = props.expires;
   if (typeof exp == 'number' && exp) {
     const d = new Date();
-    d.setTime(d.getTime() + exp * 1000);
+    d.setTime(d.getTime() + exp * 5000);
     exp = props.expires = d;
   }
   if (exp instanceof Date && exp.toUTCString) {
@@ -58,4 +58,4 @@ const setCookieTime = () => {
   setCookie('expire', expireDate, {});
 }
 
-export { setCookie, getCookie, deleteCookie, setCookieTime, isCookieExpired };
+export { setCookie, getCookie, deleteCookie, isCookieExpired };

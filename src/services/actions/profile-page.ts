@@ -134,7 +134,9 @@ export const getUserInfoEnch: AppThunk = () => {
       const token = getCookie('accessToken');
       if (!token) throw new Error("badAccessToken");
 
-      const res: TGetUserInfo = await axiosApi.get(urlsObject.userInfo, { headers: { authorization: token } });
+      const res: TGetUserInfo = await axiosApi.get(urlsObject.userInfo, {
+        headers: { authorization: token },
+      });
 
       dispatch(getUserInfoSuccess(res.user));
     } catch (err) {

@@ -49,9 +49,6 @@ export const requestEmailPassResetEnch: AppThunk = (email: string) => {
 
     try {
       const res: TResponseRequestEmailPassReset = await axiosApi.post(urlsObject.emailPassResetRequest, {email});
-      console.log(res);
-
-
       dispatch(requestNewPassSuccess());
     } catch (err) {
       console.log(`err in requestEmailPassResetEnch ${err}`);
